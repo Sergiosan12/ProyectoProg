@@ -1,4 +1,4 @@
-# Proyecto Java Keyla y Seegio  
+# Proyecto Java Keyla y Sergio  
 
 Este proyecto de programación tiene como objetivo desarrollar un programa de calendario menstrual que también incluya funciones relacionadas con el ocio, deporte, embarazo y rutinas normales. 
 
