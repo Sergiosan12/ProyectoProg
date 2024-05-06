@@ -35,3 +35,12 @@ Creacion de paquetes organizados segun funciones siguiendo la estructura MVC (Mo
 ---
 
 Este README se actualizará conforme avance el desarrollo del proyecto, proporcionando información adicional sobre las funcionalidades implementadas y cómo utilizarlas.
+
+
+## 6/05/2024
+
+##  Creación de la interfaz de inicio de sesión
+
+1. **Creación del paquete `InicioSesion` dentro de `Interfaz`.
+
+2. A continuación, se crea toda la interfaz en la que se puede inicar sesión o darle al botón de registrarse.
