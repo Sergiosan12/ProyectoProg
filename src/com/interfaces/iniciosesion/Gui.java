@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Clase que contiene la interfaz grafica del inicio de sesión
+ */
 public class Gui extends JFrame {
 
     private JPanel panelMain;
@@ -18,9 +21,9 @@ public class Gui extends JFrame {
     private JLabel verdictLabel;
 
     public Gui(){
+        // Set the title of the window
         super("Iniciar Sesion");
         setContentPane(panelMain);
-
         signInButton.addActionListener(e -> {
             String userName = userfield.getText();
             char[] passwordEcrypted = passwordField.getPassword();

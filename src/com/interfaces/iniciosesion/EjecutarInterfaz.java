@@ -2,7 +2,9 @@ package com.interfaces.iniciosesion;
 
 import javax.swing.*;
 
-
+/**
+ * Clase que modifica la ventana de la interfaz gráfica y la ejecuta
+ */
 public class EjecutarInterfaz {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
