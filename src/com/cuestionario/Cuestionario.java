@@ -8,7 +8,7 @@ package com.cuestionario;
  */
 public class Cuestionario {
     private static Cuestionario instance = null; // La única instancia de Cuestionario
-    private CuestionarioSwing cuestionarioGUI; // La interfaz gráfica de usuario
+    private CuestionarioSwing cuestionarioSwing; // La interfaz gráfica de usuario
     private Duracion duracion; // La duración del ciclo y del sangrado
 
     /**
@@ -17,7 +17,7 @@ public class Cuestionario {
      */
     private Cuestionario() {
         duracion = new Duracion();
-        cuestionarioGUI = new CuestionarioSwing(duracion);
+        cuestionarioSwing = new CuestionarioSwing(duracion);
     }
 
     /**
