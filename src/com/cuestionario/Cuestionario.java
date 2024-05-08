@@ -51,11 +51,4 @@ public class Cuestionario {
         return duracion.getDuracionSangrado();
     }
 
-    /**
-     * Método para imprimir la duración del ciclo y la duración del sangrado.
-     */
-    public void imprimirDuracionCiclo() {
-        System.out.println("Duración del ciclo: " + getDuracionCiclo());
-        System.out.println("Duración del sangrado: " + getDuracionSangrado());
-    }
 }
