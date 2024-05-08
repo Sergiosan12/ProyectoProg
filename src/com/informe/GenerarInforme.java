@@ -1,11 +1,16 @@
 package com.informe;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Font;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+
 
 public class GenerarInforme {
     private Informe informe;
@@ -17,52 +22,40 @@ public class GenerarInforme {
     public void generarInforme() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat monthYearFormat = new SimpleDateFormat("MM_yyyy");
-        String fileName = "Informe_" + monthYearFormat.format(informe.getFechaInforme()) + ".txt";
-        try {
-            FileWriter writer = new FileWriter(fileName);
-            BufferedWriter buffer = new BufferedWriter(writer);
+        String fileName = "Informe_" + monthYearFormat.format(informe.getFechaInforme()) + ".pdf";
 
-            buffer.write("Nombre: " + informe.getNombre());
-            buffer.newLine();
-            buffer.write("Fecha de Nacimiento: " + sdf.format(informe.getFechaNacimiento()));
-            buffer.newLine();
-            buffer.write("\nInformaciones generales:");
-            buffer.newLine();
-            buffer.write("Última Menstruación: " + sdf.format(informe.getUltimaMenstruacion()));
-            buffer.newLine();
-            buffer.write("Media Duración del Periodo: " + informe.getMediaDuracionPeriodo());
-            buffer.newLine();
-            buffer.write("Media Duración del Ciclo: " + informe.getMediaDuracionCiclo());
-            buffer.newLine();
-            buffer.write("Duración Fase Menstruación: " /*+ informe.getDuracionFaseMenstruacion()*/);
-            buffer.newLine();
-            buffer.write("Duración Fase Folicular: " /*+ informe.getDuracionFaseFolicular()*/);
-            buffer.newLine();
-            buffer.write("Duración Fase Ovulación: " /*+ informe.getDuracionFaseOvulacion()*/);
-            buffer.newLine();
-            buffer.write("Duración Fase Lútea: " /*+ informe.getDuracionFaseLutea()*/);
-            buffer.newLine();
-            buffer.write("\nPrevisión siguiente mes:");
-            buffer.newLine();
-            buffer.write("Inicio Siguiente Periodo: " /*+ sdf.format(informe.getInicioSiguientePeriodo())*/);
-            buffer.newLine();
-            buffer.write("Inicio Fase Mentruación: " /*+ sdf.format(informe.getInicioFaseMenstruacion())*/);
-            buffer.newLine();
-            buffer.write("Inicio Fase Folicular: " /*+ sdf.format(informe.getInicioFaseFolicular())*/);
-            buffer.newLine();
-            buffer.write("Inicio Fase Ovulación: " /*+ sdf.format(informe.getInicioFaseOvulacion())*/);
-            buffer.newLine();
-            buffer.write("Inicio Fase Lútea: " /*+ sdf.format(informe.getInicioFaseLutea())*/);
-            buffer.newLine();
-            buffer.write("\nFecha del informe: " + sdf.format(informe.getFechaInforme()));
-            buffer.newLine();
-            buffer.write("\"Los juegos de Sangre\"");
-            buffer.newLine();
-            buffer.close();
-        } catch (IOException e) {
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(fileName));
+            document.open();
+
+            Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+
+            document.add(new Paragraph("Nombre: " + informe.getNombre(), boldFont));
+            document.add(new Paragraph("Fecha de Nacimiento: " + sdf.format(informe.getFechaNacimiento()), boldFont));
+            document.add(new Paragraph("\nInformaciones generales:", boldFont));
+            document.add(new Paragraph("Última Menstruación: " + sdf.format(informe.getUltimaMenstruacion())));
+            document.add(new Paragraph("Media Duración del Periodo: " + informe.getMediaDuracionPeriodo()));
+            document.add(new Paragraph("Media Duración del Ciclo: " + informe.getMediaDuracionCiclo()));
+            document.add(new Paragraph("Duración Fase Menstruación: ")); // Add the actual value
+            document.add(new Paragraph("Duración Fase Folicular: ")); // Add the actual value
+            document.add(new Paragraph("Duración Fase Ovulación: ")); // Add the actual value
+            document.add(new Paragraph("Duración Fase Lútea: ")); // Add the actual value
+            document.add(new Paragraph("\nPrevisión siguiente mes:", boldFont));
+            document.add(new Paragraph("Inicio Siguiente Periodo: ")); // Add the actual value
+            document.add(new Paragraph("Inicio Fase Mentruación: ")); // Add the actual value
+            document.add(new Paragraph("Inicio Fase Folicular: ")); // Add the actual value
+            document.add(new Paragraph("Inicio Fase Ovulación: ")); // Add the actual value
+            document.add(new Paragraph("Inicio Fase Lútea: ")); // Add the actual value
+            document.add(new Paragraph("\nFecha del informe: " + sdf.format(informe.getFechaInforme()), boldFont));
+            document.add(new Paragraph("\"Los juegos de Sangre\"",boldFont));
+
+            document.close();
+        } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Introduce el nombre:");
