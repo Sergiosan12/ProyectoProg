@@ -5,6 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * La clase CuestionarioSwing es una ventana de GUI (Interfaz Gráfica de Usuario) que permite al usuario ingresar la duración
+ * del ciclo menstrual y del sangrado menstrual a través de campos de texto y un botón de aceptar.
+ * Esta clase interactúa con un objeto Duracion para establecer y mostrar la duración del ciclo y del sangrado.
+ */
 public class CuestionarioSwing extends JFrame {
 
     private JTextField txtCiclo;
@@ -12,7 +17,10 @@ public class CuestionarioSwing extends JFrame {
     public int duracionCiclo;
     public int duracionSangrado;
 
-
+    /**
+     * Constructor de la clase CuestionarioSwing que inicializa la ventana de GUI y configura sus componentes.
+     * @param duracion El objeto Duracion con el que se interactúa para establecer y mostrar la duración del ciclo y del sangrado.
+     */
     public CuestionarioSwing(Duracion duracion) {
         setTitle("Cuestionario del Ciclo Menstrual");
         setSize(300, 150);
@@ -61,6 +69,10 @@ public class CuestionarioSwing extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Método privado utilizado para mostrar mensajes de error en un cuadro de diálogo.
+     * @param mensaje El mensaje de error a mostrar.
+     */
     private void mostrarError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
