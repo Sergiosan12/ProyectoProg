@@ -8,6 +8,8 @@ import com.itextpdf.text.Font;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -21,8 +23,10 @@ public class GenerarInforme {
 
     public void generarInforme() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat monthYearFormat = new SimpleDateFormat("MM_yyyy");
-        String fileName = "Informe_" + monthYearFormat.format(informe.getFechaInforme()) + ".pdf";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter monthYearFormat = DateTimeFormatter.ofPattern("MM_yyyy");
+        LocalDate fechaInforme = LocalDate.now();
+        String fileName = "Informe_" + fechaInforme.format(monthYearFormat) + ".pdf";
 
         Document document = new Document();
         try {
@@ -47,7 +51,7 @@ public class GenerarInforme {
             document.add(new Paragraph("Inicio Fase Folicular: ")); // Add the actual value
             document.add(new Paragraph("Inicio Fase Ovulación: ")); // Add the actual value
             document.add(new Paragraph("Inicio Fase Lútea: ")); // Add the actual value
-            document.add(new Paragraph("\nFecha del informe: " + sdf.format(informe.getFechaInforme()), boldFont));
+            document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
             document.add(new Paragraph("\"Los juegos de Sangre\"",boldFont));
 
             document.close();
@@ -60,8 +64,6 @@ public class GenerarInforme {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Introduce el nombre:");
         String nombre = scanner.nextLine();
-        System.out.println("Introduce la fecha del informe (dd/MM/yyyy):");
-        String fechaInformeStr = scanner.nextLine();
         System.out.println("Introduce la fecha de nacimiento (dd/MM/yyyy):");
         String fechaNacimientoStr = scanner.nextLine();
         System.out.println("Introduce la última menstruación (dd/MM/yyyy):");
@@ -73,11 +75,10 @@ public class GenerarInforme {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            Date fechaInforme = sdf.parse(fechaInformeStr);
             Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
             Date ultimaMenstruacion = sdf.parse(ultimaMenstruacionStr);
 
-            Informe informe = new Informe(nombre, fechaInforme, fechaNacimiento, ultimaMenstruacion, mediaDuracionPeriodo, mediaDuracionCiclo);
+            Informe informe = new Informe(nombre, null, fechaNacimiento, ultimaMenstruacion, mediaDuracionPeriodo, mediaDuracionCiclo);
             GenerarInforme generarInforme = new GenerarInforme(informe);
             generarInforme.generarInforme();
         } catch (Exception e) {
