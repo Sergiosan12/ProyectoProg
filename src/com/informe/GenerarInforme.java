@@ -24,8 +24,9 @@ public class GenerarInforme {
 
             buffer.write("Nombre: " + informe.getNombre());
             buffer.newLine();
-            buffer.write("Información general");
             buffer.write("Fecha de Nacimiento: " + sdf.format(informe.getFechaNacimiento()));
+            buffer.newLine();
+            buffer.write("\nInformaciones generales:");
             buffer.newLine();
             buffer.write("Última Menstruación: " + sdf.format(informe.getUltimaMenstruacion()));
             buffer.newLine();
@@ -33,7 +34,29 @@ public class GenerarInforme {
             buffer.newLine();
             buffer.write("Media Duración del Ciclo: " + informe.getMediaDuracionCiclo());
             buffer.newLine();
-            buffer.write("Fecha del informe: " + sdf.format(informe.getFechaInforme()));
+            buffer.write("Duración Fase Menstruación: " /*+ informe.getDuracionFaseMenstruacion()*/);
+            buffer.newLine();
+            buffer.write("Duración Fase Folicular: " /*+ informe.getDuracionFaseFolicular()*/);
+            buffer.newLine();
+            buffer.write("Duración Fase Ovulación: " /*+ informe.getDuracionFaseOvulacion()*/);
+            buffer.newLine();
+            buffer.write("Duración Fase Lútea: " /*+ informe.getDuracionFaseLutea()*/);
+            buffer.newLine();
+            buffer.write("\nPrevisión siguiente mes:");
+            buffer.newLine();
+            buffer.write("Inicio Siguiente Periodo: " /*+ sdf.format(informe.getInicioSiguientePeriodo())*/);
+            buffer.newLine();
+            buffer.write("Inicio Fase Mentruación: " /*+ sdf.format(informe.getInicioFaseMenstruacion())*/);
+            buffer.newLine();
+            buffer.write("Inicio Fase Folicular: " /*+ sdf.format(informe.getInicioFaseFolicular())*/);
+            buffer.newLine();
+            buffer.write("Inicio Fase Ovulación: " /*+ sdf.format(informe.getInicioFaseOvulacion())*/);
+            buffer.newLine();
+            buffer.write("Inicio Fase Lútea: " /*+ sdf.format(informe.getInicioFaseLutea())*/);
+            buffer.newLine();
+            buffer.write("\nFecha del informe: " + sdf.format(informe.getFechaInforme()));
+            buffer.newLine();
+            buffer.write("\"Los juegos de Sangre\"");
             buffer.newLine();
             buffer.close();
         } catch (IOException e) {
