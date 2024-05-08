@@ -44,3 +44,13 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 1. **Creación del paquete `InicioSesion` dentro de `Interfaz`.
 
 2. A continuación, se crea toda la interfaz en la que se puede inicar sesión o darle al botón de registrarse.
+
+## 8/05/2024
+
+1. Creación de la clase Informe con todos los atributos necesarios para generar un informe de los datos del usuario.
+
+2. Creación de la clase GenerarInforme con los métodos necesarios para generar un informe en formato txt.
+
+3. Ahora añado una API para poder escribir el informe en formato PDF
+
+4. Modifico lo necesario en el código para hacerlo PDF.
