@@ -13,14 +13,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Scanner;
 
-
+/**
+ * La clase GenerarInforme se encarga de generar un informe en formato PDF.
+ * El informe incluye información sobre el ciclo menstrual de la usuaria.
+ */
 public class GenerarInforme {
     private Informe informe;
 
+    /**
+     * Constructor de la clase GenerarInforme.
+     * @param informe El informe que se va a generar.
+     */
     public GenerarInforme(Informe informe) {
         this.informe = informe;
     }
 
+    /**
+     * Este método genera un informe en formato PDF.
+     * El informe incluye información como el nombre de la usuaria, la fecha de nacimiento,
+     * la última menstruación, la media duración del periodo y del ciclo, entre otros.
+     * El nombre del archivo PDF será "Informe_mesActual_añoActual.pdf".
+     */
     public void generarInforme() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");

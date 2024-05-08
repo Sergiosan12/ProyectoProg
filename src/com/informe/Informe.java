@@ -2,6 +2,9 @@ package com.informe;
 
 import java.util.Date;
 
+/**
+ * La clase Informe modela un informe sobre el ciclo menstrual de la usuaria.
+ */
 public class Informe {
     private String nombre;
     private Date fechaInforme;
@@ -10,6 +13,15 @@ public class Informe {
     private String mediaDuracionPeriodo;
     private String mediaDuracionCiclo;
 
+    /**
+     * Constructor de la clase Informe.
+     * @param nombre de la usuaria.
+     * @param fechaInforme fecha en el que se genera el informe.
+     * @param fechaNacimiento de la usuaria.
+     * @param ultimaMenstruacion fecha de la última menstruación de la usuaria.
+     * @param mediaDuracionPeriodo de la usuaria.
+     * @param mediaDuracionCiclo de la usuaria.
+     */
     public Informe(String nombre, Date fechaInforme, Date fechaNacimiento, Date ultimaMenstruacion, String mediaDuracionPeriodo, String mediaDuracionCiclo) {
         this.nombre = nombre;
         this.fechaInforme = fechaInforme;
