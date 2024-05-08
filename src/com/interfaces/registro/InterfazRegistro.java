@@ -1,4 +1,4 @@
-package com.interfaces;
+package com.interfaces.registro;
 
 public class InterfazRegistro {
 }

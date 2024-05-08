@@ -3,7 +3,8 @@ package com.interfaces.iniciosesion;
 import javax.swing.*;
 
 /**
- * Clase que modifica la ventana de la interfaz gráfica y la ejecuta
+ * Clase que modifica la ventana de la interfaz gráfica del inicio de sesión
+
  */
 public class EjecutarInterfaz {
     public static void main(String[] args) {
