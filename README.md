@@ -66,3 +66,11 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 9. Creación algoritmo de la `FaseMenstrual`
 
 10. Creación algoritmo `FaseOvulacion`
+
+## 10/05/2024
+
+1. Creación de la interfaz gráfica del registro de usuario.
+
+2. Creación de la estructura Singleton para 'Duración' y 'Cuestionario'.
+
+3. Optimización de la lógica de las clases 'Duración' y 'Calendario.
