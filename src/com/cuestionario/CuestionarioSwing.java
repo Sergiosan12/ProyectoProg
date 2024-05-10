@@ -44,8 +44,7 @@ public class CuestionarioSwing extends JFrame {
                     duracionSangrado = Integer.parseInt(txtSangrado.getText());
                     duracion.setDuracionCiclo(duracionCiclo);
                     duracion.setDuracionSangrado(duracionSangrado);
-                    System.out.println("Duración del ciclo: " + duracion.getDuracionCiclo());
-                    System.out.println("Duración del sangrado: " + duracion.getDuracionSangrado());
+
                     if (duracionCiclo <= 0 || duracionSangrado <= 0 || duracionSangrado > duracionCiclo) {
                         throw new IllegalArgumentException("Por favor, introduce valores válidos.");
                     }

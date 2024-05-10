@@ -10,7 +10,7 @@ import com.cuestionario.Duracion;
 public class FaseOvulacion {
     public int mediaDiasOvulacion = 3; // Por defecto, se establece una duración media de 3 días para la ovulación.
     int diaInicioOvulacion; // Día de inicio de la fase de ovulación.
-    Duracion duracion = new Duracion();
+    Duracion duracion = Duracion.getInstance();
     FaseFolicular folicular = new FaseFolicular();
 
     /**

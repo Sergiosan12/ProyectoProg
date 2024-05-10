@@ -9,7 +9,7 @@ import com.cuestionario.Duracion;
 
 public class FaseMenstrual {
     public int inicioDiaMenstrual = 1; // Por defecto, el día de inicio de la fase menstrual es el día 1 del ciclo.
-    Duracion duracion = new Duracion();
+    Duracion duracion = Duracion.getInstance();
     int mediaDiasMenstrual = duracion.getDuracionSangrado(); // Duración media de la fase menstrual.
 
     /**

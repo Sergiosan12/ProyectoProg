@@ -11,7 +11,7 @@ import com.cuestionario.Duracion;
 
 public class FaseFolicular {
     int mediaDiasFolicular;
-    Duracion duracion = new Duracion();
+    Duracion duracion = Duracion.getInstance();
     private final int durationCiclo;
     private final int durationMenstruation;
 

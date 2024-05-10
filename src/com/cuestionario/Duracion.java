@@ -3,17 +3,21 @@ package com.cuestionario;
 /**
  * La clase Duracion representa la duración de las diferentes fases del ciclo menstrual.
  * Contiene la duración del ciclo y la duración del sangrado, que se obtienen a través de la clase Cuestionario.
+ * Esta clase sigue el patrón Singleton.
  */
 public class Duracion {
+    private static Duracion instance = null;
     private int duracionCiclo;
     private int duracionSangrado;
 
-    public Duracion(int duracionCiclo, int duracionSangrado) {
-        this.duracionCiclo = duracionCiclo;
-        this.duracionSangrado = duracionSangrado;
+    private Duracion() {
     }
 
-    public Duracion() {
+    public static Duracion getInstance() {
+        if (instance == null) {
+            instance = new Duracion();
+        }
+        return instance;
     }
 
     /**
