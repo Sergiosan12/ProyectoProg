@@ -10,7 +10,7 @@ Este proyecto de programación tiene como objetivo desarrollar un programa de ca
 
 Creacion de paquetes organizados segun funciones siguiendo la estructura MVC (Model, Controller, Vista) : 
 
-## MODEL 
+### MODEL 
 
 1. **Calendario:** Este paquete contendrá las clases y funciones necesarias para gestionar el calendario menstrual.
 
@@ -20,12 +20,12 @@ Creacion de paquetes organizados segun funciones siguiendo la estructura MVC (Mo
 
 4. **Usuario:** Por último, este paquete se encargará de gestionar los datos de los usuarios, como su información personal, preferencias y configuraciones.
 
-## CONTROLLER 
+### CONTROLLER 
 
 1. **Funciones:** En este paquete se incluirán diversas funciones en las que podremos relacionar la parte de Modelo y la Vista
 
 
-## VIEW 
+### VIEW 
 
 1. **Interfaces:** Aquí se implementarán las interfaces de usuario para interactuar con el programa, tanto en línea de comandos como gráficamente.
    
@@ -35,3 +35,42 @@ Creacion de paquetes organizados segun funciones siguiendo la estructura MVC (Mo
 ---
 
 Este README se actualizará conforme avance el desarrollo del proyecto, proporcionando información adicional sobre las funcionalidades implementadas y cómo utilizarlas.
+
+
+## 6/05/2024
+
+##  Creación de la interfaz de inicio de sesión
+
+1. Creación del paquete `InicioSesion` dentro de `Interfaz`.
+
+2. A continuación, se crea toda la interfaz en la que se puede inicar sesión o darle al botón de registrarse.
+
+## 8/05/2024
+
+1. Creación de la clase `Informe` con todos los atributos necesarios para generar un informe de los datos del usuario.
+
+2. Creación de la clase `GenerarInforme` con los métodos necesarios para generar un informe en formato txt.
+
+3. Ahora añado una API para poder escribir el informe en formato PDF.
+
+4. Modifico lo necesario en el código para hacerlo PDF.
+
+5. Creación de la clase `CuestionarioSwing` para pedir los datos de media del Ciclo y del Sangrado.
+
+6. Creación de la clase de `Duración` para utilizar su objeto como paso de referencia entre `Cuestionario` y `CuestionarioSwing`.
+
+7. Creación algoritmo de la `FaseFolicular`.
+
+8. Creación algoritmo de la `FaseLutea`.
+
+9. Creación algoritmo de la `FaseMenstrual`.
+
+10. Creación algoritmo `FaseOvulacion`.
+
+## 10/05/2024
+
+1. Creación de la interfaz gráfica del inicio de sesión y registro de usuario.
+
+2. Creación de la estructura Singleton para `Duración` y `Cuestionario`.
+
+3. Optimización de la lógica de las clases  `Duración` y `Calendario`.
