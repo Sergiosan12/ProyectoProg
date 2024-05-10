@@ -16,7 +16,7 @@ public class Cuestionario {
      * Inicializa la duración y la interfaz gráfica de usuario.
      */
     private Cuestionario() {
-        duracion = new Duracion();
+        Duracion duracion = Duracion.getInstance();
         cuestionarioSwing = new CuestionarioSwing(duracion);
     }
 
