@@ -14,7 +14,8 @@ public class FaseLutea {
     int duracionCiclo;
     int duracionMenstruacion;
     int inicioDiaLutea;
-    Duracion duracion = Duracion.getInstance();    FaseOvulacion ovulacion = new FaseOvulacion();
+    Duracion duracion = Duracion.getInstance();
+    FaseOvulacion ovulacion = new FaseOvulacion();
     FaseFolicular folicular = new FaseFolicular();
 
     /**
