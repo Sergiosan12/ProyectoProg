@@ -1,11 +1,15 @@
 package com.interfaces.interfazinicio.gui;
 
+import com.interfaces.interfazinicio.Database;
 import com.interfaces.interfazinicio.RoundedBorder;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class Register extends JFrame {
     private JPanel panelMainR;
@@ -28,7 +32,33 @@ public class Register extends JFrame {
     private JButton buttonVolver;
     private JButton continuarButton;
 
-    public Register(){
+
+    private void insertDataIntoDatabase() {
+        String name = fieldName.getText();
+        int age = (Integer) spinnerAge.getValue();
+        String user = fieldUser.getText();
+        String mail = fieldMail.getText();
+        String password = new String(fieldPassword.getPassword());
+
+        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email,edad ) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, user);
+            pstmt.setString(2, name);
+            pstmt.setString(3, password);
+            pstmt.setString(4, mail);
+            pstmt.setInt(5, age);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Register() {
         super("Registro");
         setContentPane(panelMainR);
 
@@ -51,6 +81,18 @@ public class Register extends JFrame {
                 frame.setVisible(true);
                 frame.setLocationRelativeTo(null);
                 frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            }
+        });
+        continuarButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                insertDataIntoDatabase();
+                JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
             }
         });
     }
