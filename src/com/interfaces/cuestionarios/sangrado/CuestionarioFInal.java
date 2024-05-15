@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class CuestionarioFInal extends Component {
+public class CuestionarioFInal  {
     public JPanel panelPrincipal;
     private JLabel lblCiclo;
     private JLabel lblSangrado;
@@ -45,6 +45,11 @@ Duracion duracion = new Duracion();
     }
 
     public CuestionarioFInal() {
+        getJpanel();
+
+    }
+
+    public void getJpanel() {
         numerCiclo.setModel(new SpinnerNumberModel(28, 1, Integer.MAX_VALUE, 1));
         numerSangrado.setModel(new SpinnerNumberModel(5, 1, Integer.MAX_VALUE, 1));
         continuarButton.addActionListener(new ActionListener() {
@@ -67,9 +72,9 @@ Duracion duracion = new Duracion();
                     }
 
                 } catch (NumberFormatException ex) {
-                    mostrarError("Por favor, introduce números válidos.");
+                    JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.");
                 } catch (IllegalArgumentException ex) {
-                    mostrarError(ex.getMessage());
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
                 insertDataIntoDatabase();
                 JOptionPane.showMessageDialog(null, "Datos de menstruación registrados exitosamente");
@@ -77,12 +82,5 @@ Duracion duracion = new Duracion();
                 usoProg.setVisible(true);
                     }
         });
-
     }
-
-        private void mostrarError (String mensaje){
-            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-
 }

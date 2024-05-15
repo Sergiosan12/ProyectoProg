@@ -1,5 +1,6 @@
 package com.interfaces.interfazinicio.gui;
 
+import com.interfaces.cuestionarios.sangrado.CuestionarioFInal;
 import com.interfaces.interfazinicio.Database;
 import com.interfaces.interfazinicio.RoundedBorder;
 
@@ -84,14 +85,27 @@ public class Register extends JFrame {
             }
         });
         continuarButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 insertDataIntoDatabase();
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            dispose();  // Cierra la ventana Register
+                            JFrame frame = new JFrame("Cuestionario Final");
+                            frame.setSize(600, 370);
+                            frame.setVisible(true);
+                            frame.setLocationRelativeTo(null);
+                            CuestionarioFInal cuestionario = new CuestionarioFInal();
+                            frame.getContentPane().add(cuestionario.panelPrincipal);
+                            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "Error al abrir la ventana CuestionarioFInal: " + ex.getMessage());
+                        }
+                    }
+                });
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
             }
         });

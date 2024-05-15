@@ -7,7 +7,7 @@ import java.util.Calendar;
 
 public class DateLabelFormatter extends DateComponentFormatter {
 
-    private SimpleDateFormat dateFormatter;
+    private final SimpleDateFormat dateFormatter;
 
     public DateLabelFormatter() {
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
