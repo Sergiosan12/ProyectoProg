@@ -78,6 +78,7 @@ public class SignIn extends JFrame {
             frame.setSize(600, 400);
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
+            frame.setResizable(false);
             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             dispose();
         }));
@@ -97,6 +98,15 @@ public class SignIn extends JFrame {
                     userfield.setForeground(Color.BLACK);
                 }
             }
+        });
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            SignIn signIn = new SignIn();
+            signIn.setSize(1200, 560);  // Establece el tamaño de la ventana
+            signIn.setVisible(true);
+            signIn.setLocationRelativeTo(null);
+            signIn.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         });
     }
 }

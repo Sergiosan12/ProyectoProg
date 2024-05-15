@@ -8,9 +8,7 @@ import javax.swing.*;
 
 public class MainInterfaz {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
             SignIn register = new SignIn();
         register.setVisible(true);
-        });
     }
 }
