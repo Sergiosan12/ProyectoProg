@@ -66,3 +66,27 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 9. Creación algoritmo de la `FaseMenstrual`
 
 10. Creación algoritmo `FaseOvulacion`
+
+## 10/05/2024
+
+1. Creación de la interfaz gráfica del inicio de sesión y registro de usuario.
+
+2. Creación de la estructura Singleton para `Duración` y `Cuestionario`.
+
+3. Optimización de la lógica de las clases  `Duración` y `Calendario`.
+
+## 13/05/2024
+
+1. Creación una base de datos llamada Proyecto en la que vamos a trabajar.
+
+2. Realización la conexión a la base de datos en el proyecto para poder trabajar con ella.
+
+3. Creación de las tablas Usuario y Menstruación con sus respectivos campos.
+
+## 15/05/2024
+
+1. Enlace entre interfaces.
+
+2. Implementación de la base de datos en las interfaces 
+
+3. Creación del Selector del Calendario con JDatePicker
