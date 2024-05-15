@@ -7,8 +7,7 @@ import javax.swing.*;
 public class PruebaMain {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            CuestionarioFInal cuestionarioFInal = new CuestionarioFInal();
-            cuestionarioFInal.setVisible(true);
+
         });
     }
 }
