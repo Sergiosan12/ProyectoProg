@@ -1,26 +1,13 @@
 package com.interfaces.cuestionarios;
 
-import com.interfaces.cuestionarios.sangrado.CuestionarioFInal;
-
+import com.interfaces.cuestionarios.uso.UsoProg;
 import javax.swing.*;
 
 public class PruebaMain {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
+        SwingUtilities.invokeLater(() -> {
+            UsoProg usoProg = new UsoProg();
+            usoProg.setVisible(true);
         });
-    }
-
-    private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Cuestionario Final");
-        frame.setSize(600, 370);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        CuestionarioFInal cuestionario = new CuestionarioFInal();
-        frame.getContentPane().add(cuestionario.panelPrincipal);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 }

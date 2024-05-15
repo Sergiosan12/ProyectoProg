@@ -1,5 +1,6 @@
 package com.interfaces.interfazinicio.gui;
 
+import com.interfaces.cuestionarios.uso.UsoProg;
 import com.interfaces.interfazinicio.Database;
 
 import javax.swing.*;
@@ -59,8 +60,8 @@ public class SignIn extends JFrame {
             String password = String.valueOf(passwordEcrypted);
 
             if (checkCredentials(userName, password)) {
-                verdictLabel.setText("Sign in successfull!");
-
+                UsoProg usoProg = new UsoProg();
+                usoProg.setVisible(true);
             } else if (userName.isEmpty() || password.isEmpty()) {
                 verdictLabel.setText("Some credentials are empty. Try it again");
             } else {
