@@ -40,18 +40,26 @@ public class Register extends JFrame {
         String mail = fieldMail.getText();
         String password = new String(fieldPassword.getPassword());
 
-        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email,edad ) VALUES (?, ?, ?, ?, ?)";
+        String sqlUsuario = "INSERT INTO usuario (usuario, nombre, contrasenha, email,edad ) VALUES (?, ?, ?, ?, ?)";
+        String sqlMenstruacion = "INSERT INTO menstruacion (usuario, mediaciclo, mediasangrado) VALUES (?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmtUsuario = conn.prepareStatement(sqlUsuario);
+             PreparedStatement pstmtMenstruacion = conn.prepareStatement(sqlMenstruacion)) {
 
-            pstmt.setString(1, user);
-            pstmt.setString(2, name);
-            pstmt.setString(3, password);
-            pstmt.setString(4, mail);
-            pstmt.setInt(5, age);
+            // Inserta el nuevo usuario en la tabla usuario
+            pstmtUsuario.setString(1, user);
+            pstmtUsuario.setString(2, name);
+            pstmtUsuario.setString(3, password);
+            pstmtUsuario.setString(4, mail);
+            pstmtUsuario.setInt(5, age);
+            pstmtUsuario.executeUpdate();
 
-            pstmt.executeUpdate();
+            // Inserta una nueva entrada en la tabla menstruacion para el nuevo usuario con valores nulos en mediaciclo y mediasangrado
+            pstmtMenstruacion.setString(1, user);
+            pstmtMenstruacion.setNull(2, java.sql.Types.INTEGER); // Inserta un valor nulo en mediaciclo
+            pstmtMenstruacion.setNull(3, java.sql.Types.INTEGER); // Inserta un valor nulo en mediasangrado
+            pstmtMenstruacion.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

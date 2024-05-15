@@ -20,7 +20,7 @@ public class CuestionarioFInal extends Component {
     private JSpinner numerCiclo;
     private JSpinner numerSangrado;
     int duracionCiclo;
-int duracionSangrado;
+    int duracionSangrado;
 Duracion duracion = new Duracion();
 
     private void insertDataIntoDatabase() {
