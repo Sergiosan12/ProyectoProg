@@ -6,13 +6,18 @@ public class Usuario {
     private String email;
     private String contrasena;
     private int edad;
+    private String usuario;
 
-    public Usuario(int id, String nombre, String email, String contrasena, int edad) {
+    public Usuario() {
+    }
+
+    public Usuario(int id, String nombre, String email, String contrasena, int edad, String usuario) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
         this.edad = edad;
+        this.usuario = usuario;
     }
 
     public int getId() {
@@ -55,5 +60,11 @@ public class Usuario {
         this.edad = edad;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 }

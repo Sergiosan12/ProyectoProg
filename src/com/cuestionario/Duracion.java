@@ -10,7 +10,7 @@ public class Duracion {
     private int duracionCiclo;
     private int duracionSangrado;
 
-    private Duracion() {
+    public Duracion() {
     }
 
     public static Duracion getInstance() {

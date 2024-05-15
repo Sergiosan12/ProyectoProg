@@ -51,21 +51,21 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 
 2. Creación de la clase `GenerarInforme` con los métodos necesarios para generar un informe en formato txt.
 
-3. Ahora añado una API para poder escribir el informe en formato PDF.
+3. Ahora añado una API para poder escribir el informe en formato PDF
 
 4. Modifico lo necesario en el código para hacerlo PDF.
 
-5. Creación de la clase `CuestionarioSwing` para pedir los datos de media del Ciclo y del Sangrado.
+5. Creación de la clase `CuestionarioSwing` para pedir los datos de media del Ciclo y del Sangrado
 
-6. Creación de la clase de `Duración` para utilizar su objeto como paso de referencia entre `Cuestionario` y `CuestionarioSwing`.
+6. Creación de la clase de `Duración` para utilizar su objeto como paso de referencia entre `Cuestionario` y `CuestionarioSwing`
 
-7. Creación algoritmo de la `FaseFolicular`.
+7. Creación algoritmo de la `FaseFolicular`
 
-8. Creación algoritmo de la `FaseLutea`.
+8. Creación algoritmo de la `FaseLutea`
 
-9. Creación algoritmo de la `FaseMenstrual`.
+9. Creación algoritmo de la `FaseMenstrual`
 
-10. Creación algoritmo `FaseOvulacion`.
+10. Creación algoritmo `FaseOvulacion`
 
 ## 10/05/2024
 
@@ -74,3 +74,19 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 2. Creación de la estructura Singleton para `Duración` y `Cuestionario`.
 
 3. Optimización de la lógica de las clases  `Duración` y `Calendario`.
+
+## 13/05/2024
+
+1. Creación una base de datos llamada Proyecto en la que vamos a trabajar.
+
+2. Realización la conexión a la base de datos en el proyecto para poder trabajar con ella.
+
+3. Creación de las tablas Usuario y Menstruación con sus respectivos campos.
+
+## 15/05/2024
+
+1. Enlace entre interfaces.
+
+2. Implementación de la base de datos en las interfaces 
+
+3. Creación del Selector del Calendario con JDatePicker
