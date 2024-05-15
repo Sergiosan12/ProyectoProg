@@ -8,7 +8,12 @@ import javax.swing.*;
 
 public class MainInterfaz {
     public static void main(String[] args) {
-            SignIn register = new SignIn();
-        register.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            SignIn signIn = new SignIn();
+            signIn.setSize(1200, 560);  // Establece el tamaño de la ventana
+            signIn.setVisible(true);
+            signIn.setLocationRelativeTo(null);
+            signIn.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        });
     }
 }
