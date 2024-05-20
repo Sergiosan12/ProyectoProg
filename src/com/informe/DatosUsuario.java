@@ -20,12 +20,10 @@ public class DatosUsuario {
     }
 
     private void obtenerDatosUsuario() {
-        String sql = "SELECT * FROM usuario WHERE usuario = ?";
+        String sql = "SELECT * FROM usuario WHERE usuario = (SELECT usuario FROM usuario ORDER BY usuario DESC LIMIT 1)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, "tony");
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -38,7 +36,6 @@ public class DatosUsuario {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     private void obtenerDatosMenstruacion() {
