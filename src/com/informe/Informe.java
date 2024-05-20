@@ -30,6 +30,9 @@ public class Informe {
         this.mediaDuracionPeriodo = mediaDuracionPeriodo;
         this.mediaDuracionCiclo = mediaDuracionCiclo;
     }
+    public Informe(){
+
+    }
 
     public String getNombre() {
         return nombre;

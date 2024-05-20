@@ -34,7 +34,7 @@ public class Register extends JFrame {
     private JButton continuarButton;
 
 
-    private void insertDataIntoDatabase() {
+    private String insertDataIntoDatabase() {
         String name = fieldName.getText();
         int age = (Integer) spinnerAge.getValue();
         String user = fieldUser.getText();
@@ -62,9 +62,12 @@ public class Register extends JFrame {
             pstmtMenstruacion.setNull(3, java.sql.Types.INTEGER); // Inserta un valor nulo en mediasangrado
             pstmtMenstruacion.executeUpdate();
 
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return user;
     }
 
     public Register() {
