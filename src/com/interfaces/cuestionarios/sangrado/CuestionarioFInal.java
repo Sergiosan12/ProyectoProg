@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class CuestionarioFInal extends Component {
+public class CuestionarioFInal  {
     public JPanel panelPrincipal;
     private JLabel lblCiclo;
     private JLabel lblSangrado;
@@ -20,22 +20,22 @@ public class CuestionarioFInal extends Component {
     private JSpinner numerCiclo;
     private JSpinner numerSangrado;
     int duracionCiclo;
-    int duracionSangrado;
-    Duracion duracion = new Duracion();
-    String user; // Añade una variable de instancia para el usuario
+int duracionSangrado;
+Duracion duracion = new Duracion();
 
     private void insertDataIntoDatabase() {
         int duracionCiclo = (Integer) numerCiclo.getValue();
         int duracionSangrado = (Integer) numerSangrado.getValue();
+        String user = "maestro";
 
-        String sql = "UPDATE menstruacion SET mediaciclo = ?, mediasangrado = ? WHERE usuario = ?";
+        String sql = "INSERT INTO menstruacion (usuario, mediaciclo, mediasangrado) VALUES (?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, duracionCiclo);
-            pstmt.setInt(2, duracionSangrado);
-            pstmt.setString(3, user);
+            pstmt.setString(1, user);
+            pstmt.setInt(2, duracionCiclo);
+            pstmt.setInt(3, duracionSangrado);
 
             pstmt.executeUpdate();
 
@@ -44,9 +44,12 @@ public class CuestionarioFInal extends Component {
         }
     }
 
-    public CuestionarioFInal(String user) { // Modifica el constructor para recibir el nombre de usuario
-        this.user = user; // Guarda el nombre de usuario
+    public CuestionarioFInal() {
+        getJpanel();
 
+    }
+
+    public void getJpanel() {
         numerCiclo.setModel(new SpinnerNumberModel(28, 1, Integer.MAX_VALUE, 1));
         numerSangrado.setModel(new SpinnerNumberModel(5, 1, Integer.MAX_VALUE, 1));
         continuarButton.addActionListener(new ActionListener() {
@@ -69,33 +72,15 @@ public class CuestionarioFInal extends Component {
                     }
 
                 } catch (NumberFormatException ex) {
-                    mostrarError("Por favor, introduce números válidos.");
+                    JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.");
                 } catch (IllegalArgumentException ex) {
-                    mostrarError(ex.getMessage());
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
                 insertDataIntoDatabase();
                 JOptionPane.showMessageDialog(null, "Datos de menstruación registrados exitosamente");
                 UsoProg usoProg = new UsoProg();
                 usoProg.setVisible(true);
-            }
-        });
-
-    }
-
-    private void mostrarError (String mensaje){
-        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            String user = "tony";
-            CuestionarioFInal cuestionarioFInal = new CuestionarioFInal(user);
-            JFrame frame = new JFrame("Cuestionario Final");
-            frame.setContentPane(cuestionarioFInal.panelPrincipal);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setVisible(true);
+                    }
         });
     }
 }

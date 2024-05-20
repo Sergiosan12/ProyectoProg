@@ -78,6 +78,7 @@ public class SignIn extends JFrame {
             frame.setSize(600, 400);
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
+            frame.setResizable(false);
             frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             dispose();
         }));
@@ -99,6 +100,8 @@ public class SignIn extends JFrame {
             }
         });
     }
-}
+
+    }
+
 
 
