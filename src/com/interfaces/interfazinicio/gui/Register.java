@@ -3,6 +3,7 @@ package com.interfaces.interfazinicio.gui;
 import com.interfaces.cuestionarios.sangrado.CuestionarioFInal;
 import com.interfaces.interfazinicio.Database;
 import com.interfaces.interfazinicio.RoundedBorder;
+import com.usuario.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,25 +33,26 @@ public class Register extends JFrame {
     private JPanel paneTitle;
     private JButton buttonVolver;
     private JButton continuarButton;
+   public Usuario usuario= new Usuario();
 
 
     private void insertDataIntoDatabase() {
-        String name = fieldName.getText();
-        int age = (Integer) spinnerAge.getValue();
-        String user = fieldUser.getText();
-        String mail = fieldMail.getText();
-        String password = new String(fieldPassword.getPassword());
+     usuario.setNombre(fieldName.getText());
+        usuario.setEdad((Integer) spinnerAge.getValue());
+        usuario.setUsuario(fieldUser.getText());
+        usuario.setEmail(fieldMail.getText());
+        usuario.setContrasena(new String(fieldPassword.getPassword()));
 
         String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email,edad ) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, user);
-            pstmt.setString(2, name);
-            pstmt.setString(3, password);
-            pstmt.setString(4, mail);
-            pstmt.setInt(5, age);
+            pstmt.setString(1, usuario.getUsuario());
+            pstmt.setString(2, usuario.getNombre());
+            pstmt.setString(3, usuario.getContrasena());
+            pstmt.setString(4, usuario.getEmail());
+            pstmt.setInt(5, usuario.getEdad());
 
             pstmt.executeUpdate();
 
@@ -97,7 +99,7 @@ public class Register extends JFrame {
                             frame.setSize(600, 370);
                             frame.setVisible(true);
                             frame.setLocationRelativeTo(null);
-                            CuestionarioFInal cuestionario = new CuestionarioFInal();
+                            CuestionarioFInal cuestionario = new CuestionarioFInal(usuario);
                             frame.getContentPane().add(cuestionario.panelPrincipal);
                             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         } catch (Exception ex) {
@@ -108,6 +110,16 @@ public class Register extends JFrame {
                 });
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
             }
+        });
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Register register = new Register();
+            register.setSize(600, 400);  // Establece el tamaño de la ventana
+            register.setVisible(true);
+            register.setLocationRelativeTo(null);
+            register.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         });
     }
 }
