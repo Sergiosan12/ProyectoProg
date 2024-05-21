@@ -29,17 +29,8 @@ public class UsoProg {
 
             }
         });
-        planningOcioButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
+
         buttonDeporte.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -56,4 +47,5 @@ public class UsoProg {
     public void setVisible(boolean b) {
         frame.setVisible(b);
     }
+
 }
