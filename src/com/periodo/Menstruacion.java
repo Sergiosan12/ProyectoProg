@@ -42,8 +42,8 @@ public class Menstruacion {
         MediaSangrado = mediaSangrado;
     }
 
-    public java.sql.Date getLastperiod() {
-        return (java.sql.Date) lastperiod;
+    public Date getLastperiod() {
+        return lastperiod;
     }
 
     public void setLastperiod(Date lastperiod) {
