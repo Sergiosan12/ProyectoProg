@@ -111,6 +111,7 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 
 4. Organizado en estructura MVC.
 
-5. Refactorización de códigp de `GenerarInforme` y `SelectorFecha`.
+5. Refactorización de código de `GenerarInforme` y `SelectorFecha`.
 
 6. Separación de métodos en `InsertDatabase` y `HandleDatabase`.
+
