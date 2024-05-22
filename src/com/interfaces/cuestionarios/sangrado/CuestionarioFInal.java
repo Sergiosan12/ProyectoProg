@@ -1,9 +1,11 @@
 package com.interfaces.cuestionarios.sangrado;
 
+import com.calendario.SelectorFecha;
 import com.cuestionario.Duracion;
 import com.interfaces.cuestionarios.uso.UsoProg;
 import com.interfaces.interfazinicio.Database;
 import com.interfaces.interfazinicio.gui.Register;
+import com.periodo.Menstruacion;
 import com.usuario.Usuario;
 
 import javax.swing.*;
@@ -25,32 +27,14 @@ public class CuestionarioFInal {
     int duracionSangrado;
     Duracion duracion = new Duracion();
     private Usuario usuario;  // Almacena el usuario registrado
+    private Menstruacion menstruacion; // Instancia de Menstruacion
 
     // Constructor que acepta un objeto Usuario
     public CuestionarioFInal(Usuario usuario) {
         this.usuario = usuario;
+        this.menstruacion = new Menstruacion(); // Inicializa la instancia de Menstruacion
+        menstruacion.setUsuario(usuario.getUsuario()); // Usa el usuario pasado al constructor
         getJpanel();
-    }
-
-    private void insertDataIntoDatabase() {
-        int duracionCiclo = (Integer) numerCiclo.getValue();
-        int duracionSangrado = (Integer) numerSangrado.getValue();
-        String user = usuario.getUsuario();  // Usa el usuario pasado al constructor
-
-        String sql = "INSERT INTO menstruacion (usuario, mediaciclo, mediasangrado) VALUES (?, ?, ?)";
-
-        try (Connection conn = Database.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, user);
-            pstmt.setInt(2, duracionCiclo);
-            pstmt.setInt(3, duracionSangrado);
-
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void getJpanel() {
@@ -69,16 +53,14 @@ public class CuestionarioFInal {
                     if (duracionCiclo <= 0 || duracionSangrado <= 0 || duracionSangrado > duracionCiclo) {
                         throw new IllegalArgumentException("Por favor, introduce valores válidos.");
                     }
-
+                    menstruacion.setMediaCiclo(duracionCiclo);
+                    menstruacion.setMediaSangrado(duracionSangrado);
+                    new SelectorFecha(menstruacion); // Pasa la instancia de Menstruacion a SelectorFecha
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.");
                 } catch (IllegalArgumentException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
-                insertDataIntoDatabase();
-                JOptionPane.showMessageDialog(null, "Datos de menstruación registrados exitosamente");
-                UsoProg usoProg = new UsoProg();
-                usoProg.setVisible(true);
             }
         });
     }
