@@ -7,6 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * La clase DatosUsuario se encarga de obtener los datos del usuario y de la menstruación desde la base de datos.
+ * Los datos obtenidos incluyen el nombre del usuario, el email, la media del ciclo y la media de la menstruación.
+ */
 public class DatosUsuario {
     private String usuario;
     private String nombre;
@@ -14,11 +18,18 @@ public class DatosUsuario {
     private int mediaCiclo;
     private int mediaMenstruacion;
 
+    /**
+     * Crea una nueva instancia de DatosUsuario.
+     * Al instanciar la clase, se obtienen los datos del usuario y de la menstruación desde la base de datos.
+     */
     public DatosUsuario() {
         obtenerDatosUsuario();
         obtenerDatosMenstruacion();
     }
 
+    /**
+     * Obtiene los datos del usuario desde la base de datos.
+     */
     private void obtenerDatosUsuario() {
         String sql = "SELECT * FROM usuario WHERE usuario = (SELECT usuario FROM usuario ORDER BY usuario DESC LIMIT 1)";
 
@@ -38,6 +49,9 @@ public class DatosUsuario {
         }
     }
 
+    /**
+     * Obtiene los datos de la menstruación desde la base de datos.
+     */
     private void obtenerDatosMenstruacion() {
         if (usuario == null || usuario.isEmpty()) {
             System.out.println("Usuario no definido. No se puede obtener datos de menstruación.");
@@ -65,6 +79,7 @@ public class DatosUsuario {
         }
     }
 
+    // Getters para los atributos de la clase DatosUsuario
     public String getUsuario() {
         return usuario;
     }

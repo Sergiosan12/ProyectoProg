@@ -36,8 +36,12 @@ public class CuestionarioSwing extends JFrame {
         txtSangrado = new JTextField();
         JButton btnAceptar = new JButton("Aceptar");
 
+        /**
+         * Agregar un ActionListener al botón "Aceptar" para capturar y validar la duración del ciclo y del sangrado ingresada por el usuario.
+         */
         btnAceptar.addActionListener(new ActionListener() {
             @Override
+
             public void actionPerformed(ActionEvent e) {
                 try {
                     duracionCiclo = Integer.parseInt(txtCiclo.getText());

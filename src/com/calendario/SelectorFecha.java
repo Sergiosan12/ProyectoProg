@@ -19,11 +19,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
+/**
+ * La clase SelectorFecha representa una interfaz gráfica de usuario que permite al usuario seleccionar una fecha.
+ * Esta fecha representa el último período de la usuaria.
+ * La fecha seleccionada se inserta en la base de datos y se utiliza para calcular la próxima fecha de menstruación.
+ */
 public class SelectorFecha extends JFrame {
     protected JDatePickerImpl datePicker;
     private Date today;
     private Date oneYearAgo;
 
+    /**
+     * Crea una nueva instancia de SelectorFecha.
+     * @param menstruacion la menstruacion de la usuaria
+     */
     public SelectorFecha(Menstruacion menstruacion) {
         JPanel panel = getjPanel();
         getBtnContinuar(panel, menstruacion);
@@ -31,11 +40,16 @@ public class SelectorFecha extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Crea y añade un botón "Continuar" al panel dado.
+     * Cuando se hace clic en este botón, se guarda la fecha seleccionada en la base de datos y se abre la interfaz de usuario principal.
+     * @param panel el panel al que se añadirá el botón
+     * @param menstruacion la menstruacion de la usuaria
+     */
     private void getBtnContinuar(JPanel panel, Menstruacion menstruacion) {
         JButton btnContinuar = new JButton("Continuar");
         btnContinuar.setBackground(new Color(255, 105, 180)); // Rosa más oscuro
         btnContinuar.setForeground(Color.WHITE);
-        btnContinuar.setBorder(new RoundedBorder(20)); // Borde redondeado
 
         // Add action listeners to the buttons
         btnContinuar.addActionListener(new ActionListener() {
@@ -60,6 +74,10 @@ public class SelectorFecha extends JFrame {
         panel.add(btnContinuar, gbc);
     }
 
+    /**
+     * Crea y devuelve un JPanel que contiene todos los componentes de la interfaz de usuario.
+     * @return un JPanel que contiene todos los componentes de la interfaz de usuario
+     */
     private JPanel getjPanel() {
         setTitle("Selector de Fecha");
         setSize(400, 200);
@@ -131,6 +149,10 @@ public class SelectorFecha extends JFrame {
         return panel;
     }
 
+    /**
+     * Inserta la fecha seleccionada en la base de datos.
+     * @param menstruacion la menstruacion de la usuaria
+     */
     private void insertDateIntoDatabase(Menstruacion menstruacion) {
         String sql = "INSERT INTO menstruacion (usuario, mediaciclo, mediasangrado, lastperiod) VALUES (?, ?, ?, ?)";
 

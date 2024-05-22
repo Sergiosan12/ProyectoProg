@@ -43,17 +43,20 @@ public class GenerarInforme {
         LocalDate fechaInforme = LocalDate.now();
         String fileName = "Informe_" + fechaInforme.format(monthYearFormat) + ".pdf";
 
-        // Obtén los datos del usuario
+        // Obtener los datos del usuario
         String nombre = datosUsuario.getNombre();
         String email = datosUsuario.getEmail();
         int mediaCiclo = datosUsuario.getMediaCiclo();
         int mediaMenstruacion = datosUsuario.getMediaMenstruacion();
 
-        // Utiliza estos datos al generar el informe
+        // Utilizar estos datos al generar el informe
         informe.setNombre(nombre);
         informe.setMediaDuracionPeriodo(String.valueOf(mediaMenstruacion));
         informe.setMediaDuracionCiclo(String.valueOf(mediaCiclo));
 
+        /**
+         * Crea un documento PDF y añade la información del informe.
+         */
         Document document = new Document();
         try {
             PdfWriter.getInstance(document, new FileOutputStream(fileName));

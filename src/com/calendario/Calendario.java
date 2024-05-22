@@ -5,13 +5,21 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * La clase Calendario representa un calendario mensual.
+ * Cada instancia de Calendario muestra un mes específico y resalta ciertas fechas en rojo.
+ */
 public class Calendario extends JFrame {
     private JPanel panel;
     private List<LocalDate> fechasEnRojo;
 
+    /**
+     * Crea una nueva instancia de Calendario.
+     * @param fechasEnRojo una lista de fechas en rojo para determnar el periodo.
+     */
     public Calendario(List<LocalDate> fechasEnRojo) {
         this.fechasEnRojo = fechasEnRojo;
-
+        // Configurar la ventana
         setTitle("Calendario");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +58,11 @@ public class Calendario extends JFrame {
         add(panel, BorderLayout.CENTER);
         setVisible(true);
     }
+
+    /**
+     * Devuelve una representación en texto del calendario.
+     * @return una representación en texto del calendario.
+     */
     public String toText() {
         StringBuilder sb = new StringBuilder();
 
@@ -66,9 +79,11 @@ public class Calendario extends JFrame {
         int anhoActual = fechaActual.getYear();
         LocalDate primerDiaDelMes = LocalDate.of(anhoActual, mesActual, 1);
         int diaDeLaSemana = primerDiaDelMes.getDayOfWeek().getValue();
+        // Añadir espacios en blanco para los días anteriores al primer día del mes
         for (int i = 1; i < diaDeLaSemana; i++) {
             sb.append("\t");
         }
+        // Añadir los días del mes
         for (int i = 1; i <= fechaActual.lengthOfMonth(); i++) {
             sb.append(i).append("\t");
             if (fechasEnRojo.contains(LocalDate.of(anhoActual, mesActual, i))) {

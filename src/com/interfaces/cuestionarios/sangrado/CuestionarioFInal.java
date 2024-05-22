@@ -15,7 +15,11 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+/**
+ * La clase CuestionarioFinal representa el cuestionario final que el usuario debe completar.
+ * Este cuestionario recoge la duración del ciclo y la duración del sangrado del usuario.
+ * Los datos recogidos se utilizan para calcular la duración media del ciclo y del sangrado.
+ */
 public class CuestionarioFInal {
     public JPanel panelPrincipal;
     private JLabel lblCiclo;
@@ -29,7 +33,11 @@ public class CuestionarioFInal {
     private Usuario usuario;  // Almacena el usuario registrado
     private Menstruacion menstruacion; // Instancia de Menstruacion
 
-    // Constructor que acepta un objeto Usuario
+    /**
+     * Crea una nueva instancia de CuestionarioFinal.
+     * Inicializa la duración del ciclo y la duración del sangrado.
+     * @param usuario el usuario que está completando el cuestionario
+     */
     public CuestionarioFInal(Usuario usuario) {
         this.usuario = usuario;
         this.menstruacion = new Menstruacion(); // Inicializa la instancia de Menstruacion
@@ -37,6 +45,10 @@ public class CuestionarioFInal {
         getJpanel();
     }
 
+    /**
+     * Crea y devuelve un JPanel que contiene todos los componentes de la interfaz de usuario.
+     * @return un JPanel que contiene todos los componentes de la interfaz de usuario
+     */
     public void getJpanel() {
         numerCiclo.setModel(new SpinnerNumberModel(28, 1, Integer.MAX_VALUE, 1));
         numerSangrado.setModel(new SpinnerNumberModel(5, 1, Integer.MAX_VALUE, 1));
