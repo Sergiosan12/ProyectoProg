@@ -34,6 +34,8 @@ public class Informe {
 
     }
 
+    //getters y setters
+
     public String getNombre() {
         return nombre;
     }

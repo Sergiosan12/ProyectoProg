@@ -3,11 +3,15 @@ package com.interfaces.interfazinicio;
 import javax.swing.border.Border;
 import java.awt.*;
 
+/**
+ * La clase RoundedBorder se encarga de crear un borde redondeado para los componentes de la interfaz de usuario.
+ */
 public class RoundedBorder implements Border {
     int radius;
     public RoundedBorder(int radius) {
         this.radius = radius;
     }
+
     public Insets getBorderInsets(Component c) {
         return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
     }
