@@ -47,12 +47,12 @@
               <text value="Volver"/>
             </properties>
           </component>
-          <component id="ff080" class="javax.swing.JLabel" binding="PeriodoFertilLable">
+          <component id="ff080" class="javax.swing.JLabel" binding="FaseFolicilar">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Tu periodo fertil es:"/>
+              <text value=""/>
             </properties>
           </component>
         </children>

@@ -12,7 +12,7 @@ public class Embarazo {
     private JPanel panel1;
     private JButton buttonGenerarInforme;
     private JButton buttonVolver;
-    private JLabel PeriodoFertilLable;
+    private JLabel FaseFolicilar;
 
     public Embarazo() {
         buttonVolver.addActionListener(new ActionListener() {

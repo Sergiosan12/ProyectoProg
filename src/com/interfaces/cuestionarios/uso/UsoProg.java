@@ -1,5 +1,7 @@
 package com.interfaces.cuestionarios.uso;
 
+import com.interfaces.Embarazo;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +42,17 @@ public class UsoProg {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+        buttonEmbarazo.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Embarazo embarazo= new Embarazo();
             }
         });
     }
