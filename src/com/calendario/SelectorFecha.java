@@ -1,11 +1,10 @@
 package com.calendario;
-
+import com.interfaces.cuestionarios.uso.UsoProg;
 import com.interfaces.interfazinicio.Database;
 import com.periodo.Menstruacion;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,6 +46,9 @@ public class SelectorFecha extends JFrame {
                 String formattedDate = sdf.format(selectedDate);
                 menstruacion.setLastperiod(selectedDate);
                 insertDateIntoDatabase(menstruacion);
+                dispose();
+                UsoProg usoProg = new UsoProg();
+                usoProg.setVisible(true);
             }
         });
 
