@@ -1,8 +1,8 @@
 package com.view.interfazinicio.gui;
 
+import com.model.RoundedBorder;
 import com.view.cuestionarios.sangrado.CuestionarioFInal;
 import com.database.Database;
-import com.interfaces.interfazinicio.RoundedBorder;
 import com.model.Usuario;
 
 import javax.swing.*;
