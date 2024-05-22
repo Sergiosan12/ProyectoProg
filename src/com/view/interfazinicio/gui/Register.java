@@ -1,5 +1,7 @@
 package com.view.interfazinicio.gui;
 
+import com.controller.GenerarInforme;
+import com.model.Informe;
 import com.model.RoundedBorder;
 import com.view.cuestionarios.sangrado.CuestionarioFInal;
 import com.database.Database;
@@ -34,6 +36,7 @@ public class Register extends JFrame {
     private JButton buttonVolver;
     private JButton continuarButton;
    public Usuario usuario= new Usuario();
+public Informe informe=new Informe();
 
 
     private void insertDataIntoDatabase() {
@@ -55,7 +58,6 @@ public class Register extends JFrame {
             pstmt.setInt(5, usuario.getEdad());
 
             pstmt.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,7 +110,9 @@ public class Register extends JFrame {
                         }
                     }
                 });
+                informe.setUsuario(usuario.getUsuario());
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
+
             }
         });
     }

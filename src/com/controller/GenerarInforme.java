@@ -1,6 +1,7 @@
 package com.controller;
 
-import com.informe.DatosUsuario;
+import com.database.DatabaseHandlerMenstruacion;
+import com.database.DatabaseHandlerUsuario;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -12,9 +13,12 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import com.model.Informe;
+import com.model.Menstruacion;
+import com.model.Usuario;
 
 /**
  * La clase GenerarInforme se encarga de generar un informe en formato PDF.
@@ -22,14 +26,21 @@ import com.model.Informe;
  */
 public class GenerarInforme {
     private Informe informe;
-    private DatosUsuario datosUsuario;
+    String nombre;
+    String email;
+    String contrasenha;
+    int edad;
+    int mediaCiclo;
+    int mediaSangrado;
+    Date lastperiod;
+
     /**
      * Constructor de la clase GenerarInforme.
+     *
      * @param informe El informe que se va a generar.
      */
     public GenerarInforme(Informe informe) {
         this.informe = informe;
-        this.datosUsuario = new DatosUsuario();
     }
 
     /**
@@ -46,15 +57,29 @@ public class GenerarInforme {
         String fileName = "Informe_" + fechaInforme.format(monthYearFormat) + ".pdf";
 
         // Obtener los datos del usuario
-        String nombre = datosUsuario.getNombre();
-        String email = datosUsuario.getEmail();
-        int mediaCiclo = datosUsuario.getMediaCiclo();
-        int mediaMenstruacion = datosUsuario.getMediaMenstruacion();
+        // Obtener los datos del usuario
+        // Obtener los datos del usuario
+        String usuario = informe.getUsuario();
 
-        // Utilizar estos datos al generar el informe
-        informe.setNombre(nombre);
-        informe.setMediaDuracionPeriodo(String.valueOf(mediaMenstruacion));
-        informe.setMediaDuracionCiclo(String.valueOf(mediaCiclo));
+        // Crear una instancia de DatabaseHandler
+        DatabaseHandlerUsuario dbHandler = new DatabaseHandlerUsuario();
+        Usuario usuarioData = dbHandler.selectData(usuario);
+        DatabaseHandlerMenstruacion dbHandler2 = new DatabaseHandlerMenstruacion();
+        Menstruacion menstruaciondata = dbHandler2.selectData(usuario);
+
+        if (usuarioData != null) {
+            nombre = usuarioData.getNombre();
+            email = usuarioData.getEmail();
+            contrasenha = usuarioData.getContrasena();
+            edad = usuarioData.getEdad();
+            mediaCiclo = menstruaciondata.getMediaCiclo();
+            mediaSangrado = menstruaciondata.getMediaSangrado();
+            lastperiod = menstruaciondata.getLastperiod();
+
+
+        } else {
+            System.out.println("No se encontró ningún usuario con el nombre proporcionado: " + usuario);
+        }
 
         /**
          * Crea un documento PDF y añade la información del informe.
@@ -66,12 +91,12 @@ public class GenerarInforme {
 
             Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
-            document.add(new Paragraph("Nombre: " + datosUsuario.getNombre(), boldFont));
-            document.add(new Paragraph("Fecha de Nacimiento: " + sdf.format(informe.getFechaNacimiento()), boldFont));
+            document.add(new Paragraph("Nombre: " + nombre, boldFont));
+            document.add(new Paragraph("Edad " + sdf.format(edad), boldFont));
             document.add(new Paragraph("\nInformaciones generales:", boldFont));
             document.add(new Paragraph("Última Menstruación: " + sdf.format(informe.getUltimaMenstruacion())));
-            document.add(new Paragraph("Media Duración del Periodo: " + datosUsuario.getMediaMenstruacion()));
-            document.add(new Paragraph("Media Duración del Ciclo: " + datosUsuario.getMediaCiclo()));
+            document.add(new Paragraph("Media Duración del Periodo: " + mediaSangrado));
+            document.add(new Paragraph("Media Duración del Ciclo: " + mediaCiclo));
             document.add(new Paragraph("Duración Fase Menstruación: ")); // Add the actual value
             document.add(new Paragraph("Duración Fase Folicular: ")); // Add the actual value
             document.add(new Paragraph("Duración Fase Ovulación: ")); // Add the actual value
@@ -83,7 +108,7 @@ public class GenerarInforme {
             document.add(new Paragraph("Inicio Fase Ovulación: ")); // Add the actual value
             document.add(new Paragraph("Inicio Fase Lútea: ")); // Add the actual value
             document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
-            document.add(new Paragraph("\"Los juegos de Sangre\"",boldFont));
+            document.add(new Paragraph("\"Los juegos de Sangre\"", boldFont));
 
             document.close();
         } catch (DocumentException | FileNotFoundException e) {
@@ -91,37 +116,4 @@ public class GenerarInforme {
         }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        DatosUsuario datosUsuario = new DatosUsuario();
-        String nombre = datosUsuario.getNombre();
-        int mediaMenstruacion = datosUsuario.getMediaMenstruacion();
-        int mediaCiclo = datosUsuario.getMediaCiclo();
-        System.out.println("Introduce la fecha de nacimiento (dd/MM/yyyy):");
-        String fechaNacimientoStr = scanner.nextLine();
-        System.out.println("Introduce la última menstruación (dd/MM/yyyy):");
-        String ultimaMenstruacionStr = scanner.nextLine();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            if (fechaNacimientoStr != null && !fechaNacimientoStr.isEmpty() && ultimaMenstruacionStr != null && !ultimaMenstruacionStr.isEmpty()) {
-                Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
-                Date ultimaMenstruacion = sdf.parse(ultimaMenstruacionStr);
-
-                Informe informe = new Informe();
-                informe.setNombre(nombre); // Asegúrate de que estás estableciendo el nombre del usuario
-                informe.setFechaNacimiento(fechaNacimiento);
-                informe.setUltimaMenstruacion(ultimaMenstruacion);
-                informe.setMediaDuracionPeriodo(String.valueOf(mediaMenstruacion));
-                informe.setMediaDuracionCiclo(String.valueOf(mediaCiclo));
-
-                GenerarInforme generarInforme = new GenerarInforme(informe);
-                generarInforme.generarInforme();
-            } else {
-                System.out.println("Both date fields must be filled.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

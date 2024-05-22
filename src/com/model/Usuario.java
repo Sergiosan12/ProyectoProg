@@ -5,7 +5,6 @@
 package com.model;
 
 public class Usuario {
-    private int id; // El identificador del usuario
     private String nombre; // El nombre del usuario
     private String email; // El email del usuario
     private String contrasena; // La contraseña del usuario
@@ -20,15 +19,13 @@ public class Usuario {
 
     /**
      * Constructor de la clase Usuario.
-     * @param id El identificador del usuario.
      * @param nombre El nombre del usuario.
      * @param email El email del usuario.
      * @param contrasena La contraseña del usuario.
      * @param edad La edad del usuario.
      * @param usuario El nombre de usuario.
      */
-    public Usuario(int id, String nombre, String email, String contrasena, int edad, String usuario) {
-        this.id = id;
+    public Usuario( String nombre, String email, String contrasena, int edad, String usuario) {
         this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
@@ -36,13 +33,6 @@ public class Usuario {
         this.usuario = usuario;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNombre() {
         return nombre;
