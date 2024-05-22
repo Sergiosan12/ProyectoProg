@@ -6,22 +6,38 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * Clase que se encarga de formatear las fechas en el calendario.
-
+ * La clase {@code DateLabelFormatter} se encarga de formatear las fechas en el calendario.
+ * Hereda de {@link DateComponentFormatter} y proporciona métodos para convertir cadenas de texto
+ * en objetos de fecha y viceversa, utilizando el formato de fecha "yyyy-MM-dd".
+ *
+ * <p>Esta clase es útil para la integración con componentes de selección de fecha que requieren
+ * la conversión entre representaciones de fecha en texto y objetos de fecha de Java.</p>
+ *
+ * <h2>Ejemplo de Uso:</h2>
+ * <pre>{@code
+ * DateLabelFormatter formatter = new DateLabelFormatter();
+ * String fechaTexto = "2024-05-15";
+ * Date fecha = (Date) formatter.stringToValue(fechaTexto);
+ * System.out.println(formatter.valueToString(fecha));
+ * }</pre>
  */
 public class DateLabelFormatter extends DateComponentFormatter {
 
     private final SimpleDateFormat dateFormatter;
 
+    /**
+     * Crea una nueva instancia de {@code DateLabelFormatter} con el formato de fecha "yyyy-MM-dd".
+     */
     public DateLabelFormatter() {
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     }
 
     /**
-     * Convierte un texto en una fecha.
-     * @param text
-     * @return fecha
-     * @throws ParseException
+     * Convierte una cadena de texto en una fecha.
+     *
+     * @param text la cadena de texto que representa una fecha en el formato "yyyy-MM-dd".
+     * @return un objeto {@code Date} que representa la fecha.
+     * @throws ParseException si la cadena de texto no está en el formato correcto.
      */
     @Override
     public Object stringToValue(String text) throws ParseException {
@@ -32,10 +48,11 @@ public class DateLabelFormatter extends DateComponentFormatter {
     }
 
     /**
-     * Convierte una fecha en un texto.
-     * @param value
-     * @return texto
-     * @throws ParseException
+     * Convierte una fecha en una cadena de texto.
+     *
+     * @param value el objeto que representa una fecha. Debe ser una instancia de {@code Calendar}.
+     * @return una cadena de texto que representa la fecha en el formato "yyyy-MM-dd".
+     * @throws ParseException si el objeto proporcionado no es una instancia de {@code Calendar}.
      */
     @Override
     public String valueToString(Object value) throws ParseException {

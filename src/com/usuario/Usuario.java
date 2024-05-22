@@ -1,16 +1,32 @@
+/**
+ * La clase Usuario representa a un usuario en el sistema.
+ * Contiene información como id, nombre, email, contraseña, edad y nombre de usuario.
+ */
 package com.usuario;
 
 public class Usuario {
-    private int id;
-    private String nombre;
-    private String email;
-    private String contrasena;
-    private int edad;
-    private String usuario;
+    private int id; // El identificador del usuario
+    private String nombre; // El nombre del usuario
+    private String email; // El email del usuario
+    private String contrasena; // La contraseña del usuario
+    private int edad; // La edad del usuario
+    private String usuario; // El nombre de usuario
 
+    /**
+     * Constructor vacío de la clase Usuario.
+     */
     public Usuario() {
     }
 
+    /**
+     * Constructor de la clase Usuario.
+     * @param id El identificador del usuario.
+     * @param nombre El nombre del usuario.
+     * @param email El email del usuario.
+     * @param contrasena La contraseña del usuario.
+     * @param edad La edad del usuario.
+     * @param usuario El nombre de usuario.
+     */
     public Usuario(int id, String nombre, String email, String contrasena, int edad, String usuario) {
         this.id = id;
         this.nombre = nombre;

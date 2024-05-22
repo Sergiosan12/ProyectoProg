@@ -1,10 +1,12 @@
 package com.calendario;
+
 import com.interfaces.cuestionarios.uso.UsoProg;
 import com.interfaces.interfazinicio.Database;
 import com.periodo.Menstruacion;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,9 +22,20 @@ import java.util.Date;
 import java.util.Properties;
 
 /**
- * La clase SelectorFecha representa una interfaz gráfica de usuario que permite al usuario seleccionar una fecha.
+ * La clase {@code SelectorFecha} representa una interfaz gráfica de usuario que permite al usuario seleccionar una fecha.
  * Esta fecha representa el último período de la usuaria.
  * La fecha seleccionada se inserta en la base de datos y se utiliza para calcular la próxima fecha de menstruación.
+ *
+ * <p>Esta clase hereda de {@link JFrame}, proporcionando una ventana independiente con componentes de selección de fecha.
+ * Utiliza la librería JDatePicker para permitir la selección de fechas y se comunica con una base de datos para almacenar
+ * la fecha seleccionada.</p>
+ *
+ * <h2>Ejemplo de Uso:</h2>
+ * <pre>{@code
+ * Menstruacion menstruacion = new Menstruacion();
+ * SelectorFecha selectorFecha = new SelectorFecha(menstruacion);
+ * selectorFecha.setVisible(true);
+ * }</pre>
  */
 public class SelectorFecha extends JFrame {
     protected JDatePickerImpl datePicker;
@@ -30,8 +43,9 @@ public class SelectorFecha extends JFrame {
     private Date oneYearAgo;
 
     /**
-     * Crea una nueva instancia de SelectorFecha.
-     * @param menstruacion la menstruacion de la usuaria
+     * Crea una nueva instancia de {@code SelectorFecha}.
+     *
+     * @param menstruacion la menstruación de la usuaria que contiene la información del período.
      */
     public SelectorFecha(Menstruacion menstruacion) {
         JPanel panel = getjPanel();
@@ -43,15 +57,15 @@ public class SelectorFecha extends JFrame {
     /**
      * Crea y añade un botón "Continuar" al panel dado.
      * Cuando se hace clic en este botón, se guarda la fecha seleccionada en la base de datos y se abre la interfaz de usuario principal.
-     * @param panel el panel al que se añadirá el botón
-     * @param menstruacion la menstruacion de la usuaria
+     *
+     * @param panel el panel al que se añadirá el botón.
+     * @param menstruacion la menstruación de la usuaria.
      */
     private void getBtnContinuar(JPanel panel, Menstruacion menstruacion) {
         JButton btnContinuar = new JButton("Continuar");
         btnContinuar.setBackground(new Color(255, 105, 180)); // Rosa más oscuro
         btnContinuar.setForeground(Color.WHITE);
 
-        // Add action listeners to the buttons
         btnContinuar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,7 +80,7 @@ public class SelectorFecha extends JFrame {
             }
         });
 
-        // Add the buttons to the panel
+        // Añadir el botón al panel
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -75,8 +89,9 @@ public class SelectorFecha extends JFrame {
     }
 
     /**
-     * Crea y devuelve un JPanel que contiene todos los componentes de la interfaz de usuario.
-     * @return un JPanel que contiene todos los componentes de la interfaz de usuario
+     * Crea y devuelve un {@code JPanel} que contiene todos los componentes de la interfaz de usuario.
+     *
+     * @return un {@code JPanel} que contiene todos los componentes de la interfaz de usuario.
      */
     private JPanel getjPanel() {
         setTitle("Selector de Fecha");
@@ -84,26 +99,26 @@ public class SelectorFecha extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Get today's date
+        // Obtener la fecha actual
         Calendar calendar = Calendar.getInstance();
         today = calendar.getTime();
 
-        // Get the date one year ago
+        // Obtener la fecha de hace un año
         calendar.add(Calendar.YEAR, -1);
         oneYearAgo = calendar.getTime();
 
-        // Reset calendar to today
+        // Restablecer el calendario a la fecha actual
         calendar.add(Calendar.YEAR, 1);
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Create the date model and set the initial date
+        // Crear el modelo de fecha y establecer la fecha inicial
         UtilDateModel model = new UtilDateModel();
         model.setDate(currentYear, currentMonth, currentDay);
         model.setSelected(true);
 
-        // Add a property change listener to the model
+        // Añadir un escuchador de cambios de propiedad al modelo
         model.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -120,7 +135,7 @@ public class SelectorFecha extends JFrame {
             }
         });
 
-        // Create the date picker
+        // Crear el selector de fecha
         Properties p = new Properties();
         p.put("text.today", "Hoy");
         p.put("text.month", "Mes");
@@ -128,20 +143,20 @@ public class SelectorFecha extends JFrame {
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
         datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
-        // Create the panel with GridBagLayout
+        // Crear el panel con GridBagLayout
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(new Color(255, 241, 241));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.CENTER;
 
-        // Add the label
+        // Añadir la etiqueta
         JLabel label = new JLabel("¿Cuándo fue tu último periodo?");
         gbc.gridx = 0;
         gbc.gridy = 0;
         panel.add(label, gbc);
 
-        // Add the date picker
+        // Añadir el selector de fecha
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(datePicker, gbc);
@@ -151,7 +166,8 @@ public class SelectorFecha extends JFrame {
 
     /**
      * Inserta la fecha seleccionada en la base de datos.
-     * @param menstruacion la menstruacion de la usuaria
+     *
+     * @param menstruacion la menstruación de la usuaria.
      */
     private void insertDateIntoDatabase(Menstruacion menstruacion) {
         String sql = "INSERT INTO menstruacion (usuario, mediaciclo, mediasangrado, lastperiod) VALUES (?, ?, ?, ?)";

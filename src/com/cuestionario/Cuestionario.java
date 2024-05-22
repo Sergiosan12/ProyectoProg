@@ -4,7 +4,6 @@ package com.cuestionario;
  * La clase Cuestionario es una clase singleton que maneja una instancia de CuestionarioSwing y Duracion.
  * Proporciona métodos para obtener la duración del ciclo y la duración del sangrado, y para imprimir estos valores.
  *
- * @author kiglesiasesteves
  */
 public class Cuestionario {
     private static Cuestionario instance = null; // La única instancia de Cuestionario
