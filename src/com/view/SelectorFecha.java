@@ -3,6 +3,7 @@ package com.view;
 import com.database.InsertDatabase;
 import com.model.decoracion.DateLabelFormatter;
 import com.model.fases.FaseMenstrual;
+import com.model.funciones.LastPeriod;
 import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.uso.UsoProg;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -34,16 +35,18 @@ public class SelectorFecha extends JFrame {
     protected JDatePickerImpl datePicker;
     private Date today;
     private Date oneYearAgo;
-    InsertDatabase insertDatabase;
-FaseMenstrual faseMenstrual;
+    InsertDatabase insertDatabase=new InsertDatabase();
+FaseMenstrual faseMenstrual=new FaseMenstrual();
+LastPeriod lastPeriod=new LastPeriod();
+Menstruacion menstruacion;
+
     /**
      * Crea una nueva instancia de {@code SelectorFecha}.
      *
-     * @param menstruacion la menstruación de la usuaria que contiene la información del período.
      */
-    public SelectorFecha(Menstruacion menstruacion) {
+    public SelectorFecha() {
         JPanel panel = getjPanel();
-        getBtnContinuar(panel, menstruacion);
+        getBtnContinuar(panel);
         add(panel, BorderLayout.CENTER);
         setVisible(true);
     }
@@ -53,9 +56,8 @@ FaseMenstrual faseMenstrual;
      * Cuando se hace clic en este botón, se guarda la fecha seleccionada en la base de datos y se abre la interfaz de usuario principal.
      *
      * @param panel el panel al que se añadirá el botón.
-     * @param menstruacion la menstruación de la usuaria.
      */
-    private void getBtnContinuar(JPanel panel, Menstruacion menstruacion) {
+    private void getBtnContinuar(JPanel panel) {
         JButton btnContinuar = new JButton("Continuar");
         btnContinuar.setBackground(new Color(255, 105, 180)); // Rosa más oscuro
         btnContinuar.setForeground(Color.WHITE);
@@ -66,9 +68,9 @@ FaseMenstrual faseMenstrual;
                 Date selectedDate = (Date) datePicker.getModel().getValue();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = sdf.format(selectedDate);
-                menstruacion.setLastperiod(selectedDate);
+                lastPeriod.setLastPeriod(selectedDate);
                 faseMenstrual.setInicioDiaMenstrual(selectedDate);
-                 insertDatabase.insertDateIntoDatabase(menstruacion);
+                 insertDatabase.insertDateIntoDatabase(menstruacion,lastPeriod);
                 dispose();
                 UsoProg usoProg = new UsoProg();
                 usoProg.setVisible(true);

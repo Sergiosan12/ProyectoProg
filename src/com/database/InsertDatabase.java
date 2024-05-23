@@ -1,5 +1,6 @@
 package com.database;
 
+import com.model.funciones.LastPeriod;
 import com.model.funciones.Menstruacion;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class InsertDatabase {
      *
      * @param menstruacion la menstruación de la usuaria.
      */
-    public void insertDateIntoDatabase(Menstruacion menstruacion) {
+    public void insertDateIntoDatabase(Menstruacion menstruacion, LastPeriod last) {
         String sql = "INSERT INTO menstruacion (usuario, mediaciclo, mediasangrado, lastperiod) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
@@ -26,7 +27,7 @@ public class InsertDatabase {
             pstmt.setString(1, menstruacion.getUsuario());
             pstmt.setInt(2, menstruacion.getMediaCiclo());
             pstmt.setInt(3, menstruacion.getMediaSangrado());
-            pstmt.setDate(4, new java.sql.Date(menstruacion.getLastperiod().getTime()));
+            pstmt.setDate(4, new java.sql.Date(last.getLastPeriod().getTime()));
 
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Fecha registrada exitosamente");

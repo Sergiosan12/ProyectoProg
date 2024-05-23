@@ -14,6 +14,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import com.model.fases.FaseFolicular;
+import com.model.fases.FaseLutea;
+import com.model.fases.FaseMenstrual;
+import com.model.fases.FaseOvulacion;
 import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
 import com.model.usuario.Usuario;
@@ -31,6 +35,11 @@ public class GenerarInforme {
     int mediaCiclo;
     int mediaSangrado;
     Date lastperiod;
+    GenerateDiaFases generateDiaFases;
+    FaseMenstrual faseMenstrual;
+    FaseOvulacion faseOvulacion;
+FaseLutea faseLutea;
+FaseFolicular faseFolicular;
 
     /**
      * Constructor de la clase GenerarInforme.
@@ -95,16 +104,17 @@ public class GenerarInforme {
             document.add(new Paragraph("Última Menstruación: " + sdf.format(informe.getUltimaMenstruacion())));
             document.add(new Paragraph("Media Duración del Periodo: " + mediaSangrado));
             document.add(new Paragraph("Media Duración del Ciclo: " + mediaCiclo));
-            document.add(new Paragraph("Duración Fase Menstruación: ")); // Add the actual value
-            document.add(new Paragraph("Duración Fase Folicular: ")); // Add the actual value
-            document.add(new Paragraph("Duración Fase Ovulación: ")); // Add the actual value
-            document.add(new Paragraph("Duración Fase Lútea: ")); // Add the actual value
+            document.add(new Paragraph("Duración Fase Menstruación: " +faseMenstrual.getMediaDiasMenstrual() ));
+            document.add(new Paragraph("Duración Fase Folicular: " +faseFolicular.getMediaDiasFolicular())); // Add the actual value
+            document.add(new Paragraph("Duración Fase Ovulación: "+ faseOvulacion.getMediaDiasOvulacion())); // Add the actual value
+            document.add(new Paragraph("Duración Fase Lútea: " +faseLutea.getMediaDiasLutea()));
+            document.add(new Paragraph("Inicio Fase Menstruación: "+faseMenstrual.getInicioDiaMenstrual() )); // Add the actual value
+            document.add(new Paragraph("Inicio Fase Folicular: "+generateDiaFases.CalculoInicioFaseFolicular() )); // Add the actual value
+            document.add(new Paragraph("Inicio Fase Ovulación: " +generateDiaFases.CalculoInicioFaseOvulacion())); // Add the actual value
+            document.add(new Paragraph("Inicio Fase Lútea: " +generateDiaFases.CalculoInicioFaseLutea())); // Add the actual value// Add the actual value
             document.add(new Paragraph("\nPrevisión siguiente mes:", boldFont));
-            document.add(new Paragraph("Inicio Siguiente Periodo: ")); // Add the actual value
-            document.add(new Paragraph("Inicio Fase Mentruación: ")); // Add the actual value
-            document.add(new Paragraph("Inicio Fase Folicular: ")); // Add the actual value
-            document.add(new Paragraph("Inicio Fase Ovulación: ")); // Add the actual value
-            document.add(new Paragraph("Inicio Fase Lútea: ")); // Add the actual value
+            document.add(new Paragraph("Inicio Siguiente Periodo: " +generateDiaFases.CalculoSiguienteFaseMenstrual())); // Add the actual value
+
             document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
             document.add(new Paragraph("\"Los juegos de Sangre\"", boldFont));
 

@@ -115,7 +115,7 @@
               <grid row="1" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="com/interfaces/interfazinicio/images/User.png"/>
+              <icon value="com/img/User.png"/>
               <text value=""/>
             </properties>
           </component>
@@ -124,7 +124,7 @@
               <grid row="3" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="com/interfaces/interfazinicio/images/Password.png"/>
+              <icon value="com/img/Password.png"/>
               <text value=""/>
             </properties>
           </component>
@@ -143,7 +143,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="com/interfaces/interfazinicio/images/Calendario.jpg"/>
+              <icon value="com/img/Calendario.jpg"/>
               <text value=""/>
             </properties>
           </component>

@@ -9,11 +9,13 @@ package com.model.fases;
 
 import com.model.tiempo.Duracion;
 
+import java.util.Date;
+
 public class FaseLutea {
     int mediaDiasLutea;
     int duracionCiclo;
     int duracionMenstruacion;
-    int inicioDiaLutea;
+    Date inicioDiaLutea;
     Duracion duracion = Duracion.getInstance();
     FaseOvulacion ovulacion = new FaseOvulacion();
     FaseFolicular folicular = new FaseFolicular();

@@ -25,7 +25,7 @@ public class CuestionarioFInal {
     int duracionSangrado;
     Duracion duracion = new Duracion();
     private Usuario usuario;  // Almacena el usuario registrado
-    private Menstruacion menstruacion; // Instancia de Menstruacion
+     Menstruacion menstruacion=new Menstruacion();
 
     /**
      * Crea una nueva instancia de CuestionarioFinal.
@@ -61,7 +61,7 @@ public class CuestionarioFInal {
                     }
                     menstruacion.setMediaCiclo(duracionCiclo);
                     menstruacion.setMediaSangrado(duracionSangrado);
-                    new SelectorFecha(menstruacion); // Pasa la instancia de Menstruacion a SelectorFecha
+                    new SelectorFecha(); // Pasa la instancia de Menstruacion a SelectorFecha
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.");
                 } catch (IllegalArgumentException ex) {

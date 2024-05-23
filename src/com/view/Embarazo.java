@@ -1,6 +1,9 @@
 package com.view;
 
 import com.controller.GenerarInforme;
+import com.controller.GenerateDiaFases;
+import com.model.fases.FaseFolicular;
+import com.model.fases.FaseOvulacion;
 import com.model.funciones.Informe;
 import com.view.cuestionarios.uso.UsoProg;
 
@@ -13,8 +16,13 @@ public class Embarazo {
     private JButton buttonGenerarInforme;
     private JButton buttonVolver;
     private JLabel FaseFolicilar;
+        GenerateDiaFases generateDiaFases=new GenerateDiaFases();
 
     public Embarazo() {
+
+        String texto = "Tu periodo fertil comprende de: " +  generateDiaFases.CalculoInicioFaseOvulacion()+ "a" +generateDiaFases.CalculoInicioFaseLutea();
+        FaseFolicilar.setText(texto);
+
         buttonVolver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
