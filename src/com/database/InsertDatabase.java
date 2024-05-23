@@ -1,6 +1,6 @@
 package com.database;
 
-import com.model.Menstruacion;
+import com.model.funciones.Menstruacion;
 
 import javax.swing.*;
 import java.sql.Connection;

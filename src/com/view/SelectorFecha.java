@@ -1,8 +1,8 @@
 package com.view;
 
 import com.database.InsertDatabase;
-import com.model.DateLabelFormatter;
-import com.model.Menstruacion;
+import com.model.decoracion.DateLabelFormatter;
+import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.uso.UsoProg;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;

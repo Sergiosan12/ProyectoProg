@@ -2,7 +2,7 @@
  * La clase CreacionUsuario se encarga de la creación de usuarios en el sistema.
  * Contiene una referencia a un objeto Usuario.
  */
-package com.model;
+package com.model.usuario;
 
 public class CreacionUsuario {
 

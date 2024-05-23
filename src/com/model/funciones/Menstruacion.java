@@ -2,7 +2,7 @@
  * La clase Menstruacion representa la información de la menstruación de un usuario.
  * Contiene información como el nombre del usuario, la media del ciclo, la media del sangrado y la fecha del último periodo.
  */
-package com.model;
+package com.model.funciones;
 
 import java.util.Date;
 

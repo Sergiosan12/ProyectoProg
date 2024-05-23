@@ -1,11 +1,10 @@
 package com.view.interfazinicio.gui;
 
-import com.controller.GenerarInforme;
-import com.model.Informe;
-import com.model.RoundedBorder;
+import com.model.funciones.Informe;
+import com.model.decoracion.RoundedBorder;
 import com.view.cuestionarios.sangrado.CuestionarioFInal;
 import com.database.Database;
-import com.model.Usuario;
+import com.model.usuario.Usuario;
 
 import javax.swing.*;
 import java.awt.*;

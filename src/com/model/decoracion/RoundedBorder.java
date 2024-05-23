@@ -1,4 +1,4 @@
-package com.model;
+package com.model.decoracion;
 
 import javax.swing.border.Border;
 import java.awt.*;

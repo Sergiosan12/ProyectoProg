@@ -7,7 +7,7 @@
  */
 package com.model.fases;
 
-import com.model.Duracion;
+import com.model.tiempo.Duracion;
 
 public class FaseFolicular {
     int mediaDiasFolicular;

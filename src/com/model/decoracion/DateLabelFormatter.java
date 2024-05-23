@@ -1,4 +1,4 @@
-package com.model;
+package com.model.decoracion;
 
 import net.sourceforge.jdatepicker.impl.DateComponentFormatter;
 import java.text.ParseException;

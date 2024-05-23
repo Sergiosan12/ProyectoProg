@@ -1,6 +1,6 @@
 package com.view;
 
-import com.model.Duracion;
+import com.model.tiempo.Duracion;
 
 import javax.swing.*;
 import java.awt.*;

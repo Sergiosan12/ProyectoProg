@@ -2,7 +2,7 @@
  * La clase Usuario representa a un usuario en el sistema.
  * Contiene información como id, nombre, email, contraseña, edad y nombre de usuario.
  */
-package com.model;
+package com.model.usuario;
 
 public class Usuario {
     private String nombre; // El nombre del usuario

@@ -13,12 +13,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
 
-import com.model.Informe;
-import com.model.Menstruacion;
-import com.model.Usuario;
+import com.model.funciones.Informe;
+import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 
 /**
  * La clase GenerarInforme se encarga de generar un informe en formato PDF.

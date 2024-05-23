@@ -5,7 +5,7 @@
  */
 package com.model.fases;
 
-import com.model.Duracion;
+import com.model.tiempo.Duracion;
 
 public class FaseMenstrual {
     public int inicioDiaMenstrual = 1; // Por defecto, el día de inicio de la fase menstrual es el día 1 del ciclo.

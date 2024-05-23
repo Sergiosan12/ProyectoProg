@@ -1,4 +1,4 @@
-package com.model;
+package com.model.tiempo;
 
 /**
  * La clase Duracion representa la duración de las diferentes fases del ciclo menstrual.

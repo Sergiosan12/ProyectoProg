@@ -1,5 +1,6 @@
-package com.model;
+package com.model.funciones;
 
+import com.model.tiempo.Duracion;
 import com.view.CuestionarioSwing;
 
 /**

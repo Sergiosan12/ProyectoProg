@@ -1,7 +1,7 @@
 package com.view.deporte;
 
 import com.controller.GenerarInforme;
-import com.model.Informe;
+import com.model.funciones.Informe;
 import com.view.cuestionarios.uso.UsoProg;
 
 import javax.swing.*;

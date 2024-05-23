@@ -2,23 +2,10 @@ package com.controller;
 
 import com.database.DatabaseHandlerMenstruacion;
 import com.database.DatabaseHandlerUsuario;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.Font;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
 
-import com.model.Informe;
-import com.model.Menstruacion;
-import com.model.Usuario;
+import com.model.funciones.Informe;
+import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 
 /**
  * La clase GenerarInforme se encarga de generar un informe en formato PDF.

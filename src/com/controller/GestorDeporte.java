@@ -1,6 +1,6 @@
 package com.controller;
 
-import com.model.Deporte;
+import com.model.funciones.Deporte;
 
 import java.util.ArrayList;
 import java.util.Arrays;

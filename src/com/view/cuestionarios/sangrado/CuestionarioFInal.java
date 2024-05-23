@@ -1,9 +1,9 @@
 package com.view.cuestionarios.sangrado;
 
 import com.view.SelectorFecha;
-import com.model.Duracion;
-import com.model.Menstruacion;
-import com.model.Usuario;
+import com.model.tiempo.Duracion;
+import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

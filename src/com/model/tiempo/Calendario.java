@@ -1,4 +1,4 @@
-package com.model;
+package com.model.tiempo;
 
 import javax.swing.*;
 import java.awt.*;

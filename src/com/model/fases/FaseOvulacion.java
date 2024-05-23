@@ -5,7 +5,7 @@
  */
 package com.model.fases;
 
-import com.model.Duracion;
+import com.model.tiempo.Duracion;
 
 public class FaseOvulacion {
     public int mediaDiasOvulacion = 3; // Por defecto, se establece una duración media de 3 días para la ovulación.

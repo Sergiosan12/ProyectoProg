@@ -1,6 +1,6 @@
 package com.database;
 
-import com.model.Usuario;
+import com.model.usuario.Usuario;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
