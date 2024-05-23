@@ -2,6 +2,7 @@ package com.view;
 
 import com.database.InsertDatabase;
 import com.model.decoracion.DateLabelFormatter;
+import com.model.fases.FaseMenstrual;
 import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.uso.UsoProg;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -34,7 +35,7 @@ public class SelectorFecha extends JFrame {
     private Date today;
     private Date oneYearAgo;
     InsertDatabase insertDatabase;
-
+FaseMenstrual faseMenstrual;
     /**
      * Crea una nueva instancia de {@code SelectorFecha}.
      *
@@ -66,7 +67,8 @@ public class SelectorFecha extends JFrame {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = sdf.format(selectedDate);
                 menstruacion.setLastperiod(selectedDate);
-                insertDatabase.insertDateIntoDatabase(menstruacion);
+                faseMenstrual.setInicioDiaMenstrual(selectedDate);
+                 insertDatabase.insertDateIntoDatabase(menstruacion);
                 dispose();
                 UsoProg usoProg = new UsoProg();
                 usoProg.setVisible(true);
