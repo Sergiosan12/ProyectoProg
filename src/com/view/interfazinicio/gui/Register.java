@@ -1,8 +1,10 @@
 package com.view.interfazinicio.gui;
 
+import com.controller.InformeBuilder;
 import com.model.funciones.Informe;
 import com.model.decoracion.RoundedBorder;
-import com.view.cuestionarios.sangrado.CuestionarioFInal;
+import com.sun.tools.javac.Main;
+import com.view.cuestionarios.sangrado.CuestionarioFinal;
 import com.database.Database;
 import com.model.usuario.Usuario;
 
@@ -10,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -39,11 +42,16 @@ public Informe informe=new Informe();
 
 
     private void insertDataIntoDatabase() {
+
+
+
      usuario.setNombre(fieldName.getText());
         usuario.setEdad((Integer) spinnerAge.getValue());
         usuario.setUsuario(fieldUser.getText());
         usuario.setEmail(fieldMail.getText());
         usuario.setContrasena(new String(fieldPassword.getPassword()));
+        InformeBuilder informeBuilder = new InformeBuilder();
+        informeBuilder.fromUsuario(usuario);
 
         String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email,edad ) VALUES (?, ?, ?, ?, ?)";
 
@@ -79,42 +87,47 @@ public Informe informe=new Informe();
         buttonVolver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                JFrame frame = new SignIn();
-                frame.setSize(1200, 570);
-                frame.setVisible(true);
-                frame.setLocationRelativeTo(null);
-                frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                try {
+                    dispose();
+                    JFrame frame = new SignIn();
+                    frame.setSize(1200, 570);
+                    frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
+                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         continuarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                insertDataIntoDatabase();
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            dispose();  // Cierra la ventana Register
-                            JFrame frame = new JFrame("Cuestionario Final");
-                            frame.setSize(600, 370);
-                            frame.setVisible(true);
-                            frame.setLocationRelativeTo(null);
-                            CuestionarioFInal cuestionario = new CuestionarioFInal(usuario);
-                            frame.getContentPane().add(cuestionario.panelPrincipal);
-                            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            JOptionPane.showMessageDialog(null, "Error al abrir la ventana CuestionarioFInal: " + ex.getMessage());
+                try {
+                    insertDataIntoDatabase();
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                dispose();  // Cierra la ventana Register
+                                JFrame frame = new JFrame("Cuestionario Final");
+                                frame.setSize(600, 370);
+                                frame.setVisible(true);
+                                frame.setLocationRelativeTo(null);
+                                CuestionarioFinal cuestionario = new CuestionarioFinal(usuario);
+                                frame.getContentPane().add(cuestionario.panelPrincipal);
+                                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "Error al abrir la ventana Cuestionario " + ex.getMessage());
+                            }
                         }
-                    }
-                });
-                informe.setUsuario(usuario.getUsuario());
-                JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
-
+                    });
+                    informe.setUsuario(usuario.getUsuario());
+                    JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
-
-
     }

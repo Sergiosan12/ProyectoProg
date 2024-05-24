@@ -1,15 +1,11 @@
 package com.view.cuestionarios.uso;
 
-import com.database.DatabaseHandlerDeporte;
 import com.model.funciones.Menstruacion;
 import com.view.Embarazo;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * La clase UsoProg representa una interfaz gráfica de usuario que permite al usuario seleccionar el uso que le dará a la aplicación.
@@ -22,7 +18,6 @@ public class UsoProg {
     private JButton planningOcioButton;
     private JPanel PanelPrincipal;
     private JFrame frame;
-    private Menstruacion menstruacion;
 
     /**
      * Crea una nueva instancia de UsoProg.
@@ -30,81 +25,60 @@ public class UsoProg {
      * @param menstruacion la instancia de Menstruacion que se pasará a otras vistas
      */
     public UsoProg(Menstruacion menstruacion) {
-        this.menstruacion = menstruacion;
-        frame = new JFrame("UsoProg");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 300);
-        frame.setLocationRelativeTo(null);
-        frame.setContentPane(PanelPrincipal);
+        try {
+            frame = new JFrame("UsoProg");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(500, 300);
+            frame.setLocationRelativeTo(null);
+            frame.setContentPane(PanelPrincipal);
 
-        buttonEmbarazo.addActionListener(new ActionListener() {
+            buttonEmbarazo.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        Embarazo embarazo = new Embarazo(menstruacion);
+                        JFrame embarazoFrame = new JFrame("Embarazo");
+                        embarazoFrame.setContentPane(embarazo.getPanel());
+                        embarazoFrame.pack();
+                        embarazoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        embarazoFrame.setVisible(true);
+                        frame.dispose(); // Cierra la ventana actual
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+
+        buttonDeporte.addActionListener(new ActionListener() {
             /**
-             * Ocurre cuando se hace clic en el botón de embarazo.
+             * Invoked when an action occurs.
              *
-             * @param e evento que se produce al hacer clic en el botón.
+             * @param e el evento que se procesa
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                Embarazo embarazo = new Embarazo(menstruacion);
-                JFrame embarazoFrame = new JFrame("Embarazo");
-                embarazoFrame.setContentPane(embarazo.getPanel());
-                embarazoFrame.pack();
-                embarazoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                embarazoFrame.setVisible(true);
-                frame.dispose();
-            }
-        });
-
-        buttonDeporte.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+                // Lógica para el botón de deporte
                 try {
-                    // Crear una nueva instancia de DatabaseHandlerDeporte
-                    DatabaseHandlerDeporte dbHandler = new DatabaseHandlerDeporte();
-
-                    // Crear un nuevo JFrame
-                    JFrame frame = new JFrame("Deportes por Fase");
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frame.setLayout(new BorderLayout());
-                    frame.getContentPane().setBackground(Color.decode("#FFF1F1"));
-
-                    // Crear un panel para los JComboBox
-                    JPanel centerPanel = new JPanel();
-                    centerPanel.setLayout(new GridLayout(4, 1));
-                    centerPanel.setBackground(Color.decode("#FFF1F1"));
-
-                    // Obtener los nombres de las fases
-                    List<String> fases = dbHandler.getFases();
-
-                    // Crear y agregar los JComboBox al panel
-                    for (String fase : fases) {
-                        List<String> deportes = dbHandler.getDeportesPorFase(fase);
-                        JComboBox<String> comboBox = new JComboBox<>(deportes.toArray(new String[0]));
-                        comboBox.setBorder(BorderFactory.createTitledBorder(fase));
-                        comboBox.setBackground(Color.decode("#FFF1F1"));
-                        centerPanel.add(comboBox);
-                    }
-
-                    frame.add(centerPanel, BorderLayout.CENTER);
-
-                    // Configurar el marco y hacerlo visible
-                    frame.pack();
-                    frame.setVisible(true);
-                    frame.setResizable(false);
-                    frame.setLocationRelativeTo(null);
-
-                } catch (SQLException sqlException) {
-                    sqlException.printStackTrace();
+                    // Código que puede lanzar una excepción
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         });
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     /**
      * Establece la visibilidad de la interfaz gráfica de usuario.
      * @param b un booleano que indica si la interfaz gráfica de usuario debe ser visible o no
      */
     public void setVisible(boolean b) {
-        frame.setVisible(b);
+        try {
+            frame.setVisible(b);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

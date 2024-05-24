@@ -20,7 +20,7 @@ public class InformeBuilder {
         this.informe = new Informe();
     }
 
-    public InformeBuilder fromUsuario(Usuario usuario) {
+    public  InformeBuilder fromUsuario(Usuario usuario) {
         informe.setUsuario(usuario.getUsuario());
         informe.setNombre(usuario.getNombre());
         informe.setEmail(usuario.getEmail());
