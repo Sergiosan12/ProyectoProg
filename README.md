@@ -89,37 +89,4 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 
 2. Implementación de la base de datos en las interfaces 
 
-3. Creación del Selector del `Calendario` con JDatePicker
-
-## 20/05/2024
-
-1. Implementación de los datos de la base de datos en la generación del informe en formato PDF.
-
-2. Creaciónde la clase `Deportes` y generación de un array de deportes con diferentes intensidades asociados a una fase.
-
-## 21/05/2024
-
-1. Implementación de la tabla menstruación en el programa.
- 
-## 22/05/2024
-
-1. Creación de las tablas deporte, fases y su relación en las bases de datos.
-
-2. Metidos deportes y las fases en la base de datos.
-
-3. Creación del javadoc para todas las clases.
-
-4. Organizado en estructura MVC.
-
-5. Refactorización de código de `GenerarInforme` y `SelectorFecha`.
-
-6. Separación de métodos en `InsertDatabase` y `HandleDatabase`.
-
-## 24/05/2024
-
-1. gestión de los datos de la base de datos de deportes y fases para pasarlos a un JComboBox.
-
-2. Creación de la interfaz para gestionar el Embarazo.
-
-3. Mejora en la creación del informe en PDF e inserción en la interfaz de embarazo.
-
+3. Creación del Selector del Calendario con JDatePicker
