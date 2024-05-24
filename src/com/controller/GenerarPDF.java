@@ -66,38 +66,99 @@ public class GenerarPDF {
         InformeBuilder builder = new InformeBuilder();
         configuracion=builder.build();
         String usuario = configuracion.getUsuario();
+        String lastPeriod = "N/A"; // Default value
+        if (configuracion.getLastperiod() != null) {
+            lastPeriod = sdf.format(configuracion.getLastperiod());
+        }
 
-        /**
-         * Crea un documento PDF y añade la información del informe.
-         */
+        String inicioFaseMenstrual = "N/A"; // Valor por defecto
+        if (configuracion.getInicioFaseMenstrual() != null) {
+            inicioFaseMenstrual = sdf.format(configuracion.getInicioFaseMenstrual());
+        }
+
+        String inicioFaseFolicular = "N/A"; // Valor por defecto
+        if (configuracion.getInicioFaseFolicular() != null) {
+            inicioFaseFolicular = sdf.format(configuracion.getInicioFaseFolicular());
+        }
+
+        String inicioFaseOvulacion = "N/A"; // Valor por defecto
+        if (configuracion.getInicioFaseOvulacion() != null) {
+            inicioFaseOvulacion = sdf.format(configuracion.getInicioFaseOvulacion());
+        }
+
+        String inicioFaseLutea = "N/A"; // Valor por defecto
+        if (configuracion.getInicioFaseLutea() != null) {
+            inicioFaseLutea = sdf.format(configuracion.getInicioFaseLutea());
+        }
+        String siguientePeriodo = "N/A"; // Valor por defecto
+        if (configuracion.getInicioSiguientePeriodo() != null) {
+            siguientePeriodo = sdf.format(configuracion.getInicioSiguientePeriodo());
+        }
+        // Imprimir valores para depuración
+        System.out.println("Nombre: " + configuracion.getNombre());
+        System.out.println("Edad: " + configuracion.getEdad());
+        System.out.println("Última Menstruación: " + lastPeriod);
+        System.out.println("Media Duración del Periodo: " + configuracion.getMediaSangrado());
+        System.out.println("Media Duración del Ciclo: " + configuracion.getMediaCiclo());
+
         Document document = new Document();
         try {
             PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
+            System.out.println("Documento PDF abierto correctamente.");
 
             Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-
+            System.out.println("Generando informe...");
             document.add(new Paragraph("Nombre: " + configuracion.getNombre(), boldFont));
+            System.out.println("Generando informe...");
             document.add(new Paragraph("Edad: " + configuracion.getEdad(), boldFont));
             document.add(new Paragraph("\nInformaciones generales:", boldFont));
-            document.add(new Paragraph("Última Menstruación: " + sdf.format(configuracion.getLastperiod())));
+            document.add(new Paragraph("Última Menstruación: " + lastPeriod));
+            System.out.println("Generando informe...");
             document.add(new Paragraph("Media Duración del Periodo: " + configuracion.getMediaSangrado()));
+                       System.out.println("Generando informe...");
+
             document.add(new Paragraph("Media Duración del Ciclo: " + configuracion.getMediaCiclo()));
+                        System.out.println("Generando informe...");
+
             document.add(new Paragraph("Duración Fase Menstruación: " + configuracion.getDuracionFaseMenstrual()));
+                        System.out.println("Generando informe...");
+
             document.add(new Paragraph("Duración Fase Folicular: " + configuracion.getDuracionFaseFolicular()));
+                       System.out.println("Generando informe...5");
+
             document.add(new Paragraph("Duración Fase Ovulación: " + configuracion.getDuracionFaseOvulacion()));
+                       System.out.println("Generando informe...");
+
             document.add(new Paragraph("Duración Fase Lútea: " + configuracion.getDuracionFaseLutea()));
-            document.add(new Paragraph("Inicio Fase Menstrual: " + sdf.format(configuracion.getInicioFaseMenstrual())));
-            document.add(new Paragraph("Inicio Fase Folicular: " + sdf.format(configuracion.getInicioFaseFolicular())));
-            document.add(new Paragraph("Inicio Fase Ovulación: " + sdf.format(configuracion.getInicioFaseOvulacion())));
-            document.add(new Paragraph("Inicio Fase Lútea: " + sdf.format(configuracion.getInicioFaseLutea())));
+                        System.out.println("Generando informe...");
+
+            document.add(new Paragraph("Inicio Fase Menstrual: " + inicioFaseMenstrual));
+                      System.out.println("Generando informe...");
+
+            document.add(new Paragraph("Inicio Fase Folicular: " + inicioFaseFolicular));
+                       System.out.println("Generando informe...");
+
+            document.add(new Paragraph("Inicio Fase Ovulación: " + inicioFaseOvulacion));
+                       System.out.println("Generando informe...");
+
+            document.add(new Paragraph("Inicio Fase Lútea: " + inicioFaseLutea));
             document.add(new Paragraph("\nPrevisión siguiente mes:", boldFont));
-            document.add(new Paragraph("Inicio Siguiente Periodo: " + sdf.format(configuracion.getInicioSiguientePeriodo())));
+            System.out.println("Generando informe...10");
+
+            document.add(new Paragraph("Inicio Siguiente Periodo: " + siguientePeriodo));
 
             document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
+                        System.out.println("Generando informe...11");
+
             document.add(new Paragraph("\"Los juegos de Sangre\"", boldFont));
 
+            System.out.println("Generando informe...12");
+
             document.close();
+
+            // Imprimir mensaje para confirmar que el documento se cerró correctamente
+            System.out.println("Documento PDF cerrado correctamente.");
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
