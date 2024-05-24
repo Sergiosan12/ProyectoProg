@@ -5,6 +5,7 @@ import com.model.decoracion.DateLabelFormatter;
 import com.model.fases.FaseMenstrual;
 import com.model.funciones.LastPeriod;
 import com.model.funciones.Menstruacion;
+import com.model.tiempo.Duracion;
 import com.view.cuestionarios.uso.UsoProg;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -30,7 +31,7 @@ public class SelectorFecha extends JFrame {
     LastPeriod lastPeriod = new LastPeriod();
     Menstruacion menstruacion;
 
-    public SelectorFecha(Menstruacion menstruacion) {
+    public SelectorFecha(Menstruacion menstruacion, Duracion duracion) {
         this.menstruacion = menstruacion; // Asegúrate de que la instancia se asigna aquí
         JPanel panel = getjPanel();
         getBtnContinuar(panel);

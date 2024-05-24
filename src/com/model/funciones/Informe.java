@@ -6,6 +6,7 @@ import java.util.Date;
  * La clase Informe modela un informe sobre el ciclo menstrual de la usuaria.
  */
 public class Informe {
+    private String usuario;
     private String nombre;
     private String email;
     private String contrasenha;
@@ -23,7 +24,14 @@ public class Informe {
     private Date inicioFaseLutea;
     private Date inicioSiguientePeriodo;
 
-    // Getters and setters for all fields
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+// Getters and setters for all fields
 
     public String getNombre() {
         return nombre;

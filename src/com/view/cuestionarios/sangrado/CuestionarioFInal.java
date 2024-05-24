@@ -18,8 +18,9 @@ public class CuestionarioFInal {
     private JSpinner numerSangrado;
     int duracionCiclo;
     int duracionSangrado;
+    private Usuario usuario;
     Duracion duracion = new Duracion();
-    private Usuario usuario;  // Almacena el usuario registrado
+    // Almacena el usuario registrado
     private Menstruacion menstruacion;
 
     public CuestionarioFInal(Usuario usuario) {
@@ -47,7 +48,7 @@ public class CuestionarioFInal {
                     }
                     menstruacion.setMediaCiclo(duracionCiclo);
                     menstruacion.setMediaSangrado(duracionSangrado);
-                    new SelectorFecha(menstruacion); // Pasa la instancia de Menstruacion a SelectorFecha
+                    new SelectorFecha(menstruacion,duracion); // Pasa la instancia de Menstruacion a SelectorFecha
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.");
                 } catch (IllegalArgumentException ex) {

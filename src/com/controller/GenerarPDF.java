@@ -12,42 +12,43 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Locale;
 
+import com.model.funciones.Informe;
+import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 import com.model.fases.FaseFolicular;
 import com.model.fases.FaseLutea;
 import com.model.fases.FaseMenstrual;
 import com.model.fases.FaseOvulacion;
-import com.model.funciones.Informe;
-import com.model.funciones.Menstruacion;
-import com.model.usuario.Usuario;
 
 /**
- * La clase GenerarInforme se encarga de generar un informe en formato PDF.
+ * La clase GenerarPDF se encarga de generar un informe en formato PDF.
  * El informe incluye información sobre el ciclo menstrual de la usuaria.
  */
 public class GenerarPDF {
-    private Informe informe;
-    String nombre;
-    String email;
-    String contrasenha;
-    int edad;
-    int mediaCiclo;
-    int mediaSangrado;
-    Date lastperiod;
-    GenerateDiaFases generateDiaFases;
-    FaseMenstrual faseMenstrual;
-    FaseOvulacion faseOvulacion;
-FaseLutea faseLutea;
-FaseFolicular faseFolicular;
+    private Informe configuracion;
+    private FaseMenstrual faseMenstrual;
+    private FaseFolicular faseFolicular;
+    private FaseOvulacion faseOvulacion;
+    private FaseLutea faseLutea;
+    private GenerateDiaFases generateDiaFases;
+
+    public GenerarPDF() {
+    }
 
     /**
-     * Constructor de la clase GenerarInforme.
+     * Constructor de la clase GenerarPDF.
      *
      * @param informe El informe que se va a generar.
      */
-    public GenerarPDF(Informe informe) {
-        this.informe = informe;
+    public GenerarPDF(Informe informe, FaseMenstrual faseMenstrual, FaseFolicular faseFolicular,
+                      FaseOvulacion faseOvulacion, FaseLutea faseLutea, GenerateDiaFases generateDiaFases) {
+        this.faseMenstrual = faseMenstrual;
+        this.faseFolicular = faseFolicular;
+        this.faseOvulacion = faseOvulacion;
+        this.faseLutea = faseLutea;
+        this.generateDiaFases = generateDiaFases;
     }
 
     /**
@@ -62,31 +63,9 @@ FaseFolicular faseFolicular;
         DateTimeFormatter monthYearFormat = DateTimeFormatter.ofPattern("MM_yyyy");
         LocalDate fechaInforme = LocalDate.now();
         String fileName = "Informe_" + fechaInforme.format(monthYearFormat) + ".pdf";
-
-        // Obtener los datos del usuario
-        // Obtener los datos del usuario
-        // Obtener los datos del usuario
-        String usuario = informe.getUsuario();
-
-        // Crear una instancia de DatabaseHandler
-        DatabaseHandlerUsuario dbHandler = new DatabaseHandlerUsuario();
-        Usuario usuarioData = dbHandler.selectData(usuario);
-        DatabaseHandlerMenstruacion dbHandler2 = new DatabaseHandlerMenstruacion();
-        Menstruacion menstruaciondata = dbHandler2.selectData(usuario);
-
-        if (usuarioData != null) {
-            nombre = usuarioData.getNombre();
-            email = usuarioData.getEmail();
-            contrasenha = usuarioData.getContrasena();
-            edad = usuarioData.getEdad();
-            mediaCiclo = menstruaciondata.getMediaCiclo();
-            mediaSangrado = menstruaciondata.getMediaSangrado();
-            lastperiod = menstruaciondata.getLastperiod();
-
-
-        } else {
-            System.out.println("No se encontró ningún usuario con el nombre proporcionado: " + usuario);
-        }
+        InformeBuilder builder = new InformeBuilder();
+        configuracion=builder.build();
+        String usuario = configuracion.getUsuario();
 
         /**
          * Crea un documento PDF y añade la información del informe.
@@ -98,22 +77,22 @@ FaseFolicular faseFolicular;
 
             Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
-            document.add(new Paragraph("Nombre: " + nombre, boldFont));
-            document.add(new Paragraph("Edad " + sdf.format(edad), boldFont));
+            document.add(new Paragraph("Nombre: " + configuracion.getNombre(), boldFont));
+            document.add(new Paragraph("Edad: " + configuracion.getEdad(), boldFont));
             document.add(new Paragraph("\nInformaciones generales:", boldFont));
-            document.add(new Paragraph("Última Menstruación: " + sdf.format(informe.getUltimaMenstruacion())));
-            document.add(new Paragraph("Media Duración del Periodo: " + mediaSangrado));
-            document.add(new Paragraph("Media Duración del Ciclo: " + mediaCiclo));
-            document.add(new Paragraph("Duración Fase Menstruación: " +faseMenstrual.getMediaDiasMenstrual() ));
-            document.add(new Paragraph("Duración Fase Folicular: " +faseFolicular.getMediaDiasFolicular())); // Add the actual value
-            document.add(new Paragraph("Duración Fase Ovulación: "+ faseOvulacion.getMediaDiasOvulacion())); // Add the actual value
-            document.add(new Paragraph("Duración Fase Lútea: " +faseLutea.getMediaDiasLutea()));
-            document.add(new Paragraph("Inicio Fase Menstruación: "+faseMenstrual.getInicioDiaMenstrual() )); // Add the actual value
-            document.add(new Paragraph("Inicio Fase Folicular: "+generateDiaFases.CalculoInicioFaseFolicular() )); // Add the actual value
-            document.add(new Paragraph("Inicio Fase Ovulación: " +generateDiaFases.CalculoInicioFaseOvulacion())); // Add the actual value
-            document.add(new Paragraph("Inicio Fase Lútea: " +generateDiaFases.CalculoInicioFaseLutea())); // Add the actual value// Add the actual value
+            document.add(new Paragraph("Última Menstruación: " + sdf.format(configuracion.getLastperiod())));
+            document.add(new Paragraph("Media Duración del Periodo: " + configuracion.getMediaSangrado()));
+            document.add(new Paragraph("Media Duración del Ciclo: " + configuracion.getMediaCiclo()));
+            document.add(new Paragraph("Duración Fase Menstruación: " + configuracion.getDuracionFaseMenstrual()));
+            document.add(new Paragraph("Duración Fase Folicular: " + configuracion.getDuracionFaseFolicular()));
+            document.add(new Paragraph("Duración Fase Ovulación: " + configuracion.getDuracionFaseOvulacion()));
+            document.add(new Paragraph("Duración Fase Lútea: " + configuracion.getDuracionFaseLutea()));
+            document.add(new Paragraph("Inicio Fase Menstrual: " + sdf.format(configuracion.getInicioFaseMenstrual())));
+            document.add(new Paragraph("Inicio Fase Folicular: " + sdf.format(configuracion.getInicioFaseFolicular())));
+            document.add(new Paragraph("Inicio Fase Ovulación: " + sdf.format(configuracion.getInicioFaseOvulacion())));
+            document.add(new Paragraph("Inicio Fase Lútea: " + sdf.format(configuracion.getInicioFaseLutea())));
             document.add(new Paragraph("\nPrevisión siguiente mes:", boldFont));
-            document.add(new Paragraph("Inicio Siguiente Periodo: " +generateDiaFases.CalculoSiguienteFaseMenstrual())); // Add the actual value
+            document.add(new Paragraph("Inicio Siguiente Periodo: " + sdf.format(configuracion.getInicioSiguientePeriodo())));
 
             document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
             document.add(new Paragraph("\"Los juegos de Sangre\"", boldFont));
@@ -123,5 +102,4 @@ FaseFolicular faseFolicular;
             e.printStackTrace();
         }
     }
-
 }

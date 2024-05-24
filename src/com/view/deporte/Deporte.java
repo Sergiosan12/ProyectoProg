@@ -32,7 +32,7 @@ public class Deporte {
             public void actionPerformed(ActionEvent e) {
                 // Crea una nueva instancia de Informe
                 Informe informe = new Informe();
-                GenerarPDF generarPDF = new GenerarPDF(informe);
+                GenerarPDF generarPDF = new GenerarPDF();
             }
         });
     }

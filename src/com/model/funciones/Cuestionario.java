@@ -1,7 +1,6 @@
 package com.model.funciones;
 
 import com.model.tiempo.Duracion;
-import com.view.CuestionarioSwing;
 
 /**
  * La clase Cuestionario es una clase singleton que maneja una instancia de CuestionarioSwing y Duracion.

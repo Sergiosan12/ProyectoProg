@@ -37,8 +37,8 @@ public class Embarazo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Informe informe = new Informe();
-                GenerarPDF generarPDF = new GenerarPDF(informe);
-generarPDF.generarInforme();
+                GenerarPDF generarPDF = new GenerarPDF();
+                generarPDF.generarInforme();
             }
         });
     }
