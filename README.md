@@ -1,6 +1,6 @@
-# Proyecto Java Keyla y Sergio  
+# Proyecto Java Keyla y Sergio
 
-Este proyecto de programación tiene como objetivo desarrollar un programa de calendario menstrual que también incluya funciones relacionadas con el ocio, deporte, embarazo y rutinas normales. 
+Este proyecto de programación tiene como objetivo desarrollar un programa de calendario menstrual que también incluya funciones relacionadas con el ocio, deporte, embarazo y rutinas normales.
 
 ---
 
@@ -8,27 +8,27 @@ Este proyecto de programación tiene como objetivo desarrollar un programa de ca
 
 ## Estructuración del Proyecto:
 
-Creacion de paquetes organizados segun funciones siguiendo la estructura MVC (Model, Controller, Vista) : 
+Creacion de paquetes organizados segun funciones siguiendo la estructura MVC (Model, Controller, Vista) :
 
-### MODEL 
+### MODEL
 
 1. **Calendario:** Este paquete contendrá las clases y funciones necesarias para gestionar el calendario menstrual.
 
 2. **Fases:** Aquí se implementarán las funciones relacionadas con las diferentes fases del ciclo menstrual, como la menstruación, la ovulación, la fase lútea.
-   
+
 3. **Periodo:** Este paquete gestionará la información relacionada con el periodo menstrual de cada usuario, incluyendo la duración del ciclo, la fecha de inicio y la intensidad de los síntomas.
 
 4. **Usuario:** Por último, este paquete se encargará de gestionar los datos de los usuarios, como su información personal, preferencias y configuraciones.
 
-### CONTROLLER 
+### CONTROLLER
 
 1. **Funciones:** En este paquete se incluirán diversas funciones en las que podremos relacionar la parte de Modelo y la Vista
 
 
-### VIEW 
+### VIEW
 
 1. **Interfaces:** Aquí se implementarán las interfaces de usuario para interactuar con el programa, tanto en línea de comandos como gráficamente.
-   
+
 2. **Informe:** Este paquete contendrá funciones para generar informes y estadísticas sobre el ciclo menstrual y las actividades relacionadas.
 
 
@@ -87,6 +87,39 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 
 1. Enlace entre interfaces.
 
-2. Implementación de la base de datos en las interfaces 
+2. Implementación de la base de datos en las interfaces
 
-3. Creación del Selector del Calendario con JDatePicker
+3. Creación del Selector del `Calendario` con JDatePicker
+
+## 20/05/2024
+
+1. Implementación de los datos de la base de datos en la generación del informe en formato PDF.
+
+2. Creaciónde la clase `Deportes` y generación de un array de deportes con diferentes intensidades asociados a una fase.
+
+## 21/05/2024
+
+1. Implementación de la tabla menstruación en el programa.
+
+## 22/05/2024
+
+1. Creación de las tablas deporte, fases y su relación en las bases de datos.
+
+2. Metidos deportes y las fases en la base de datos.
+
+3. Creación del javadoc para todas las clases.
+
+4. Organizado en estructura MVC.
+
+5. Refactorización de código de `GenerarInforme` y `SelectorFecha`.
+
+6. Separación de métodos en `InsertDatabase` y `HandleDatabase`.
+
+## 24/05/2024
+
+1. gestión de los datos de la base de datos de deportes y fases para pasarlos a un JComboBox.
+
+2. Creación de la interfaz para gestionar el Embarazo.
+
+3. Mejora en la creación del informe en PDF e inserción en la interfaz de embarazo.
+
