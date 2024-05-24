@@ -1,10 +1,8 @@
 package com.view;
 
-import com.controller.GenerarInforme;
+import com.controller.GenerarPDF;
 import com.controller.GenerateDiaFases;
 import com.model.funciones.Menstruacion;
-import com.model.fases.FaseFolicular;
-import com.model.fases.FaseOvulacion;
 import com.model.funciones.Informe;
 import com.view.cuestionarios.uso.UsoProg;
 
@@ -17,6 +15,7 @@ public class Embarazo {
     private JButton buttonGenerarInforme;
     private JButton buttonVolver;
     private JLabel FaseFolicilar;
+    private JLabel FotoEmbarazo;
     private GenerateDiaFases generateDiaFases;
 
     public Embarazo(Menstruacion menstruacion) {
@@ -38,8 +37,8 @@ public class Embarazo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Informe informe = new Informe();
-                GenerarInforme generarInforme = new GenerarInforme(informe);
-generarInforme.generarInforme();
+                GenerarPDF generarPDF = new GenerarPDF(informe);
+generarPDF.generarInforme();
             }
         });
     }

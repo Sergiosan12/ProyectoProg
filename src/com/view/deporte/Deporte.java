@@ -1,8 +1,7 @@
 package com.view.deporte;
 
-import com.controller.GenerarInforme;
+import com.controller.GenerarPDF;
 import com.model.funciones.Informe;
-import com.view.cuestionarios.uso.UsoProg;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -33,7 +32,7 @@ public class Deporte {
             public void actionPerformed(ActionEvent e) {
                 // Crea una nueva instancia de Informe
                 Informe informe = new Informe();
-                GenerarInforme generarInforme = new GenerarInforme(informe);
+                GenerarPDF generarPDF = new GenerarPDF(informe);
             }
         });
     }

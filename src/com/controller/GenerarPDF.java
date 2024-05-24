@@ -26,7 +26,7 @@ import com.model.usuario.Usuario;
  * La clase GenerarInforme se encarga de generar un informe en formato PDF.
  * El informe incluye información sobre el ciclo menstrual de la usuaria.
  */
-public class GenerarInforme {
+public class GenerarPDF {
     private Informe informe;
     String nombre;
     String email;
@@ -46,7 +46,7 @@ FaseFolicular faseFolicular;
      *
      * @param informe El informe que se va a generar.
      */
-    public GenerarInforme(Informe informe) {
+    public GenerarPDF(Informe informe) {
         this.informe = informe;
     }
 

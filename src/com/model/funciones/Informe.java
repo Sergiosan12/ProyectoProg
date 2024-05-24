@@ -6,44 +6,24 @@ import java.util.Date;
  * La clase Informe modela un informe sobre el ciclo menstrual de la usuaria.
  */
 public class Informe {
-    private String usuario;
     private String nombre;
-    private Date fechaInforme;
-    private Date fechaNacimiento;
-    private Date ultimaMenstruacion;
-    private String mediaDuracionPeriodo;
-    private String mediaDuracionCiclo;
+    private String email;
+    private String contrasenha;
+    private int edad;
+    private int mediaCiclo;
+    private int mediaSangrado;
+    private Date lastperiod;
+    private int duracionFaseMenstrual;
+    private int duracionFaseFolicular;
+    private int duracionFaseOvulacion;
+    private int duracionFaseLutea;
+    private Date inicioFaseMenstrual;
+    private Date inicioFaseFolicular;
+    private Date inicioFaseOvulacion;
+    private Date inicioFaseLutea;
+    private Date inicioSiguientePeriodo;
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    /**
-     * Constructor de la clase Informe.
-     * @param nombre de la usuaria.
-     * @param fechaInforme fecha en el que se genera el informe.
-     * @param fechaNacimiento de la usuaria.
-     * @param ultimaMenstruacion fecha de la última menstruación de la usuaria.
-     * @param mediaDuracionPeriodo de la usuaria.
-     * @param mediaDuracionCiclo de la usuaria.
-     */
-    public Informe(String nombre, Date fechaInforme, Date fechaNacimiento, Date ultimaMenstruacion, String mediaDuracionPeriodo, String mediaDuracionCiclo) {
-        this.nombre = nombre;
-        this.fechaInforme = fechaInforme;
-        this.fechaNacimiento = fechaNacimiento;
-        this.ultimaMenstruacion = ultimaMenstruacion;
-        this.mediaDuracionPeriodo = mediaDuracionPeriodo;
-        this.mediaDuracionCiclo = mediaDuracionCiclo;
-    }
-    public Informe(){
-
-    }
-
-    //getters y setters
+    // Getters and setters for all fields
 
     public String getNombre() {
         return nombre;
@@ -53,44 +33,123 @@ public class Informe {
         this.nombre = nombre;
     }
 
-    public Date getFechaInforme() {
-        return fechaInforme;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFechaInforme(Date fechaInforme) {
-        this.fechaInforme = fechaInforme;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public String getContrasenha() {
+        return contrasenha;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setContrasenha(String contrasenha) {
+        this.contrasenha = contrasenha;
     }
 
-    public Date getUltimaMenstruacion() {
-        return ultimaMenstruacion;
+    public int getEdad() {
+        return edad;
     }
 
-    public void setUltimaMenstruacion(Date ultimaMenstruacion) {
-        this.ultimaMenstruacion = ultimaMenstruacion;
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
-    public String getMediaDuracionPeriodo() {
-        return mediaDuracionPeriodo;
+    public int getMediaCiclo() {
+        return mediaCiclo;
     }
 
-    public void setMediaDuracionPeriodo(String mediaDuracionPeriodo) {
-        this.mediaDuracionPeriodo = mediaDuracionPeriodo;
+    public void setMediaCiclo(int mediaCiclo) {
+        this.mediaCiclo = mediaCiclo;
     }
 
-    public String getMediaDuracionCiclo() {
-        return mediaDuracionCiclo;
+    public int getMediaSangrado() {
+        return mediaSangrado;
     }
 
-    public void setMediaDuracionCiclo(String mediaDuracionCiclo) {
-        this.mediaDuracionCiclo = mediaDuracionCiclo;
+    public void setMediaSangrado(int mediaSangrado) {
+        this.mediaSangrado = mediaSangrado;
+    }
+
+    public Date getLastperiod() {
+        return lastperiod;
+    }
+
+    public void setLastperiod(Date lastperiod) {
+        this.lastperiod = lastperiod;
+    }
+
+    public int getDuracionFaseMenstrual() {
+        return duracionFaseMenstrual;
+    }
+
+    public void setDuracionFaseMenstrual(int duracionFaseMenstrual) {
+        this.duracionFaseMenstrual = duracionFaseMenstrual;
+    }
+
+    public int getDuracionFaseFolicular() {
+        return duracionFaseFolicular;
+    }
+
+    public void setDuracionFaseFolicular(int duracionFaseFolicular) {
+        this.duracionFaseFolicular = duracionFaseFolicular;
+    }
+
+    public int getDuracionFaseOvulacion() {
+        return duracionFaseOvulacion;
+    }
+
+    public void setDuracionFaseOvulacion(int duracionFaseOvulacion) {
+        this.duracionFaseOvulacion = duracionFaseOvulacion;
+    }
+
+    public int getDuracionFaseLutea() {
+        return duracionFaseLutea;
+    }
+
+    public void setDuracionFaseLutea(int duracionFaseLutea) {
+        this.duracionFaseLutea = duracionFaseLutea;
+    }
+
+    public Date getInicioFaseMenstrual() {
+        return inicioFaseMenstrual;
+    }
+
+    public void setInicioFaseMenstrual(Date inicioFaseMenstrual) {
+        this.inicioFaseMenstrual = inicioFaseMenstrual;
+    }
+
+    public Date getInicioFaseFolicular() {
+        return inicioFaseFolicular;
+    }
+
+    public void setInicioFaseFolicular(Date inicioFaseFolicular) {
+        this.inicioFaseFolicular = inicioFaseFolicular;
+    }
+
+    public Date getInicioFaseOvulacion() {
+        return inicioFaseOvulacion;
+    }
+
+    public void setInicioFaseOvulacion(Date inicioFaseOvulacion) {
+        this.inicioFaseOvulacion = inicioFaseOvulacion;
+    }
+
+    public Date getInicioFaseLutea() {
+        return inicioFaseLutea;
+    }
+
+    public void setInicioFaseLutea(Date inicioFaseLutea) {
+        this.inicioFaseLutea = inicioFaseLutea;
+    }
+
+    public Date getInicioSiguientePeriodo() {
+        return inicioSiguientePeriodo;
+    }
+
+    public void setInicioSiguientePeriodo(Date inicioSiguientePeriodo) {
+        this.inicioSiguientePeriodo = inicioSiguientePeriodo;
     }
 }
-
