@@ -1,11 +1,15 @@
 package com.view.cuestionarios.uso;
 
+import com.database.DatabaseHandlerDeporte;
 import com.model.funciones.Menstruacion;
 import com.view.Embarazo;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * La clase UsoProg representa una interfaz gráfica de usuario que permite al usuario seleccionar el uso que le dará a la aplicación.
@@ -47,21 +51,54 @@ public class UsoProg {
                 embarazoFrame.pack();
                 embarazoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 embarazoFrame.setVisible(true);
-                frame.dispose(); // Cierra la ventana actual
+                frame.dispose();
             }
         });
 
         buttonDeporte.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e el evento que se procesa
-             */
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Lógica para el botón de deporte
+                try {
+                    // Crear una nueva instancia de DatabaseHandlerDeporte
+                    DatabaseHandlerDeporte dbHandler = new DatabaseHandlerDeporte();
+
+                    // Crear un nuevo JFrame
+                    JFrame frame = new JFrame("Deportes por Fase");
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.setLayout(new BorderLayout());
+                    frame.getContentPane().setBackground(Color.decode("#FFF1F1"));
+
+                    // Crear un panel para los JComboBox
+                    JPanel centerPanel = new JPanel();
+                    centerPanel.setLayout(new GridLayout(4, 1));
+                    centerPanel.setBackground(Color.decode("#FFF1F1"));
+
+                    // Obtener los nombres de las fases
+                    List<String> fases = dbHandler.getFases();
+
+                    // Crear y agregar los JComboBox al panel
+                    for (String fase : fases) {
+                        List<String> deportes = dbHandler.getDeportesPorFase(fase);
+                        JComboBox<String> comboBox = new JComboBox<>(deportes.toArray(new String[0]));
+                        comboBox.setBorder(BorderFactory.createTitledBorder(fase));
+                        comboBox.setBackground(Color.decode("#FFF1F1"));
+                        centerPanel.add(comboBox);
+                    }
+
+                    frame.add(centerPanel, BorderLayout.CENTER);
+
+                    // Configurar el marco y hacerlo visible
+                    frame.pack();
+                    frame.setVisible(true);
+                    frame.setResizable(false);
+                    frame.setLocationRelativeTo(null);
+
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();
+                }
             }
         });
+
     }
     /**
      * Establece la visibilidad de la interfaz gráfica de usuario.

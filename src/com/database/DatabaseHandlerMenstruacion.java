@@ -5,7 +5,7 @@ import com.model.funciones.Menstruacion;
 import java.sql.*;
 
 public class DatabaseHandlerMenstruacion {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/proyectodb";
     private static final String USER = "postgres";
     private static final String PASS = "debian";
 

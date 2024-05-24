@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DatabaseHandlerUsuario {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/proyectodb";
     private static final String USER = "postgres";
     private static final String PASS = "debian";
 
