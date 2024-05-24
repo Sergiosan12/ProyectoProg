@@ -1,5 +1,6 @@
 package com.view.cuestionarios.uso;
 
+import com.model.funciones.Menstruacion;
 import com.view.Embarazo;
 
 import javax.swing.*;
@@ -17,17 +18,21 @@ public class UsoProg {
     private JButton planningOcioButton;
     private JPanel PanelPrincipal;
     private JFrame frame;
+    private Menstruacion menstruacion;
 
     /**
      * Crea una nueva instancia de UsoProg.
      * Inicializa la interfaz gráfica de usuario y configura los listeners de los botones.
+     * @param menstruacion la instancia de Menstruacion que se pasará a otras vistas
      */
-    public UsoProg() {
+    public UsoProg(Menstruacion menstruacion) {
+        this.menstruacion = menstruacion;
         frame = new JFrame("UsoProg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 300);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(PanelPrincipal);
+
         buttonEmbarazo.addActionListener(new ActionListener() {
             /**
              * Ocurre cuando se hace clic en el botón de embarazo.
@@ -36,35 +41,28 @@ public class UsoProg {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Embarazo embarazo = new Embarazo(menstruacion);
+                JFrame embarazoFrame = new JFrame("Embarazo");
+                embarazoFrame.setContentPane(embarazo.getPanel());
+                embarazoFrame.pack();
+                embarazoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                embarazoFrame.setVisible(true);
+                frame.dispose(); // Cierra la ventana actual
             }
         });
-
 
         buttonDeporte.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
              *
-             * @param e the event to be processed
+             * @param e el evento que se procesa
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        buttonEmbarazo.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Embarazo embarazo= new Embarazo();
+                // Lógica para el botón de deporte
             }
         });
     }
-
     /**
      * Establece la visibilidad de la interfaz gráfica de usuario.
      * @param b un booleano que indica si la interfaz gráfica de usuario debe ser visible o no
@@ -72,5 +70,4 @@ public class UsoProg {
     public void setVisible(boolean b) {
         frame.setVisible(b);
     }
-
 }

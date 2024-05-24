@@ -60,8 +60,7 @@ public class SignIn extends JFrame {
             String password = String.valueOf(passwordEcrypted);
 
             if (checkCredentials(userName, password)) {
-                UsoProg usoProg = new UsoProg();
-                usoProg.setVisible(true);
+
             } else if (userName.isEmpty() || password.isEmpty()) {
                 verdictLabel.setText("Some credentials are empty. Try it again");
             } else {

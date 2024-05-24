@@ -116,13 +116,5 @@ public Informe informe=new Informe();
         });
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Register register = new Register();
-            register.setSize(600, 400);  // Establece el tamaño de la ventana
-            register.setVisible(true);
-            register.setLocationRelativeTo(null);
-            register.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        });
+
     }
-}

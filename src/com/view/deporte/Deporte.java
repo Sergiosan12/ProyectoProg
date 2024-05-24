@@ -19,9 +19,6 @@ public class Deporte {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Crea una nueva instancia de UsoProg
-                UsoProg usoProg = new UsoProg();
-                // Hace visible la nueva instancia de UsoProg
-                usoProg.setVisible(true);
                 // Cierra la ventana actual
                 ((JFrame) SwingUtilities.getWindowAncestor(panel1)).dispose();
             }

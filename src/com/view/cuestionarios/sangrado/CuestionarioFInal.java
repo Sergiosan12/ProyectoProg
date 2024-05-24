@@ -9,11 +9,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * La clase CuestionarioFinal representa el cuestionario final que el usuario debe completar.
- * Este cuestionario recoge la duración del ciclo y la duración del sangrado del usuario.
- * Los datos recogidos se utilizan para calcular la duración media del ciclo y del sangrado.
- */
 public class CuestionarioFInal {
     public JPanel panelPrincipal;
     private JLabel lblCiclo;
@@ -25,13 +20,8 @@ public class CuestionarioFInal {
     int duracionSangrado;
     Duracion duracion = new Duracion();
     private Usuario usuario;  // Almacena el usuario registrado
-     Menstruacion menstruacion=new Menstruacion();
+    private Menstruacion menstruacion;
 
-    /**
-     * Crea una nueva instancia de CuestionarioFinal.
-     * Inicializa la duración del ciclo y la duración del sangrado.
-     * @param usuario el usuario que está completando el cuestionario
-     */
     public CuestionarioFInal(Usuario usuario) {
         this.usuario = usuario;
         this.menstruacion = new Menstruacion(); // Inicializa la instancia de Menstruacion
@@ -39,10 +29,6 @@ public class CuestionarioFInal {
         getJpanel();
     }
 
-    /**
-     * Crea y devuelve un JPanel que contiene todos los componentes de la interfaz de usuario.
-     * @return un JPanel que contiene todos los componentes de la interfaz de usuario
-     */
     public void getJpanel() {
         numerCiclo.setModel(new SpinnerNumberModel(28, 1, Integer.MAX_VALUE, 1));
         numerSangrado.setModel(new SpinnerNumberModel(5, 1, Integer.MAX_VALUE, 1));
@@ -61,7 +47,7 @@ public class CuestionarioFInal {
                     }
                     menstruacion.setMediaCiclo(duracionCiclo);
                     menstruacion.setMediaSangrado(duracionSangrado);
-                    new SelectorFecha(); // Pasa la instancia de Menstruacion a SelectorFecha
+                    new SelectorFecha(menstruacion); // Pasa la instancia de Menstruacion a SelectorFecha
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.");
                 } catch (IllegalArgumentException ex) {

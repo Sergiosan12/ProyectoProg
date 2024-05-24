@@ -10,80 +10,57 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class GenerateDiaFases {
-    private FaseFolicular fasefolicular=new FaseFolicular();
-    private FaseLutea faseLutea=new FaseLutea();
-    private FaseOvulacion faseOvulacion=new FaseOvulacion();
-     Menstruacion menstruacion;
-    private Duracion duracion=new Duracion();
+    private FaseFolicular faseFolicular = new FaseFolicular();
+    private FaseLutea faseLutea = new FaseLutea();
+    private FaseOvulacion faseOvulacion = new FaseOvulacion();
+    private Menstruacion menstruacion;
+    private Duracion duracion = new Duracion();
 
+    public GenerateDiaFases(Menstruacion menstruacion) {
+        this.menstruacion = menstruacion;
+    }
 
     public Date CalculoInicioFaseFolicular() {
         Date lastPeriod = menstruacion.getLastperiod();
-        int daysToAdd = fasefolicular.getInicioDiaFolicular();
+        int daysToAdd = faseFolicular.getInicioDiaFolicular();
 
-        // Crear una instancia de Calendar y establecer la fecha a lastPeriod
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(lastPeriod);
-
-        // Añadir daysToAdd días a la fecha
         calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
 
-        // Obtener la fecha actualizada
-        Date updatedDate = calendar.getTime();
-
-        return updatedDate;
+        return calendar.getTime();
     }
 
     public Date CalculoInicioFaseLutea() {
         Date lastPeriod = menstruacion.getLastperiod();
         int daysToAdd = faseLutea.getInicioDiaLutea();
 
-        // Crear una instancia de Calendar y establecer la fecha a lastPeriod
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(lastPeriod);
-
-        // Añadir daysToAdd días a la fecha
         calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
 
-        // Obtener la fecha actualizada
-        Date updatedDate = calendar.getTime();
-
-        return updatedDate;
+        return calendar.getTime();
     }
 
     public Date CalculoInicioFaseOvulacion() {
         Date lastPeriod = menstruacion.getLastperiod();
         int daysToAdd = faseOvulacion.getDiaInicioOvulacion();
 
-        // Crear una instancia de Calendar y establecer la fecha a lastPeriod
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(lastPeriod);
-
-        // Añadir daysToAdd días a la fecha
         calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
 
-        // Obtener la fecha actualizada
-        Date updatedDate = calendar.getTime();
-
-        return updatedDate;
+        return calendar.getTime();
     }
 
-        public Date CalculoSiguienteFaseMenstrual() {
-            Date lastPeriod = menstruacion.getLastperiod();
-            int daysToAdd = duracion.getDuracionCiclo();
+    public Date CalculoSiguienteFaseMenstrual() {
+        Date lastPeriod = menstruacion.getLastperiod();
+        int daysToAdd = duracion.getDuracionCiclo();
 
-            // Crear una instancia de Calendar y establecer la fecha a lastPeriod
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(lastPeriod);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(lastPeriod);
+        calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
 
-            // Añadir daysToAdd días a la fecha
-            calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
-
-            // Obtener la fecha actualizada
-            Date updatedDate = calendar.getTime();
-
-            return updatedDate;
-        }
+        return calendar.getTime();
     }
-
-
+}
