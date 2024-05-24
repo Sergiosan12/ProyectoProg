@@ -115,3 +115,11 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 
 6. Separación de métodos en `InsertDatabase` y `HandleDatabase`.
 
+## 24/05/2024
+
+1. gestión de los datos de la base de datos de deportes y fases para pasarlos a un JComboBox.
+
+2. Creación de la interfaz para gestionar el Embarazo.
+
+3. Mejora en la creación del informe en PDF e inserción en la interfaz de embarazo.
+
