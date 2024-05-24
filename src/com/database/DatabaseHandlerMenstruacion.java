@@ -17,17 +17,21 @@ public class DatabaseHandlerMenstruacion {
      */
     public Menstruacion selectData(String usuario) {
         Menstruacion resultado = null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
         try {
             // Obtener una conexión a la base de datos
-            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             // Crear una declaración SQL con parámetros
             String sql = "SELECT * FROM menstruacion WHERE usuario = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, usuario);
 
             // Ejecutar la consulta SQL
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
 
             // Procesar el conjunto de resultados
             if (rs.next()) {
@@ -36,13 +40,25 @@ public class DatabaseHandlerMenstruacion {
                 Date lastperiod = rs.getDate("lastperiod");
                 resultado = new Menstruacion(usuario, mediaciclo, mediasangrado, lastperiod);
             }
-
-            // Cerrar todas las conexiones
-            rs.close();
-            pstmt.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error al seleccionar datos de la base de datos: " + e.getMessage());
+        } finally {
+            // Cerrar todas las conexiones
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Error al cerrar la conexión a la base de datos: " + e.getMessage());
+            }
         }
         return resultado;
     }
