@@ -28,9 +28,10 @@ public class SelectorFecha extends JFrame {
     InsertDatabase insertDatabase = new InsertDatabase();
     FaseMenstrual faseMenstrual = new FaseMenstrual();
     Menstruacion menstruacion;
-    public SelectorFecha(){
 
+    public SelectorFecha() {
     }
+
     public SelectorFecha(Menstruacion menstruacion, Duracion duracion) {
         this.menstruacion = menstruacion; // Asegúrate de que la instancia se asigna aquí
         try {
@@ -61,7 +62,7 @@ public class SelectorFecha extends JFrame {
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String formattedDate = sdf.format(selectedDate);
-                    menstruacion.setLastperiod(selectedDate);
+                    menstruacion.setLastperiod(selectedDate); // Asegúrate de que fechaDelUltimoPeriodo no sea null
                     insertDatabase.insertDateIntoDatabase(menstruacion); // Pasa menstruacion aquí
                     dispose();
                     UsoProg usoProg = new UsoProg(menstruacion);

@@ -48,7 +48,10 @@ public class CuestionarioFinal {
                         }
                         menstruacion.setMediaCiclo(duracionCiclo);
                         menstruacion.setMediaSangrado(duracionSangrado);
-                        new SelectorFecha(); // Pasa la instancia de Menstruacion a SelectorFecha
+                        duracion.setDuracionCiclo(duracionCiclo);
+                        duracion.setDuracionSangrado(duracionSangrado);
+                        new SelectorFecha(menstruacion, duracion); // Pasa la instancia de Menstruacion y Duracion a SelectorFecha
+
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.", "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (IllegalArgumentException ex) {

@@ -2,12 +2,19 @@ package com.controller;
 
 import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 
 public class InformeBuilder {
     private final Informe informe;
 
     public InformeBuilder() {
         this.informe = new Informe();
+    }
+
+    public InformeBuilder fromUsuario(Usuario usuario) {
+        informe.setNombre(usuario.getNombre());
+        informe.setEdad(usuario.getEdad());
+        return this;
     }
 
     public InformeBuilder fromMenstruacion(Menstruacion menstruacion) {
@@ -24,6 +31,8 @@ public class InformeBuilder {
         informe.setInicioSiguientePeriodo(menstruacion.getNextPeriod());
         return this;
     }
+
+
 
     public Informe build() {
         return informe;

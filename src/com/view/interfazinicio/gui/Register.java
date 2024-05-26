@@ -42,18 +42,22 @@ public Informe informe=new Informe();
 
 
     private void insertDataIntoDatabase() {
-
-
-
-     usuario.setNombre(fieldName.getText());
+        // Establecer los datos del usuario
+        usuario.setNombre(fieldName.getText());
         usuario.setEdad((Integer) spinnerAge.getValue());
         usuario.setUsuario(fieldUser.getText());
         usuario.setEmail(fieldMail.getText());
         usuario.setContrasena(new String(fieldPassword.getPassword()));
+
+        // Establecer los mismos datos del usuario en el informe
+        informe.setNombre(usuario.getNombre());
+        informe.setEdad(usuario.getEdad());
+        // Añadir el resto de campos de informe que quieras configurar
+
         InformeBuilder informeBuilder = new InformeBuilder();
         informeBuilder.fromUsuario(usuario);
 
-        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email,edad ) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email, edad ) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

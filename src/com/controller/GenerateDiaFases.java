@@ -54,20 +54,18 @@ public class GenerateDiaFases {
      *
      * @return la fecha de inicio de la fase folicular.
      */
-    public Date CalculoInicioFaseFolicular() {
-        try {
-            Date nextPeriod = menstruacion.getNextPeriod();
-            int daysToAdd = menstruacion.getMediaSangrado();
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(nextPeriod);
-            calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
-
-            return calendar.getTime();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public Date CalculoInicioFaseFolicular(int mediaFaseFolicular) {
+        if (menstruacion.getLastPeriod() == null) {
+            // Si la fecha del último período es nula, devuelve null
             return null;
         }
+        // Realiza los cálculos y devuelve la fecha calculada
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(menstruacion.getLastPeriod());
+        calendar.add(Calendar.DAY_OF_MONTH, mediaFaseFolicular);
+        return calendar.getTime();
     }
+
 
     /**
      * Calcula la fecha de inicio de la fase lútea.
@@ -78,6 +76,10 @@ public class GenerateDiaFases {
     public Date CalculoInicioFaseLutea(int mediaDiasFolicular) {
         try {
             Date nextPeriod = menstruacion.getNextPeriod();
+            if (nextPeriod == null) {
+                // Si nextPeriod es null, devuelve null
+                return null;
+            }
             int daysToAdd = menstruacion.getMediaSangrado() + mediaDiasFolicular + faseOvulacion.getMediaDiasOvulacion();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(nextPeriod);
@@ -91,24 +93,25 @@ public class GenerateDiaFases {
         }
     }
 
+
+
     /**
      * Calcula la fecha de inicio de la fase de ovulación.
      *
-     * @param mediaDiasFolicular duración media de la fase folicular en días.
+     * @param
      * @return la fecha de inicio de la fase de ovulación.
      */
-    public Date CalculoInicioFaseOvulacion(int mediaDiasFolicular) {
-        try {
-            Date nextPeriod = menstruacion.getNextPeriod();
-            int daysToAdd = mediaDiasFolicular + menstruacion.getMediaSangrado();
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(nextPeriod);
-            calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
-            Date nextFaseOvulacion = calendar.getTime();
-            menstruacion.setNextFaseOvular(nextFaseOvulacion);
-            return nextFaseOvulacion;
-        } catch (Exception e) {
-            e.printStackTrace();
+    public Date CalculoInicioFaseOvulacion(int mediaDiasFolicular, int mediaDiasLutea) {
+        if (menstruacion.getLastPeriod() != null) {
+            // Realiza los cálculos y devuelve la fecha calculada
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(menstruacion.getLastPeriod());
+            // Aquí deberías calcular la fecha de inicio de la fase de ovulación
+            // Usando la duración media de la fase folicular y lútea
+            return cal.getTime();
+        } else {
+            // Manejo del caso en el que la fecha del último periodo es null
+            System.out.println("La fecha del último período no puede ser nula");
             return null;
         }
     }
@@ -116,23 +119,23 @@ public class GenerateDiaFases {
     /**
      * Calcula la fecha de inicio de la siguiente fase menstrual.
      *
+     * @param ultimoPeriodo la fecha del último periodo menstrual.
      * @return la fecha de inicio de la siguiente fase menstrual.
      */
-    public Date CalculoSiguienteFaseMenstrual() {
-        try {
-            Date nextPeriod = menstruacion.getNextPeriod();
-            int daysToAdd = menstruacion.getMediaCiclo();
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(nextPeriod);
-            calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
-            Date nextFaseMenstrual = calendar.getTime();
-            menstruacion.setNextPeriod(nextFaseMenstrual);
-            return nextFaseMenstrual;
-        } catch (Exception e) {
-            e.printStackTrace();
+    public Date CalculoSiguienteFaseMenstrual(Date ultimoPeriodo) {
+        if (ultimoPeriodo != null) {
+            // Realiza los cálculos y devuelve la fecha calculada
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(ultimoPeriodo);
+            // Aquí deberías calcular la fecha de inicio de la siguiente fase menstrual
+            return cal.getTime();
+        } else {
+            // Manejo del caso en el que la fecha del último periodo es null
+            System.out.println("La fecha del último período no puede ser nula");
             return null;
         }
     }
+
 
     /**
      * Calcula y muestra las fechas de inicio de todas las fases del ciclo menstrual.
@@ -141,14 +144,16 @@ public class GenerateDiaFases {
         int mediaFaseFolicular = CalculoMediaFaseFolicular();
         int mediaFaseLutea = CalculoFaseLutea(mediaFaseFolicular);
 
-        Date inicioFaseFolicular = CalculoInicioFaseFolicular();
+        Date inicioFaseFolicular = CalculoInicioFaseFolicular(mediaFaseFolicular);
         Date inicioFaseLutea = CalculoInicioFaseLutea(mediaFaseFolicular);
-        Date inicioFaseOvulacion = CalculoInicioFaseOvulacion(mediaFaseFolicular);
-        Date siguienteFaseMenstrual = CalculoSiguienteFaseMenstrual();
+        Date inicioFaseOvulacion = CalculoInicioFaseOvulacion(mediaFaseFolicular, mediaFaseLutea);
+        Date siguienteFaseMenstrual = CalculoSiguienteFaseMenstrual(menstruacion.getLastPeriod());
 
         System.out.println("Inicio Fase Folicular: " + inicioFaseFolicular);
         System.out.println("Inicio Fase Lutea: " + inicioFaseLutea);
         System.out.println("Inicio Fase Ovulacion: " + inicioFaseOvulacion);
         System.out.println("Siguiente Fase Menstrual: " + siguienteFaseMenstrual);
     }
+
+
 }

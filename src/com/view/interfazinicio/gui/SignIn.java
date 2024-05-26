@@ -140,7 +140,4 @@ public class SignIn extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(SignIn::new);
-    }
 }

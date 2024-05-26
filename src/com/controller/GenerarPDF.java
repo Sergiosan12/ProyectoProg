@@ -64,10 +64,6 @@ public class GenerarPDF {
             document.add(new Paragraph("Duración Fase Folicular: " + informe.getDuracionFaseFolicular()));
             document.add(new Paragraph("Duración Fase Ovulación: " + informe.getDuracionFaseOvulacion()));
             document.add(new Paragraph("Duración Fase Lútea: " + informe.getDuracionFaseLutea()));
-            document.add(new Paragraph("Inicio Fase Menstrual: " + inicioFaseMenstrual));
-            document.add(new Paragraph("Inicio Fase Folicular: " + inicioFaseFolicular));
-            document.add(new Paragraph("Inicio Fase Ovulación: " + inicioFaseOvulacion));
-            document.add(new Paragraph("Inicio Fase Lútea: " + inicioFaseLutea));
             document.add(new Paragraph("\nPrevisión siguiente mes:", boldFont));
             document.add(new Paragraph("Inicio Siguiente Periodo: " + siguientePeriodo));
             document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
