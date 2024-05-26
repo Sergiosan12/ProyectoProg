@@ -13,43 +13,12 @@ import java.util.Date;
 
 public class FaseLutea {
     int mediaDiasLutea;
-    int duracionCiclo;
-    int duracionMenstruacion;
-    Date inicioDiaLutea;
-    Duracion duracion = Duracion.getInstance();
-    FaseOvulacion ovulacion = new FaseOvulacion();
-    FaseFolicular folicular = new FaseFolicular();
 
-    /**
-     * Inicializa la duración del ciclo menstrual y la duración del sangrado menstrual.
-     */
-    {
-        duracionCiclo = duracion.getDuracionCiclo();
-        duracionMenstruacion = duracion.getDuracionSangrado();
+    public int getMediaDiasLutea() {
+        return mediaDiasLutea;
     }
 
-    /**
-     * Establece la duración media de la fase lútea.
-     * @param mediaDiasLutea La duración media de la fase lútea.
-     */
     public void setMediaDiasLutea(int mediaDiasLutea) {
         this.mediaDiasLutea = mediaDiasLutea;
     }
-
-    /**
-     * Calcula y devuelve la duración media de la fase lútea.
-     * @return La duración media de la fase lútea.
-     */
-    public int getMediaDiasLutea() {
-        return (duracionCiclo - (duracionMenstruacion + ovulacion.mediaDiasOvulacion + folicular.getMediaDiasFolicular()));
-    }
-
-    /**
-     * Devuelve el día de inicio de la fase lútea.
-     * @return El día de inicio de la fase lútea.
-     */
-    public int getInicioDiaLutea() {
-        return duracionCiclo - getMediaDiasLutea();
-    }
-
 }

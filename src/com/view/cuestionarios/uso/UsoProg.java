@@ -1,5 +1,6 @@
 package com.view.cuestionarios.uso;
 
+import com.controller.GenerateDiaFases;
 import com.database.DatabaseHandlerDeporte;
 import com.model.funciones.Menstruacion;
 import com.view.Embarazo;
@@ -22,7 +23,9 @@ public class UsoProg {
     private JButton planningOcioButton;
     private JPanel PanelPrincipal;
     private JFrame frame;
-    private Menstruacion menstruacion;
+     Menstruacion menstruacion;
+
+    GenerateDiaFases generateDiaFases;
 
     /**
      * Crea una nueva instancia de UsoProg.
@@ -36,7 +39,7 @@ public class UsoProg {
         frame.setSize(500, 300);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(PanelPrincipal);
-
+        generateDiaFases.calcularTodasLasFases();
         buttonEmbarazo.addActionListener(new ActionListener() {
             /**
              * Ocurre cuando se hace clic en el botón de embarazo.
