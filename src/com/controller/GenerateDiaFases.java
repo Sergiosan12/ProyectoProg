@@ -5,7 +5,6 @@ import com.model.fases.FaseLutea;
 import com.model.fases.FaseMenstrual;
 import com.model.fases.FaseOvulacion;
 import com.model.funciones.Menstruacion;
-import com.model.tiempo.Duracion;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -15,11 +14,8 @@ import java.util.Date;
  * basándose en la duración media del ciclo y la duración del sangrado.
  */
 public class GenerateDiaFases {
-    private FaseFolicular faseFolicular = new FaseFolicular();
-    private FaseLutea faseLutea = new FaseLutea();
-    private FaseOvulacion faseOvulacion = new FaseOvulacion();
-    private FaseMenstrual faseMenstrual = new FaseMenstrual();
-    private Menstruacion menstruacion;
+    private final FaseOvulacion faseOvulacion = new FaseOvulacion();
+    private final Menstruacion menstruacion;
 
     /**
      * Constructor para inicializar la clase con una instancia de Menstruacion.

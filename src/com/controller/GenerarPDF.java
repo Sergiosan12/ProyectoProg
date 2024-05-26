@@ -18,7 +18,7 @@ import com.model.funciones.Menstruacion;
  * El informe incluye información sobre el ciclo menstrual de la usuaria.
  */
 public class GenerarPDF {
-    private Menstruacion menstruacion;
+    private final Menstruacion menstruacion;
 
     public GenerarPDF(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;

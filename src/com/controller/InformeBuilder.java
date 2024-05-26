@@ -4,7 +4,7 @@ import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
 
 public class InformeBuilder {
-    private Informe informe;
+    private final Informe informe;
 
     public InformeBuilder() {
         this.informe = new Informe();

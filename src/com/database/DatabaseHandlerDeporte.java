@@ -10,7 +10,7 @@ public class DatabaseHandlerDeporte {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/proyectodb";
     private static final String USER = "postgres";
     private static final String PASS = "debian";
-    private Connection conn;
+    private final Connection conn;
 
     public DatabaseHandlerDeporte() throws SQLException {
         conn = DriverManager.getConnection(DB_URL, USER, PASS);

@@ -14,7 +14,7 @@ import java.util.List;
  * @author Sergiosan12
  */
 public class GestorDeporte {
-    private List<Deporte> deportes;
+    private final List<Deporte> deportes;
 
     /**
      * Crea una nueva instancia de GestorDeporte.
