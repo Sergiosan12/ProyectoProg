@@ -1,6 +1,5 @@
 package com.controller;
 
-import com.model.fases.FaseOvulacion;
 import com.model.funciones.Menstruacion;
 
 import java.util.Calendar;
@@ -11,7 +10,6 @@ import java.util.Date;
  * basándose en la duración media del ciclo y la duración del sangrado.
  */
 public class GenerateDiaFases {
-    private final FaseOvulacion faseOvulacion = new FaseOvulacion();
     private final Menstruacion menstruacion;
 
     /**
@@ -88,7 +86,7 @@ public class GenerateDiaFases {
                 // Si nextPeriod es null, devuelve null
                 return null;
             }
-            int daysToAdd = menstruacion.getMediaSangrado() + mediaDiasFolicular + faseOvulacion.getMediaDiasOvulacion();
+            int daysToAdd = menstruacion.getMediaSangrado() + mediaDiasFolicular + menstruacion.getDuracionFaseOvular();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(nextPeriod);
             calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);

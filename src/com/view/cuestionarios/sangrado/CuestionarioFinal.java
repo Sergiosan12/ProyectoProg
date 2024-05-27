@@ -1,7 +1,6 @@
 package com.view.cuestionarios.sangrado;
 
 import com.view.SelectorFecha;
-import com.model.tiempo.Duracion;
 import com.model.funciones.Menstruacion;
 import com.model.usuario.Usuario;
 
@@ -19,7 +18,6 @@ public class CuestionarioFinal {
     int duracionCiclo;
     int duracionSangrado;
     private Usuario usuario;
-    Duracion duracion = new Duracion();
     Menstruacion menstruacion = new Menstruacion();
 
     public CuestionarioFinal(Usuario usuario) {
@@ -48,9 +46,7 @@ public class CuestionarioFinal {
                         }
                         menstruacion.setMediaCiclo(duracionCiclo);
                         menstruacion.setMediaSangrado(duracionSangrado);
-                        duracion.setDuracionCiclo(duracionCiclo);
-                        duracion.setDuracionSangrado(duracionSangrado);
-                        new SelectorFecha(menstruacion, duracion); // Pasa la instancia de Menstruacion y Duracion a SelectorFecha
+                        new SelectorFecha(menstruacion); // Pasa la instancia de Menstruacion y Duracion a SelectorFecha
 
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.", "Error", JOptionPane.ERROR_MESSAGE);
