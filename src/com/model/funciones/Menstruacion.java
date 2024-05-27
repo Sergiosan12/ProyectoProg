@@ -10,7 +10,6 @@ public class Menstruacion extends Informe {
     private String Usuario; // El nombre del usuario
     private int MediaCiclo; // La media del ciclo menstrual del usuario
     private int MediaSangrado; // La media del sangrado menstrual del usuario
-    private Date lastPeriod;
     private int duracionFaseFolicular;
 
     private int duracionFaseOvular;
@@ -48,10 +47,6 @@ public class Menstruacion extends Informe {
 
     public void setUsuario(String usuario) {
         Usuario = usuario;
-    }
-
-    public Date getLastPeriod() {
-        return lastPeriod;
     }
 
     public int getMediaCiclo() {

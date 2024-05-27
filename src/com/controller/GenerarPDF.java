@@ -60,12 +60,18 @@ public class GenerarPDF {
             document.add(new Paragraph("Última Menstruación: " + lastPeriod));
             document.add(new Paragraph("Media Duración del Periodo: " + informe.getMediaSangrado()));
             document.add(new Paragraph("Media Duración del Ciclo: " + informe.getMediaCiclo()));
-            document.add(new Paragraph("Duración Fase Menstruación: " + informe.getDuracionFaseMenstrual()));
+            document.add(new Paragraph("Duración Fase Menstruación: " + informe.getMediaSangrado()));
             document.add(new Paragraph("Duración Fase Folicular: " + informe.getDuracionFaseFolicular()));
             document.add(new Paragraph("Duración Fase Ovulación: " + informe.getDuracionFaseOvulacion()));
             document.add(new Paragraph("Duración Fase Lútea: " + informe.getDuracionFaseLutea()));
             document.add(new Paragraph("\nPrevisión siguiente mes:", boldFont));
             document.add(new Paragraph("Inicio Siguiente Periodo: " + siguientePeriodo));
+            document.add(new Paragraph("Inicio Fase Folicular: " + inicioFaseFolicular));
+            Font boldItalicFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLDITALIC);
+            document.add(new Paragraph("Es tu mejor periodo fértil :", boldItalicFont));
+            document.add(new Paragraph("Inicio Fase Ovulación: " + inicioFaseOvulacion ));
+            document.add(new Paragraph("Inicio Fase Lútea: " + inicioFaseLutea));
+            document.add(new Paragraph("\nPrevisión siguiente mes:", boldFont));
             document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
             document.add(new Paragraph("\"Los juegos de Sangre\"", boldFont));
 
