@@ -17,14 +17,13 @@ public class Embarazo {
     private JButton buttonGenerarInforme;
     private JButton buttonVolver;
     private JLabel FaseFolicilar;
-    private JLabel FotoEmbarazo;
     private GenerateDiaFases generateDiaFases;
     InformeBuilder informeBuilder = new InformeBuilder();
 
     public Embarazo(Menstruacion menstruacion) {
         // Inicializa generateDiaFases con la instancia de menstruacion
         generateDiaFases = new GenerateDiaFases(menstruacion);
-        informeBuilder.fromMenstruacion(menstruacion);
+        informeBuilder.fromMenstruacion(menstruacion.getUsuario());
 
         // Calcula todas las fases y actualiza la etiqueta FaseFolicilar
         calculateAndDisplayPhases();

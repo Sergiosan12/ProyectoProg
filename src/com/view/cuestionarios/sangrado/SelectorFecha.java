@@ -26,6 +26,7 @@ public class SelectorFecha extends JFrame {
     private Date oneYearAgo;
     InsertDatabase insertDatabase = new InsertDatabase();
     Menstruacion menstruacion;
+
     public SelectorFecha() {
     }
 
@@ -61,6 +62,7 @@ public class SelectorFecha extends JFrame {
                     String formattedDate = sdf.format(selectedDate);
                    GenerateDiaFases.CambiarDateLastPeriod(selectedDate);
                     menstruacion.setLastperiod(selectedDate); // Asegúrate de que fechaDelUltimoPeriodo no sea null
+                    GenerateDiaFases.calcularTodasLasFases();
                     insertDatabase.insertDateIntoDatabase(menstruacion); // Pasa menstruacion aquí
                     dispose();
                     UsoProg usoProg = new UsoProg(menstruacion);

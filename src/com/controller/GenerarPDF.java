@@ -32,7 +32,7 @@ public class GenerarPDF {
      */
     public void generarInforme() {
         InformeBuilder informeBuilder = new InformeBuilder();
-        Informe informe = informeBuilder.fromMenstruacion(menstruacion).build();
+        Informe informe = informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");

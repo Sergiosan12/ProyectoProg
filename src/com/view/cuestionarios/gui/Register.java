@@ -53,7 +53,7 @@ public Informe informe=new Informe();
         // Añadir el resto de campos de informe que quieras configurar
 
         InformeBuilder informeBuilder = new InformeBuilder();
-        informeBuilder.fromUsuario(usuario);
+        informeBuilder.fromUsuario(usuario.getUsuario());
 
         String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email, edad ) VALUES (?, ?, ?, ?, ?)";
 

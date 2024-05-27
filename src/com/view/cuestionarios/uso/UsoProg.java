@@ -47,7 +47,6 @@ public class UsoProg {
     public UsoProg(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;
         this.generateDiaFases = new GenerateDiaFases(menstruacion);
-        generateDiaFases.calcularTodasLasFases();
         frame = new JFrame("UsoProg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 300);
