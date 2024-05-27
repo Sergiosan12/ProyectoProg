@@ -13,6 +13,7 @@ public class Deporte {
     private JButton buttonGenerarInforme;
     private JButton buttonVolver;
     private JLabel PeriodoFertilLable;
+    private final int OPCIONSELECCIONADA=2;
 
     // Agrega una instancia de Menstruacion
     private Menstruacion menstruacion;
@@ -35,7 +36,7 @@ public class Deporte {
                 // Crea una nueva instancia de GenerarPDF con la instancia de Menstruacion
                 GenerarPDF generarPDF = new GenerarPDF(menstruacion);
                 // Llama al método para generar el informe
-                generarPDF.generarInforme();
+                generarPDF.generarInforme(OPCIONSELECCIONADA);
             }
         });
     }

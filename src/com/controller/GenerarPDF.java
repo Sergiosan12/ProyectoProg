@@ -20,9 +20,6 @@ import com.model.funciones.Menstruacion;
 public class GenerarPDF {
     private  Menstruacion menstruacion;
     Document document = new Document();
-    InformeBuilder informeBuilder = new InformeBuilder();
-    Informe informe = informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
-    Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
 
     public GenerarPDF(Menstruacion menstruacion) {
@@ -36,6 +33,9 @@ public class GenerarPDF {
      * El nombre del archivo PDF será "Informe_mesActual_añoActual.pdf".
      */
     public void generarInforme(int opcionSeleccionada) {
+  InformeBuilder informeBuilder = new InformeBuilder();
+    Informe informe = informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
+    Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -87,17 +87,23 @@ public class GenerarPDF {
 
     }
     public void SeleccionOpcion(int opcionSeleccionada) {
+
         try {
             if (opcionSeleccionada == 1) {
-                InformeDeportes();
-            } else {
                 InformeEmbarazo();
+
+            } else {
+                                InformeDeportes();
+
             }
         } catch (DocumentException e) {
             e.printStackTrace();
         }
     }
     public void InformeDeportes() throws DocumentException {
+        InformeBuilder informeBuilder = new InformeBuilder();
+        Informe informe = informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
+        Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
         document.add(new Paragraph("\nDeportes Preferidos para cada fase:", boldFont));
         document.add(new Paragraph("Deporte Fase Menstrual: " + informe.getDeporteFaseMenstrual()));
         document.add(new Paragraph("Deporte Fase Folicular: " + informe.getDeporteFaseFolicular()));
@@ -108,7 +114,10 @@ public class GenerarPDF {
     }
 
     public void InformeEmbarazo() throws DocumentException {
+        InformeBuilder informeBuilder = new InformeBuilder();
+        Informe informe = informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
+        Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     document.add(new Paragraph("\nEmbarazo:", boldFont));
-    document.add(new Paragraph("Tu periodo fertil copmprende de " + informe.getInicioFaseOvulacion()+"a"+informe.getInicioFaseLutea()));
+    document.add(new Paragraph("Tu periodo fertil comprende de " + informe.getInicioFaseOvulacion()+" a "+informe.getInicioFaseLutea()));
     }
 }

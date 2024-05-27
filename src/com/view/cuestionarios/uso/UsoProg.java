@@ -74,48 +74,10 @@ public class UsoProg {
         buttonDeporte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    // Crear una nueva instancia de DatabaseHandlerDeporte
-                    DatabaseHandlerDeportes_usuario dbHandler = new DatabaseHandlerDeportes_usuario();
-
-                    // Crear un nuevo JFrame
-                    JFrame frame = new JFrame("Deportes por Fase");
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frame.setLayout(new BorderLayout());
-                    frame.getContentPane().setBackground(Color.decode("#FFF1F1"));
-
-                    // Crear un panel para los JComboBox
-                    JPanel centerPanel = new JPanel();
-                    centerPanel.setLayout(new GridLayout(4, 1));
-                    centerPanel.setBackground(Color.decode("#FFF1F1"));
-
-                    // Obtener los nombres de las fases
-                    List<String> fases = dbHandler.getFases();
-
-                    // Crear y agregar los JComboBox al panel
-                    for (String fase : fases) {
-                        List<String> deportes = dbHandler.getDeportesPorFase(fase);
-                        JComboBox<String> comboBox = new JComboBox<>(deportes.toArray(new String[0]));
-                        comboBox.setBorder(BorderFactory.createTitledBorder(fase));
-                        comboBox.setBackground(Color.decode("#FFF1F1"));
-                        centerPanel.add(comboBox);
-                    }
-
-                    frame.add(centerPanel, BorderLayout.CENTER);
-
-                    // Configurar el marco y hacerlo visible
-                    frame.pack();
-                    frame.setVisible(true);
-                    frame.setResizable(false);
-                    frame.setLocationRelativeTo(null);
-
-                } catch (SQLException sqlException) {
-                    sqlException.printStackTrace();
-                }
             }
-        });
-
+    });
     }
+
     /**
      * Establece la visibilidad de la interfaz gráfica de usuario.
      * @param b un booleano que indica si la interfaz gráfica de usuario debe ser visible o no
@@ -124,3 +86,4 @@ public class UsoProg {
         frame.setVisible(b);
     }
 }
+
