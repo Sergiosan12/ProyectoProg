@@ -1,7 +1,7 @@
 package com.view.cuestionarios.uso;
 
 import com.controller.GenerateDiaFases;
-import com.database.DatabaseHandlerDeporte;
+import com.database.DatabaseHandlerDeportes_usuario;
 import com.model.funciones.Menstruacion;
 import com.view.funciones.Embarazo;
 
@@ -76,7 +76,7 @@ public class UsoProg {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Crear una nueva instancia de DatabaseHandlerDeporte
-                    DatabaseHandlerDeporte dbHandler = new DatabaseHandlerDeporte();
+                    DatabaseHandlerDeportes_usuario dbHandler = new DatabaseHandlerDeportes_usuario();
 
                     // Crear un nuevo JFrame
                     JFrame frame = new JFrame("Deportes por Fase");

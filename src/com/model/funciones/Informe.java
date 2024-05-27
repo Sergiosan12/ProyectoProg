@@ -23,6 +23,42 @@ public class Informe {
     private Date inicioFaseOvulacion;
     private Date inicioFaseLutea;
     private Date inicioSiguientePeriodo;
+    private String DeporteFaseMenstrual;
+    private String DeporteFaseFolicular;
+    private String DeporteFaseOvulacion;
+    private String DeporteFaseLutea;
+
+    public String getDeporteFaseMenstrual() {
+        return DeporteFaseMenstrual;
+    }
+
+    public void setDeporteFaseMenstrual(String deporteFaseMenstrual) {
+        DeporteFaseMenstrual = deporteFaseMenstrual;
+    }
+
+    public String getDeporteFaseFolicular() {
+        return DeporteFaseFolicular;
+    }
+
+    public void setDeporteFaseFolicular(String deporteFaseFolicular) {
+        DeporteFaseFolicular = deporteFaseFolicular;
+    }
+
+    public String getDeporteFaseOvulacion() {
+        return DeporteFaseOvulacion;
+    }
+
+    public void setDeporteFaseOvulacion(String deporteFaseOvulacion) {
+        DeporteFaseOvulacion = deporteFaseOvulacion;
+    }
+
+    public String getDeporteFaseLutea() {
+        return DeporteFaseLutea;
+    }
+
+    public void setDeporteFaseLutea(String deporteFaseLutea) {
+        DeporteFaseLutea = deporteFaseLutea;
+    }
 
     public String getUsuario() {
         return usuario;

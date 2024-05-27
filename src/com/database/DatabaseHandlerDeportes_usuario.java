@@ -3,7 +3,7 @@ import com.model.usuario.DeportesUsuario;
 import java.sql.*;
 
 
-public class DatabaseHandlerDeporte {
+public class DatabaseHandlerDeportes_usuario {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/proyectodb";
     private static final String USER = "postgres";
     private static final String PASS = "debian";

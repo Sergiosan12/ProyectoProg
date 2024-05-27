@@ -18,6 +18,7 @@ public class Embarazo {
     private JButton buttonVolver;
     private JLabel FaseFolicilar;
     private GenerateDiaFases generateDiaFases;
+    private final int OPCIONSELECCIONADA = 1; // Constante de instancia
     InformeBuilder informeBuilder = new InformeBuilder();
 
     public Embarazo(Menstruacion menstruacion) {
@@ -41,7 +42,7 @@ public class Embarazo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GenerarPDF generarPDF = new GenerarPDF(menstruacion);
-                generarPDF.generarInforme();
+                generarPDF.generarInforme(OPCIONSELECCIONADA);
                 JOptionPane.showMessageDialog(panel1, "Pdf generado correctamente");
             }
         });
