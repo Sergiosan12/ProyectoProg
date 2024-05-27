@@ -18,12 +18,21 @@ import com.model.funciones.Menstruacion;
  * El informe incluye información sobre el ciclo menstrual de la usuaria.
  */
 public class GenerarPDF {
-    private  Menstruacion menstruacion;
-    Document document = new Document();
+    private Menstruacion menstruacion;
+    private InformeBuilder informeBuilder;
+    private Informe informe;
+    private Document document;
 
+
+
+    public GenerarPDF() {
+    }
 
     public GenerarPDF(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;
+        this.informeBuilder = new InformeBuilder();
+        this.informe = this.informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
+        this.document = new Document();
     }
 
     /**
@@ -72,6 +81,7 @@ public class GenerarPDF {
             Font boldItalicFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLDITALIC);
             document.add(new Paragraph("Inicio Fase Ovulación: " + inicioFaseOvulacion ));
             document.add(new Paragraph("Inicio Fase Lútea: " + inicioFaseLutea));
+            SeleccionOpcion(opcionSeleccionada);
             document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
             document.add(new Paragraph("\"Los juegos de Sangre\"", boldFont));
 
@@ -101,8 +111,6 @@ public class GenerarPDF {
         }
     }
     public void InformeDeportes() throws DocumentException {
-        InformeBuilder informeBuilder = new InformeBuilder();
-        Informe informe = informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
         Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
         document.add(new Paragraph("\nDeportes Preferidos para cada fase:", boldFont));
         document.add(new Paragraph("Deporte Fase Menstrual: " + informe.getDeporteFaseMenstrual()));

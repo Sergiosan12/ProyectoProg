@@ -58,6 +58,9 @@ public class InterfazDeporte{
                     JComboBox<String> comboBox = new JComboBox<>(deportes.toArray(new String[0]));
                     comboBox.setBorder(BorderFactory.createTitledBorder(fase));
                     comboBox.setBackground(Color.decode("#FFF1F1"));
+                    if (comboBox.getItemCount() > 0) {  // Check if the JComboBox is not empty
+                        comboBox.setSelectedIndex(0);  // Set the first item as the default selected item
+                    }
                     centerPanel.add(comboBox);
                     comboBoxes.put(fase, comboBox);  // Agregar el JComboBox y su fase al HashMap
                 }
@@ -102,8 +105,8 @@ public class InterfazDeporte{
 
                     JComboBox<String> comboBoxMenstrual = comboBoxes.get("Menstrual");
                     JComboBox<String> comboBoxFolicular = comboBoxes.get("Folicular");
-                    JComboBox<String> comboBoxOvulacion = comboBoxes.get("Ovulacion");
-                    JComboBox<String> comboBoxLutea = comboBoxes.get("Lutea");
+                    JComboBox<String> comboBoxOvulacion = comboBoxes.get("Ovulación");
+                    JComboBox<String> comboBoxLutea = comboBoxes.get("Lútea");
                     String usuario=menstruacion.getUsuario();
 
                     if (comboBoxMenstrual != null && comboBoxMenstrual.getSelectedItem() != null) {
@@ -118,17 +121,13 @@ public class InterfazDeporte{
                     if (comboBoxLutea != null && comboBoxLutea.getSelectedItem() != null) {
                         deporteFaseLutea = (String) comboBoxLutea.getSelectedItem();
                     }
-
                     // Insertar los valores en la base de datos
                     InsertaDatabaseDeportes_usuario dbDeportesUsuario = new InsertaDatabaseDeportes_usuario();
                     dbDeportesUsuario.insertDeportesUsuario(usuario, deporteFaseMenstrual, deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea);
 
+                InformeBuilder informeBuilder = new InformeBuilder();
+                   informeBuilder.withDeportes(deporteFaseMenstrual,deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea);
 
-                    InformeBuilder informeBuilder = new InformeBuilder();
-                    Informe informe = informeBuilder.fromUsuario(menstruacion.getUsuario())
-                            .fromMenstruacion(menstruacion.getUsuario())
-                            .withDeportes(deporteFaseMenstrual, deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea)
-                            .build();
 
                     GenerarPDF generarPDF = new GenerarPDF(menstruacion);
                     generarPDF.generarInforme(OPCION_DEPORTE);  // Llamar al método para generar el informe
