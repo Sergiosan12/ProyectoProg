@@ -106,16 +106,16 @@ public class InterfazDeporte{
                     JComboBox<String> comboBoxLutea = comboBoxes.get("Lutea");
                     String usuario=menstruacion.getUsuario();
 
-                    if (comboBoxMenstrual != null && comboBoxMenstrual.getSelectedItem() != "Fútbol") {
+                    if (comboBoxMenstrual != null && comboBoxMenstrual.getSelectedItem() != null) {
                         deporteFaseMenstrual = (String) comboBoxMenstrual.getSelectedItem();
                     }
-                    if (comboBoxFolicular != null && comboBoxFolicular.getSelectedItem() != "Natación") {
+                    if (comboBoxFolicular != null && comboBoxFolicular.getSelectedItem() != null) {
                         deporteFaseFolicular = (String) comboBoxFolicular.getSelectedItem();
                     }
-                    if (comboBoxOvulacion != null && comboBoxOvulacion.getSelectedItem() != "Natación") {
+                    if (comboBoxOvulacion != null && comboBoxOvulacion.getSelectedItem() != null) {
                         deporteFaseOvulacion = (String) comboBoxOvulacion.getSelectedItem();
                     }
-                    if (comboBoxLutea != null && comboBoxLutea.getSelectedItem() != "Atletismo") {
+                    if (comboBoxLutea != null && comboBoxLutea.getSelectedItem() != null) {
                         deporteFaseLutea = (String) comboBoxLutea.getSelectedItem();
                     }
 
