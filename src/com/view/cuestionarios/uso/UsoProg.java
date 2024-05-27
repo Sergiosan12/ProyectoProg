@@ -1,17 +1,15 @@
 package com.view.cuestionarios.uso;
 
 import com.controller.GenerateDiaFases;
-import com.database.DatabaseHandlerDeporte;
 import com.model.funciones.Menstruacion;
+import com.view.funciones.deporte.InterfazDeporte;
 import com.view.funciones.Embarazo;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 
 /**
  * La clase UsoProg representa una interfaz gráfica de usuario que permite al usuario seleccionar el uso que le dará a la aplicación.
@@ -24,7 +22,7 @@ public class UsoProg {
     private JButton planningOcioButton;
     private JPanel PanelPrincipal;
     private JFrame frame;
-     Menstruacion menstruacion;
+    Menstruacion menstruacion;
 
     private GenerateDiaFases generateDiaFases;
 
@@ -37,13 +35,12 @@ public class UsoProg {
             System.out.println("La fecha del último período no puede ser nula");
         }
     }
+
     /**
      * Crea una nueva instancia de UsoProg.
      * Inicializa la interfaz gráfica de usuario y configura los listeners de los botones.
      * @param menstruacion la instancia de Menstruacion que se pasará a otras vistas
      */
-
-
     public UsoProg(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;
         this.generateDiaFases = new GenerateDiaFases(menstruacion);
@@ -75,48 +72,12 @@ public class UsoProg {
         buttonDeporte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    // Crear una nueva instancia de DatabaseHandlerDeporte
-                    DatabaseHandlerDeporte dbHandler = new DatabaseHandlerDeporte();
-
-                    // Crear un nuevo JFrame
-                    JFrame frame = new JFrame("Deportes por Fase");
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frame.setLayout(new BorderLayout());
-                    frame.getContentPane().setBackground(Color.decode("#FFF1F1"));
-
-                    // Crear un panel para los JComboBox
-                    JPanel centerPanel = new JPanel();
-                    centerPanel.setLayout(new GridLayout(4, 1));
-                    centerPanel.setBackground(Color.decode("#FFF1F1"));
-
-                    // Obtener los nombres de las fases
-                    List<String> fases = dbHandler.getFases();
-
-                    // Crear y agregar los JComboBox al panel
-                    for (String fase : fases) {
-                        List<String> deportes = dbHandler.getDeportesPorFase(fase);
-                        JComboBox<String> comboBox = new JComboBox<>(deportes.toArray(new String[0]));
-                        comboBox.setBorder(BorderFactory.createTitledBorder(fase));
-                        comboBox.setBackground(Color.decode("#FFF1F1"));
-                        centerPanel.add(comboBox);
-                    }
-
-                    frame.add(centerPanel, BorderLayout.CENTER);
-
-                    // Configurar el marco y hacerlo visible
-                    frame.pack();
-                    frame.setVisible(true);
-                    frame.setResizable(false);
-                    frame.setLocationRelativeTo(null);
-
-                } catch (SQLException sqlException) {
-                    sqlException.printStackTrace();
-                }
+                InterfazDeporte interfazDeporte = new InterfazDeporte();
+                interfazDeporte.showDeportesGUI(frame);
             }
         });
-
     }
+
     /**
      * Establece la visibilidad de la interfaz gráfica de usuario.
      * @param b un booleano que indica si la interfaz gráfica de usuario debe ser visible o no
