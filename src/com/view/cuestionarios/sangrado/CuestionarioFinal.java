@@ -1,8 +1,7 @@
 package com.view.cuestionarios.sangrado;
 
-import com.view.SelectorFecha;
-import com.model.tiempo.Duracion;
-import com.model.funciones.Menstruacion;
+import com.controller.GenerateDiaFases;
+import com.view.cuestionarios.SelectorFecha;
 import com.model.usuario.Usuario;
 
 import javax.swing.*;
@@ -19,14 +18,13 @@ public class CuestionarioFinal {
     int duracionCiclo;
     int duracionSangrado;
     private Usuario usuario;
-    Duracion duracion = new Duracion();
-    Menstruacion menstruacion = new Menstruacion();
+  GenerateDiaFases generateDiaFases=new GenerateDiaFases();
 
     public CuestionarioFinal(Usuario usuario) {
         try {
             this.usuario = usuario;
-            menstruacion.setUsuario(usuario.getUsuario()); // Usa el usuario pasado al constructor
-            getJpanel();
+generateDiaFases.cambiarUsuario(usuario.getUsuario())  ;
+getJpanel();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al inicializar el cuestionario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -46,11 +44,9 @@ public class CuestionarioFinal {
                         if (duracionCiclo <= 0 || duracionSangrado <= 0 || duracionSangrado > duracionCiclo) {
                             throw new IllegalArgumentException("Por favor, introduce valores válidos.");
                         }
-                        menstruacion.setMediaCiclo(duracionCiclo);
-                        menstruacion.setMediaSangrado(duracionSangrado);
-                        duracion.setDuracionCiclo(duracionCiclo);
-                        duracion.setDuracionSangrado(duracionSangrado);
-                        new SelectorFecha(menstruacion, duracion); // Pasa la instancia de Menstruacion y Duracion a SelectorFecha
+                       generateDiaFases.CambiarDiasCiclo(duracionCiclo);
+                        generateDiaFases.CambiarDiasSangrado(duracionSangrado);
+                        new SelectorFecha();
 
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.", "Error", JOptionPane.ERROR_MESSAGE);

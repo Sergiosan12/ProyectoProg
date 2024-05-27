@@ -1,18 +1,18 @@
 package com.controller;
 
-import com.model.fases.FaseOvulacion;
 import com.model.funciones.Menstruacion;
 
 import java.util.Calendar;
 import java.util.Date;
-
 /**
  * La clase GenerateDiaFases calcula las diferentes fases del ciclo menstrual
  * basándose en la duración media del ciclo y la duración del sangrado.
  */
 public class GenerateDiaFases {
-    private final FaseOvulacion faseOvulacion = new FaseOvulacion();
-    private final Menstruacion menstruacion;
+      Menstruacion menstruacion=new Menstruacion();
+
+    public GenerateDiaFases() {
+    }
 
     /**
      * Constructor para inicializar la clase con una instancia de Menstruacion.
@@ -22,6 +22,26 @@ public class GenerateDiaFases {
     public GenerateDiaFases(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;
     }
+
+    public String cambiarUsuario(String usuario){
+        menstruacion.setUsuario(usuario);
+        return usuario;
+    }
+
+    public int CambiarDiasSangrado(int diasSangrado){
+        menstruacion.setMediaSangrado(diasSangrado);
+        return diasSangrado;
+    }
+    public int CambiarDiasCiclo(int diasCiclo){
+        menstruacion.setMediaCiclo(diasCiclo);
+        return diasCiclo;
+    }
+    public Date CambiarDateLastPeriod(Date lastPeriod){
+        menstruacion.setLastperiod(lastPeriod);
+        return lastPeriod;
+    }
+
+
 
     /**
      * Calcula la duración media de la fase folicular.
@@ -88,7 +108,7 @@ public class GenerateDiaFases {
                 // Si nextPeriod es null, devuelve null
                 return null;
             }
-            int daysToAdd = menstruacion.getMediaSangrado() + mediaDiasFolicular + faseOvulacion.getMediaDiasOvulacion();
+            int daysToAdd = menstruacion.getMediaSangrado() + mediaDiasFolicular + menstruacion.getDuracionFaseOvulacion();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(nextPeriod);
             calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
@@ -164,6 +184,10 @@ public class GenerateDiaFases {
         Date inicioFaseOvulacion = CalculoInicioFaseOvulacion(mediaFaseFolicular, mediaFaseLutea);
 
     }
-
+public Menstruacion getMenstruacion(){
+        calcularTodasLasFases();
+    return new Menstruacion(menstruacion.getUsuario(), menstruacion.getMediaCiclo(), menstruacion.getMediaSangrado(), menstruacion.getDuracionFaseFolicular(), menstruacion.getDuracionFaseOvular(), menstruacion.getDuracionFaseLutea(),menstruacion.getLastperiod(),menstruacion.getNextPeriod(),menstruacion.getNextFaseFolicular(),menstruacion.getNextFaseOvular(),menstruacion.getNextFaseLutea());
+}
 
 }
+

@@ -1,4 +1,4 @@
-package com.view.interfazinicio.gui;
+package com.view.cuestionarios.gui;
 
 import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.uso.UsoProg;
@@ -76,7 +76,7 @@ public class SignIn extends JFrame {
 
                 if (checkCredentials(userName, password)) {
                     // Código a ejecutar en caso de credenciales correctas
-                    UsoProg usoProg = new UsoProg(new Menstruacion());  // Asegúrate de pasar cualquier parámetro necesario
+                    UsoProg usoProg = new UsoProg();  // Asegúrate de pasar cualquier parámetro necesario
                     usoProg.setVisible(true);
                     dispose();
                 } else if (userName.isEmpty() || password.isEmpty()) {

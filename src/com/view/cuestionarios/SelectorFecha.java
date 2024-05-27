@@ -1,10 +1,8 @@
-package com.view;
+package com.view.cuestionarios;
 
+import com.controller.GenerateDiaFases;
 import com.database.InsertDatabase;
 import com.model.decoracion.DateLabelFormatter;
-import com.model.fases.FaseMenstrual;
-import com.model.funciones.Menstruacion;
-import com.model.tiempo.Duracion;
 import com.view.cuestionarios.uso.UsoProg;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -26,14 +24,10 @@ public class SelectorFecha extends JFrame {
     private Date today;
     private Date oneYearAgo;
     InsertDatabase insertDatabase = new InsertDatabase();
-    FaseMenstrual faseMenstrual = new FaseMenstrual();
-    Menstruacion menstruacion;
+GenerateDiaFases generateDiaFases=new GenerateDiaFases();
+
 
     public SelectorFecha() {
-    }
-
-    public SelectorFecha(Menstruacion menstruacion, Duracion duracion) {
-        this.menstruacion = menstruacion; // Asegúrate de que la instancia se asigna aquí
         try {
             JPanel panel = getjPanel();
             getBtnContinuar(panel);
@@ -62,10 +56,9 @@ public class SelectorFecha extends JFrame {
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String formattedDate = sdf.format(selectedDate);
-                    menstruacion.setLastperiod(selectedDate); // Asegúrate de que fechaDelUltimoPeriodo no sea null
-                    insertDatabase.insertDateIntoDatabase(menstruacion); // Pasa menstruacion aquí
+                    generateDiaFases.CambiarDateLastPeriod(selectedDate);
                     dispose();
-                    UsoProg usoProg = new UsoProg(menstruacion);
+                    UsoProg usoProg = new UsoProg();
                     usoProg.setVisible(true);
                 } catch (Exception ex) {
                     ex.printStackTrace();

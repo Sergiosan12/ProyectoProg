@@ -1,4 +1,4 @@
-package com.view.deporte;
+package com.view.funciones;
 
 import com.controller.GenerarPDF;
 import com.model.funciones.Informe;
@@ -33,7 +33,7 @@ public class Deporte {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Crea una nueva instancia de GenerarPDF con la instancia de Menstruacion
-                GenerarPDF generarPDF = new GenerarPDF(menstruacion);
+                GenerarPDF generarPDF = new GenerarPDF();
                 // Llama al método para generar el informe
                 generarPDF.generarInforme();
             }

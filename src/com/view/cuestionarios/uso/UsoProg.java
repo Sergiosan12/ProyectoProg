@@ -3,7 +3,7 @@ package com.view.cuestionarios.uso;
 import com.controller.GenerateDiaFases;
 import com.database.DatabaseHandlerDeporte;
 import com.model.funciones.Menstruacion;
-import com.view.Embarazo;
+import com.view.funciones.Embarazo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,9 +24,8 @@ public class UsoProg {
     private JButton planningOcioButton;
     private JPanel PanelPrincipal;
     private JFrame frame;
-     Menstruacion menstruacion;
+    GenerateDiaFases generateDiaFases;
 
-    private GenerateDiaFases generateDiaFases;
 
     // Constructor de la clase UsoProg corregido
     public UsoProg(Date ultimoPeriodo) {
@@ -40,14 +39,11 @@ public class UsoProg {
     /**
      * Crea una nueva instancia de UsoProg.
      * Inicializa la interfaz gráfica de usuario y configura los listeners de los botones.
-     * @param menstruacion la instancia de Menstruacion que se pasará a otras vistas
      */
 
 
-    public UsoProg(Menstruacion menstruacion) {
-        this.menstruacion = menstruacion;
-        this.generateDiaFases = new GenerateDiaFases(menstruacion);
-        generateDiaFases.calcularTodasLasFases();
+    public UsoProg() {
+
         frame = new JFrame("UsoProg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 300);
@@ -62,7 +58,7 @@ public class UsoProg {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                Embarazo embarazo = new Embarazo(menstruacion);
+                Embarazo embarazo = new Embarazo();
                 JFrame embarazoFrame = new JFrame("Embarazo");
                 embarazoFrame.setContentPane(embarazo.getPanel());
                 embarazoFrame.pack();

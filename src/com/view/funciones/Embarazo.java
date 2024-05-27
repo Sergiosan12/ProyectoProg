@@ -1,4 +1,4 @@
-package com.view;
+package com.view.funciones;
 
 import com.controller.GenerarPDF;
 import com.controller.GenerateDiaFases;
@@ -18,13 +18,11 @@ public class Embarazo {
     private JButton buttonVolver;
     private JLabel FaseFolicilar;
     private JLabel FotoEmbarazo;
-    private GenerateDiaFases generateDiaFases;
+    private GenerateDiaFases generateDiaFases=new GenerateDiaFases();
     InformeBuilder informeBuilder = new InformeBuilder();
 
-    public Embarazo(Menstruacion menstruacion) {
+    public Embarazo() {
         // Inicializa generateDiaFases con la instancia de menstruacion
-        generateDiaFases = new GenerateDiaFases(menstruacion);
-        informeBuilder.fromMenstruacion(menstruacion);
 
         // Calcula todas las fases y actualiza la etiqueta FaseFolicilar
         calculateAndDisplayPhases();
@@ -32,7 +30,7 @@ public class Embarazo {
         buttonVolver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UsoProg usoProg = new UsoProg(menstruacion);
+                UsoProg usoProg = new UsoProg();
                 usoProg.setVisible(true);
                 ((JFrame) SwingUtilities.getWindowAncestor(panel1)).dispose();
             }
@@ -41,7 +39,7 @@ public class Embarazo {
         buttonGenerarInforme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GenerarPDF generarPDF = new GenerarPDF(menstruacion);
+                GenerarPDF generarPDF = new GenerarPDF();
                 generarPDF.generarInforme();
                 JOptionPane.showMessageDialog(panel1, "Pdf generado correctamente");
             }

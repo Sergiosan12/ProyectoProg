@@ -1,4 +1,4 @@
-package com.view.deporte;
+package com.view.funciones;
 
 import javax.swing.*;
 

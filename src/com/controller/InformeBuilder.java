@@ -6,6 +6,7 @@ import com.model.usuario.Usuario;
 
 public class InformeBuilder {
     private final Informe informe;
+    private Menstruacion menstruacion;
 
     public InformeBuilder() {
         this.informe = new Informe();

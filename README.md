@@ -117,6 +117,15 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 
 ## 24/05/2024
 
+1. Resolución de errores en la base de datos y en el programa.
+
+2. Refactorización de las clases para adicionar bloques try-catch
+
+3. Creación de la interfaz de deportes con JComobox retirada de la base de datos de deportes. 
+
+4. 
+## 24/05/2024
+
 1. gestión de los datos de la base de datos de deportes y fases para pasarlos a un JComboBox.
 
 2. Creación de la interfaz para gestionar el Embarazo.

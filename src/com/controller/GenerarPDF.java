@@ -18,11 +18,10 @@ import com.model.funciones.Menstruacion;
  * El informe incluye información sobre el ciclo menstrual de la usuaria.
  */
 public class GenerarPDF {
-    private final Menstruacion menstruacion;
-
-    public GenerarPDF(Menstruacion menstruacion) {
-        this.menstruacion = menstruacion;
+    GenerateDiaFases generateDiaFases=new GenerateDiaFases();
+    public GenerarPDF( ) {
     }
+
 
     /**
      * Este método genera un informe en formato PDF.
@@ -32,7 +31,7 @@ public class GenerarPDF {
      */
     public void generarInforme() {
         InformeBuilder informeBuilder = new InformeBuilder();
-        Informe informe = informeBuilder.fromMenstruacion(menstruacion).build();
+        Informe informe = informeBuilder.fromMenstruacion(generateDiaFases.getMenstruacion()).build();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
