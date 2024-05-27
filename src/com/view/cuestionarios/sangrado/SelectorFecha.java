@@ -1,7 +1,7 @@
 package com.view.cuestionarios.sangrado;
 
 import com.controller.GenerateDiaFases;
-import com.database.InsertDatabase;
+import com.database.InsertDatabaseMenstruacion;
 import com.model.decoracion.DateLabelFormatter;
 import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.uso.UsoProg;
@@ -24,7 +24,7 @@ public class SelectorFecha extends JFrame {
     protected JDatePickerImpl datePicker;
     private Date today;
     private Date oneYearAgo;
-    InsertDatabase insertDatabase = new InsertDatabase();
+    InsertDatabaseMenstruacion insertDatabase = new InsertDatabaseMenstruacion();
     Menstruacion menstruacion;
 
     public SelectorFecha() {

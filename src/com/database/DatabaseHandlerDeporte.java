@@ -1,13 +1,7 @@
 package com.database;
-
 import com.model.usuario.DeportesUsuario;
-import com.model.usuario.Usuario;
-
-import javax.swing.*;
-import java.awt.*;
 import java.sql.*;
-import java.util.*;
-import java.util.List;
+
 
 public class DatabaseHandlerDeporte {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/proyectodb";
@@ -25,7 +19,7 @@ public class DatabaseHandlerDeporte {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             // Crear una declaración SQL con parámetros
-            String sql = "SELECT * FROM usuario WHERE usuario = ?";
+            String sql = "SELECT * FROM deportes_usuario WHERE usuario = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, usuario);
 
