@@ -1,13 +1,7 @@
 package com.database;
-
 import com.model.usuario.DeportesUsuario;
-import com.model.usuario.Usuario;
-
-import javax.swing.*;
-import java.awt.*;
 import java.sql.*;
-import java.util.*;
-import java.util.List;
+
 
 public class DatabaseHandlerDeporte {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/proyectodb";
