@@ -1,6 +1,8 @@
 package com.view.funciones.deporte;
 
+import com.controller.GenerarPDF;
 import com.database.DatabaseHandlerDeporte;
+import com.model.funciones.Menstruacion;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +10,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class InterfazDeporte {
-
+    Menstruacion menstruacion;
+private final int OPCION_DEPORTE = 2;
     public void showDeportesGUI(JFrame previousFrame) {
         SwingUtilities.invokeLater(() -> {
             try {
@@ -77,10 +80,14 @@ public class InterfazDeporte {
 
                 JButton continueButton = new JButton("Generar Informe");
                 continueButton.setBackground(Color.decode("#F6C4F6"));
+                continueButton.addActionListener(e -> {
+                    GenerarPDF generarPDF = new GenerarPDF(menstruacion);
+                    generarPDF.generarInforme(OPCION_DEPORTE);  // Llamar al método para generar el informe
+                });
                 bottomPanel.add(continueButton);
 
                 frame.add(bottomPanel, BorderLayout.SOUTH);
-                //C
+
                 // Configurar el frame y hacerlo visible
                 frame.pack();
                 frame.setVisible(true);
