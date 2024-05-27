@@ -1,9 +1,8 @@
-package com.view.interfazinicio.gui;
+package com.view.cuestionarios.gui;
 
 import com.controller.InformeBuilder;
 import com.model.funciones.Informe;
 import com.model.decoracion.RoundedBorder;
-import com.sun.tools.javac.Main;
 import com.view.cuestionarios.sangrado.CuestionarioFinal;
 import com.database.Database;
 import com.model.usuario.Usuario;
@@ -12,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

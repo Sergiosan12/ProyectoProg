@@ -10,7 +10,7 @@ import java.util.Date;
  * basándose en la duración media del ciclo y la duración del sangrado.
  */
 public class GenerateDiaFases {
-    private final Menstruacion menstruacion;
+    private static Menstruacion menstruacion = new Menstruacion();
 
     /**
      * Constructor para inicializar la clase con una instancia de Menstruacion.
@@ -20,6 +20,24 @@ public class GenerateDiaFases {
     public GenerateDiaFases(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;
     }
+    public String cambiarUsuario(String usuario){
+        menstruacion.setUsuario(usuario);
+        return usuario;
+    }
+
+    public int CambiarDiasSangrado(int diasSangrado){
+        menstruacion.setMediaSangrado(diasSangrado);
+        return diasSangrado;
+    }
+    public int CambiarDiasCiclo(int diasCiclo){
+        menstruacion.setMediaCiclo(diasCiclo);
+        return diasCiclo;
+    }
+    public static Date CambiarDateLastPeriod(Date lastPeriod){
+        menstruacion.setLastperiod(lastPeriod);
+        return lastPeriod;
+    }
+
 
     /**
      * Calcula la duración media de la fase folicular.

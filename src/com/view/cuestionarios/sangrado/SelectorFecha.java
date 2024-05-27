@@ -1,5 +1,6 @@
-package com.view;
+package com.view.cuestionarios.sangrado;
 
+import com.controller.GenerateDiaFases;
 import com.database.InsertDatabase;
 import com.model.decoracion.DateLabelFormatter;
 import com.model.funciones.Menstruacion;
@@ -25,7 +26,6 @@ public class SelectorFecha extends JFrame {
     private Date oneYearAgo;
     InsertDatabase insertDatabase = new InsertDatabase();
     Menstruacion menstruacion;
-
     public SelectorFecha() {
     }
 
@@ -59,6 +59,7 @@ public class SelectorFecha extends JFrame {
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String formattedDate = sdf.format(selectedDate);
+                   GenerateDiaFases.CambiarDateLastPeriod(selectedDate);
                     menstruacion.setLastperiod(selectedDate); // Asegúrate de que fechaDelUltimoPeriodo no sea null
                     insertDatabase.insertDateIntoDatabase(menstruacion); // Pasa menstruacion aquí
                     dispose();

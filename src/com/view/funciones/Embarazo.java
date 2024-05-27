@@ -1,4 +1,4 @@
-package com.view;
+package com.view.funciones;
 
 import com.controller.GenerarPDF;
 import com.controller.GenerateDiaFases;

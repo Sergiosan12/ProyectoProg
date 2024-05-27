@@ -1,6 +1,6 @@
 package com.view.cuestionarios.sangrado;
 
-import com.view.SelectorFecha;
+import com.controller.GenerateDiaFases;
 import com.model.funciones.Menstruacion;
 import com.model.usuario.Usuario;
 
@@ -19,6 +19,7 @@ public class CuestionarioFinal {
     int duracionSangrado;
     private Usuario usuario;
     Menstruacion menstruacion = new Menstruacion();
+    GenerateDiaFases generateDiaFases = new GenerateDiaFases(menstruacion);
 
     public CuestionarioFinal(Usuario usuario) {
         try {
@@ -44,8 +45,8 @@ public class CuestionarioFinal {
                         if (duracionCiclo <= 0 || duracionSangrado <= 0 || duracionSangrado > duracionCiclo) {
                             throw new IllegalArgumentException("Por favor, introduce valores válidos.");
                         }
-                        menstruacion.setMediaCiclo(duracionCiclo);
-                        menstruacion.setMediaSangrado(duracionSangrado);
+                        generateDiaFases.CambiarDiasSangrado(duracionSangrado);
+                        generateDiaFases.CambiarDiasCiclo(duracionCiclo);
                         new SelectorFecha(menstruacion); // Pasa la instancia de Menstruacion y Duracion a SelectorFecha
 
                     } catch (NumberFormatException ex) {

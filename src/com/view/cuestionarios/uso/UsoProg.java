@@ -3,7 +3,7 @@ package com.view.cuestionarios.uso;
 import com.controller.GenerateDiaFases;
 import com.database.DatabaseHandlerDeporte;
 import com.model.funciones.Menstruacion;
-import com.view.Embarazo;
+import com.view.funciones.Embarazo;
 
 import javax.swing.*;
 import java.awt.*;

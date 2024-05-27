@@ -1,4 +1,4 @@
-package com.view.interfazinicio.gui;
+package com.view.cuestionarios.gui;
 
 import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.uso.UsoProg;
