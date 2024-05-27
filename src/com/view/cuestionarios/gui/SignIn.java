@@ -1,6 +1,7 @@
 package com.view.cuestionarios.gui;
 
 import com.model.funciones.Menstruacion;
+import com.view.cuestionarios.InterfazDespuesInicio;
 import com.view.cuestionarios.uso.UsoProg;
 import com.database.Database;
 
@@ -76,13 +77,13 @@ public class SignIn extends JFrame {
 
                 if (checkCredentials(userName, password)) {
                     // Código a ejecutar en caso de credenciales correctas
-                    UsoProg usoProg = new UsoProg(new Menstruacion());  // Asegúrate de pasar cualquier parámetro necesario
-                    usoProg.setVisible(true);
+                    InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio();
+                    interfazDespuesInicio.setVisible(true);
                     dispose();
                 } else if (userName.isEmpty() || password.isEmpty()) {
-                    verdictLabel.setText("Some credentials are empty. Try it again");
+                    verdictLabel.setText("Credenciales vacías. Por favor rellene los dos campos");
                 } else {
-                    verdictLabel.setText("Sign in failed. Wrong credentials. Try it again");
+                    verdictLabel.setText("Credenciales erróneas. Por favor vuelva a intentarlo");
                 }
 
                 userfield.setText("");

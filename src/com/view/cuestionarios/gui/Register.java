@@ -40,7 +40,7 @@ public Informe informe=new Informe();
 
 
     private void insertDataIntoDatabase() {
-        // Establecer los datos del usuario
+
         usuario.setNombre(fieldName.getText());
         usuario.setEdad((Integer) spinnerAge.getValue());
         usuario.setUsuario(fieldUser.getText());
