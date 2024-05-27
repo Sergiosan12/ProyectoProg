@@ -1,38 +1,48 @@
 package com.controller;
 
+import com.database.DatabaseHandlerMenstruacion;
+import com.database.DatabaseHandlerUsuario;
 import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
 import com.model.usuario.Usuario;
 
 public class InformeBuilder {
     private final Informe informe;
+    private final DatabaseHandlerUsuario dbHandlerUsuario;
+    private final DatabaseHandlerMenstruacion dbHandlerMenstruacion;
 
     public InformeBuilder() {
         this.informe = new Informe();
+        this.dbHandlerUsuario = new DatabaseHandlerUsuario();
+        this.dbHandlerMenstruacion = new DatabaseHandlerMenstruacion();
     }
 
-    public InformeBuilder fromUsuario(Usuario usuario) {
-        informe.setNombre(usuario.getNombre());
-        informe.setEdad(usuario.getEdad());
+    public InformeBuilder fromUsuario(String usuario) {
+        Usuario usuarioData = dbHandlerUsuario.selectData(usuario);
+        if (usuarioData != null) {
+            informe.setNombre(usuarioData.getNombre());
+            informe.setEdad(usuarioData.getEdad());
+        }
         return this;
     }
 
-    public InformeBuilder fromMenstruacion(Menstruacion menstruacion) {
-        informe.setUsuario(menstruacion.getUsuario());
-        informe.setMediaCiclo(menstruacion.getMediaCiclo());
-        informe.setMediaSangrado(menstruacion.getMediaSangrado());
-        informe.setLastperiod(menstruacion.getLastperiod());
-        informe.setDuracionFaseFolicular(menstruacion.getDuracionFaseFolicular());
-        informe.setDuracionFaseOvulacion(menstruacion.getDuracionFaseOvular());
-        informe.setDuracionFaseLutea(menstruacion.getDuracionFaseLutea());
-        informe.setInicioFaseFolicular(menstruacion.getNextFaseFolicular());
-        informe.setInicioFaseOvulacion(menstruacion.getNextFaseOvular());
-        informe.setInicioFaseLutea(menstruacion.getNextFaseLutea());
-        informe.setInicioSiguientePeriodo(menstruacion.getNextPeriod());
+    public InformeBuilder fromMenstruacion(String usuario) {
+        Menstruacion menstruacionData = dbHandlerMenstruacion.selectData(usuario);
+        if (menstruacionData != null) {
+            informe.setUsuario(menstruacionData.getUsuario());
+            informe.setMediaCiclo(menstruacionData.getMediaCiclo());
+            informe.setMediaSangrado(menstruacionData.getMediaSangrado());
+            informe.setLastperiod(menstruacionData.getLastperiod());
+            informe.setDuracionFaseFolicular(menstruacionData.getDuracionFaseFolicular());
+            informe.setDuracionFaseOvulacion(menstruacionData.getDuracionFaseOvular());
+            informe.setDuracionFaseLutea(menstruacionData.getDuracionFaseLutea());
+            informe.setInicioFaseFolicular(menstruacionData.getNextFaseFolicular());
+            informe.setInicioFaseOvulacion(menstruacionData.getNextFaseOvular());
+            informe.setInicioFaseLutea(menstruacionData.getNextFaseLutea());
+            informe.setInicioSiguientePeriodo(menstruacionData.getNextPeriod());
+        }
         return this;
     }
-
-
 
     public Informe build() {
         return informe;

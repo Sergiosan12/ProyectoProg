@@ -18,14 +18,14 @@ public class Embarazo {
     private JButton buttonGenerarInforme;
     private JButton buttonVolver;
     private JLabel FaseFolicilar;
-    private JLabel FotoEmbarazo;
     private GenerateDiaFases generateDiaFases;
+    private final int OPCIONSELECCIONADA = 1; // Constante de instancia
     InformeBuilder informeBuilder = new InformeBuilder();
 
     public Embarazo(Menstruacion menstruacion) {
         // Inicializa generateDiaFases con la instancia de menstruacion
         generateDiaFases = new GenerateDiaFases(menstruacion);
-        informeBuilder.fromMenstruacion(menstruacion);
+        informeBuilder.fromMenstruacion(menstruacion.getUsuario());
 
         // Cambia el color de los botones
         buttonVolver.setBackground(Color.decode("#F6C4F6"));
@@ -47,7 +47,7 @@ public class Embarazo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GenerarPDF generarPDF = new GenerarPDF(menstruacion);
-                generarPDF.generarInforme();
+                generarPDF.generarInforme(OPCIONSELECCIONADA);
                 JOptionPane.showMessageDialog(panel1, "Pdf generado correctamente");
             }
         });
