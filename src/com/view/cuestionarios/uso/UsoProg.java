@@ -72,7 +72,7 @@ public class UsoProg {
         buttonDeporte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                InterfazDeporte interfazDeporte = new InterfazDeporte();
+                InterfazDeporte interfazDeporte = new InterfazDeporte(menstruacion);
                 interfazDeporte.showDeportesGUI(frame);
             }
         });

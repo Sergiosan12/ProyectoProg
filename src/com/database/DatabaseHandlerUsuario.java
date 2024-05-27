@@ -34,7 +34,7 @@ public class DatabaseHandlerUsuario {
             if (rs.next()) {
                 String nombre = rs.getString("nombre");
                 String email = rs.getString("email");
-                String contrasena = rs.getString("contrasena");
+                String contrasena = rs.getString("contrasenha");
                 int edad = rs.getInt("edad");
                 resultado = new Usuario(nombre, email, contrasena, edad, usuario);
             }

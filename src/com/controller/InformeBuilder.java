@@ -43,6 +43,13 @@ public class InformeBuilder {
         }
         return this;
     }
+    public InformeBuilder withDeportes(String deporteFaseMenstrual, String deporteFaseFolicular, String deporteFaseOvulacion, String deporteFaseLutea) {
+        informe.setDeporteFaseMenstrual(deporteFaseMenstrual);
+        informe.setDeporteFaseFolicular(deporteFaseFolicular);
+        informe.setDeporteFaseOvulacion(deporteFaseOvulacion);
+        informe.setDeporteFaseLutea(deporteFaseLutea);
+        return this;
+    }
 
     public Informe build() {
         return informe;

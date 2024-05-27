@@ -72,11 +72,11 @@ public class GenerarPDF {
             Font boldItalicFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLDITALIC);
             document.add(new Paragraph("Inicio Fase Ovulación: " + inicioFaseOvulacion ));
             document.add(new Paragraph("Inicio Fase Lútea: " + inicioFaseLutea));
-            SeleccionOpcion(opcionSeleccionada);
             document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
             document.add(new Paragraph("\"Los juegos de Sangre\"", boldFont));
 
             document.close();
+            System.out.println("Documento PDF generado con éxito.");
         } catch (DocumentException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {

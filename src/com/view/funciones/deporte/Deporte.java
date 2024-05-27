@@ -16,7 +16,7 @@ public class Deporte {
     private final int OPCION_DEPORTE = 1;
 
     // Agrega una instancia de Menstruacion
-    private Menstruacion menstruacion;
+    private final Menstruacion menstruacion;
 
     public Deporte(Menstruacion menstruacion) {
         // Inicializa la instancia de Menstruacion

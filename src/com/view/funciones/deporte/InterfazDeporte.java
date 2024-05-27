@@ -1,17 +1,26 @@
 package com.view.funciones.deporte;
 
 import com.controller.GenerarPDF;
+import com.controller.InformeBuilder;
 import com.database.DatabaseHandlerDeporte;
+import com.database.InsertaDatabaseDeportes_usuario;
+import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
-public class InterfazDeporte {
+public class InterfazDeporte{
+    private static final int OPCION_DEPORTE = 2;
     Menstruacion menstruacion;
-private final int OPCION_DEPORTE = 2;
+
+    public InterfazDeporte(Menstruacion menstruacion) {
+        this.menstruacion = menstruacion;
+    }
+
     public void showDeportesGUI(JFrame previousFrame) {
         SwingUtilities.invokeLater(() -> {
             try {
@@ -40,13 +49,17 @@ private final int OPCION_DEPORTE = 2;
                 // Obtener los nombres de las fases
                 List<String> fases = dbHandler.getFases();
 
-                // Crear y agregar los JComboBox al panel central
+                // Crear un HashMap para almacenar los JComboBox y sus fases correspondientes
+                HashMap<String, JComboBox<String>> comboBoxes = new HashMap<>();
+
+                // Crear y agregar los JComboBox al panel central y al HashMap
                 for (String fase : fases) {
                     List<String> deportes = dbHandler.getDeportesPorFase(fase);
                     JComboBox<String> comboBox = new JComboBox<>(deportes.toArray(new String[0]));
                     comboBox.setBorder(BorderFactory.createTitledBorder(fase));
                     comboBox.setBackground(Color.decode("#FFF1F1"));
                     centerPanel.add(comboBox);
+                    comboBoxes.put(fase, comboBox);  // Agregar el JComboBox y su fase al HashMap
                 }
 
                 leftPanel.add(centerPanel, BorderLayout.CENTER);
@@ -81,9 +94,46 @@ private final int OPCION_DEPORTE = 2;
                 JButton continueButton = new JButton("Generar Informe");
                 continueButton.setBackground(Color.decode("#F6C4F6"));
                 continueButton.addActionListener(e -> {
+                    // Recoger las respuestas del usuario
+                    String deporteFaseMenstrual = null;
+                    String deporteFaseFolicular = null;
+                    String deporteFaseOvulacion = null;
+                    String deporteFaseLutea = null;
+
+                    JComboBox<String> comboBoxMenstrual = comboBoxes.get("Menstrual");
+                    JComboBox<String> comboBoxFolicular = comboBoxes.get("Folicular");
+                    JComboBox<String> comboBoxOvulacion = comboBoxes.get("Ovulacion");
+                    JComboBox<String> comboBoxLutea = comboBoxes.get("Lutea");
+                    String usuario=menstruacion.getUsuario();
+
+                    if (comboBoxMenstrual != null && comboBoxMenstrual.getSelectedItem() != "Fútbol") {
+                        deporteFaseMenstrual = (String) comboBoxMenstrual.getSelectedItem();
+                    }
+                    if (comboBoxFolicular != null && comboBoxFolicular.getSelectedItem() != "Natación") {
+                        deporteFaseFolicular = (String) comboBoxFolicular.getSelectedItem();
+                    }
+                    if (comboBoxOvulacion != null && comboBoxOvulacion.getSelectedItem() != "Natación") {
+                        deporteFaseOvulacion = (String) comboBoxOvulacion.getSelectedItem();
+                    }
+                    if (comboBoxLutea != null && comboBoxLutea.getSelectedItem() != "Atletismo") {
+                        deporteFaseLutea = (String) comboBoxLutea.getSelectedItem();
+                    }
+
+                    // Insertar los valores en la base de datos
+                    InsertaDatabaseDeportes_usuario dbDeportesUsuario = new InsertaDatabaseDeportes_usuario();
+                    dbDeportesUsuario.insertDeportesUsuario(usuario, deporteFaseMenstrual, deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea);
+
+
+                    InformeBuilder informeBuilder = new InformeBuilder();
+                    Informe informe = informeBuilder.fromUsuario(menstruacion.getUsuario())
+                            .fromMenstruacion(menstruacion.getUsuario())
+                            .withDeportes(deporteFaseMenstrual, deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea)
+                            .build();
+
                     GenerarPDF generarPDF = new GenerarPDF(menstruacion);
                     generarPDF.generarInforme(OPCION_DEPORTE);  // Llamar al método para generar el informe
                 });
+
                 bottomPanel.add(continueButton);
 
                 frame.add(bottomPanel, BorderLayout.SOUTH);
