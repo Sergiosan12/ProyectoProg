@@ -24,7 +24,6 @@ public class GenerarPDF {
     private Document document;
 
 
-
     public GenerarPDF() {
     }
 
