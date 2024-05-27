@@ -80,7 +80,7 @@ public class InterfazDeporte {
                 bottomPanel.add(continueButton);
 
                 frame.add(bottomPanel, BorderLayout.SOUTH);
-
+                //C
                 // Configurar el frame y hacerlo visible
                 frame.pack();
                 frame.setVisible(true);
