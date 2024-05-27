@@ -19,6 +19,8 @@ public class Embarazo {
     private JButton buttonVolver;
     private JLabel FaseFolicilar;
     private GenerateDiaFases generateDiaFases;
+    private JLabel FotoEmbarazo;
+
     private final int OPCIONSELECCIONADA = 1; // Constante de instancia
     InformeBuilder informeBuilder = new InformeBuilder();
 
