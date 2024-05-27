@@ -7,6 +7,7 @@ import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.uso.UsoProg;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -25,6 +26,10 @@ public class Embarazo {
         // Inicializa generateDiaFases con la instancia de menstruacion
         generateDiaFases = new GenerateDiaFases(menstruacion);
         informeBuilder.fromMenstruacion(menstruacion.getUsuario());
+
+        // Cambia el color de los botones
+        buttonVolver.setBackground(Color.decode("#F6C4F6"));
+        buttonGenerarInforme.setBackground(Color.decode("#F6C4F6"));
 
         // Calcula todas las fases y actualiza la etiqueta FaseFolicilar
         calculateAndDisplayPhases();
