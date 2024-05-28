@@ -4,6 +4,7 @@ import com.controller.GenerarPDF;
 import com.controller.GenerateDiaFases;
 import com.controller.InformeBuilder;
 import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 import com.view.cuestionarios.uso.UsoProg;
 
 import javax.swing.*;
@@ -13,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.controller.GenerateDiaFases.menstruacion;
+
 public class Embarazo {
     private JPanel panel1;
     private JButton buttonGenerarInforme;
@@ -20,14 +23,15 @@ public class Embarazo {
     private JLabel FaseFolicilar;
     private GenerateDiaFases generateDiaFases;
     private JLabel FotoEmbarazo;
+    Usuario usuario;
 
     private final int OPCIONSELECCIONADA = 1; // Constante de instancia
     InformeBuilder informeBuilder = new InformeBuilder();
 
-    public Embarazo(Menstruacion menstruacion) {
+    public Embarazo(Usuario usuario) {
         // Inicializa generateDiaFases con la instancia de menstruacion
-        generateDiaFases = new GenerateDiaFases(menstruacion);
-        informeBuilder.fromMenstruacion(menstruacion.getUsuario());
+        generateDiaFases = new GenerateDiaFases();
+        informeBuilder.fromMenstruacion(usuario.getUsuario());
 
         // Cambia el color de los botones
         buttonVolver.setBackground(Color.decode("#F6C4F6"));
@@ -39,7 +43,7 @@ public class Embarazo {
         buttonVolver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UsoProg usoProg = new UsoProg(menstruacion);
+                UsoProg usoProg = new UsoProg(usuario);
                 usoProg.setVisible(true);
                 ((JFrame) SwingUtilities.getWindowAncestor(panel1)).dispose();
             }
@@ -48,7 +52,7 @@ public class Embarazo {
         buttonGenerarInforme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GenerarPDF generarPDF = new GenerarPDF(menstruacion);
+                GenerarPDF generarPDF = new GenerarPDF(usuario);
                 generarPDF.generarInforme(OPCIONSELECCIONADA);
                 JOptionPane.showMessageDialog(panel1, "Pdf generado correctamente");
             }

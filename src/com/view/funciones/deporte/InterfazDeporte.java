@@ -6,6 +6,7 @@ import com.database.DatabaseHandlerDeporte;
 import com.database.InsertaDatabaseDeportes_usuario;
 import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,7 @@ public class InterfazDeporte{
     Menstruacion menstruacion;
     InformeBuilder informeBuilder=new InformeBuilder() ;
 
-    public InterfazDeporte(Menstruacion menstruacion) {
+    public InterfazDeporte(Usuario usuario) {
         this.menstruacion = menstruacion;
     }
 
@@ -127,7 +128,7 @@ public class InterfazDeporte{
                     dbDeportesUsuario.insertDeportesUsuario(usuario, deporteFaseMenstrual, deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea);
 
                    informeBuilder.withDeportes(usuario);
-                    GenerarPDF generarPDF = new GenerarPDF(menstruacion);
+                    GenerarPDF generarPDF = new GenerarPDF(usuario);
                     // Llama al método para generar el informe
                     generarPDF.generarInforme(OPCION_DEPORTE);
 

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 
 /**
  * La clase GenerarPDF se encarga de generar un informe en formato PDF.
@@ -22,8 +23,7 @@ public class GenerarPDF {
     private Informe informe;
     private Document document;
 
-    public GenerarPDF(Menstruacion menstruacion) {
-        this.menstruacion = menstruacion;
+    public GenerarPDF(Usuario usuario) {
         this.document = new Document();
     }
 

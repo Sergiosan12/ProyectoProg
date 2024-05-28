@@ -1,6 +1,7 @@
 package com.view.cuestionarios;
 
 import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 import com.view.cuestionarios.gui.SignIn;
 import com.view.cuestionarios.sangrado.SelectorFecha;
 import com.view.cuestionarios.uso.UsoProg;
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
 
 public class InterfazDespuesInicio extends JFrame {
 
-    public InterfazDespuesInicio() {
+    public InterfazDespuesInicio(Usuario usuario) {
         super("Interfaz Después de Inicio");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -33,7 +34,7 @@ public class InterfazDespuesInicio extends JFrame {
         buttonUsarApp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UsoProg usoProg = new UsoProg(new Menstruacion());
+                UsoProg usoProg = new UsoProg(usuario);
                 usoProg.setVisible(true);
                 dispose();
             }

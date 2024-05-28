@@ -1,6 +1,7 @@
 package com.view.cuestionarios.gui;
 
 import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 import com.view.cuestionarios.InterfazDespuesInicio;
 import com.view.cuestionarios.uso.UsoProg;
 import com.database.Database;
@@ -26,6 +27,7 @@ public class SignIn extends JFrame {
     private JButton signInButton;
     private JButton registerButton;
     private JLabel verdictLabel;
+    Usuario usuario=new Usuario();
 
     private boolean checkCredentials(String userName, String password) {
         String sql = "SELECT * FROM usuario WHERE usuario = ? AND contrasenha = ?";
@@ -34,7 +36,7 @@ public class SignIn extends JFrame {
 
             pstmt.setString(1, userName);
             pstmt.setString(2, password);
-
+            usuario.setUsuario(userName);
             ResultSet rs = pstmt.executeQuery();
 
             return rs.next();

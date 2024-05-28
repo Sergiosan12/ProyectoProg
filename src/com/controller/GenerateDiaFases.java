@@ -15,9 +15,8 @@ public class GenerateDiaFases {
     /**
      * Constructor para inicializar la clase con una instancia de Menstruacion.
      *
-     * @param menstruacion instancia de Menstruacion con los datos del ciclo.
      */
-    public GenerateDiaFases(Menstruacion menstruacion) {
+    public GenerateDiaFases() {
         this.menstruacion = menstruacion;
     }
     public String cambiarUsuario(String usuario){

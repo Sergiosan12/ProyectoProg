@@ -3,6 +3,7 @@ package com.view.funciones.deporte;
 import com.controller.GenerarPDF;
 import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,11 +17,9 @@ public class Deporte {
     private final int OPCION_DEPORTE = 1;
 
     // Agrega una instancia de Menstruacion
-    private final Menstruacion menstruacion;
 
-    public Deporte(Menstruacion menstruacion) {
+    public Deporte(Usuario usuario) {
         // Inicializa la instancia de Menstruacion
-        this.menstruacion = menstruacion;
 
         buttonVolver.addActionListener(new ActionListener() {
             @Override
@@ -34,7 +33,7 @@ public class Deporte {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Crea una nueva instancia de GenerarPDF con la instancia de Menstruacion
-                GenerarPDF generarPDF = new GenerarPDF(menstruacion);
+                GenerarPDF generarPDF = new GenerarPDF(usuario);
                 // Llama al método para generar el informe
                 generarPDF.generarInforme(OPCION_DEPORTE);
             }

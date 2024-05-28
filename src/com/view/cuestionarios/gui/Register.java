@@ -47,6 +47,7 @@ public Informe informe=new Informe();
         usuario.setEmail(fieldMail.getText());
         usuario.setContrasena(new String(fieldPassword.getPassword()));
 
+
         // Establecer los mismos datos del usuario en el informe
         informe.setNombre(usuario.getNombre());
         informe.setEdad(usuario.getEdad());

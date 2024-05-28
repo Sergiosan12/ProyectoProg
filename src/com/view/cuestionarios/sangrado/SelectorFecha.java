@@ -4,6 +4,7 @@ import com.controller.GenerateDiaFases;
 import com.database.InsertDatabaseMenstruacion;
 import com.model.decoracion.DateLabelFormatter;
 import com.model.funciones.Menstruacion;
+import com.model.usuario.Usuario;
 import com.view.cuestionarios.uso.UsoProg;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -30,11 +31,11 @@ public class SelectorFecha extends JFrame {
     public SelectorFecha() {
     }
 
-    public SelectorFecha(Menstruacion menstruacion) {
+    public SelectorFecha(Usuario usuario) {
         this.menstruacion = menstruacion; // Asegúrate de que la instancia se asigna aquí
         try {
             JPanel panel = getjPanel();
-            getBtnContinuar(panel);
+            getBtnContinuar(panel, usuario);
             add(panel, BorderLayout.CENTER);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,7 +44,7 @@ public class SelectorFecha extends JFrame {
         setVisible(true);
     }
 
-    private void getBtnContinuar(JPanel panel) {
+    private void getBtnContinuar(JPanel panel, Usuario usuario) {
         JButton btnContinuar = new JButton("Continuar");
         btnContinuar.setBackground(new Color(255, 105, 180));
         btnContinuar.setForeground(Color.WHITE);
@@ -65,7 +66,7 @@ public class SelectorFecha extends JFrame {
                     GenerateDiaFases.calcularTodasLasFases();
                     insertDatabase.insertDateIntoDatabase(menstruacion); // Pasa menstruacion aquí
                     dispose();
-                    UsoProg usoProg = new UsoProg(menstruacion);
+                    UsoProg usoProg = new UsoProg(usuario);
                     usoProg.setVisible(true);
                 } catch (Exception ex) {
                     ex.printStackTrace();
