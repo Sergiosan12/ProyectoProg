@@ -16,6 +16,7 @@ import java.util.List;
 public class InterfazDeporte{
     private static final int OPCION_DEPORTE = 2;
     Menstruacion menstruacion;
+    InformeBuilder informeBuilder=new InformeBuilder() ;
 
     public InterfazDeporte(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;
@@ -125,12 +126,11 @@ public class InterfazDeporte{
                     InsertaDatabaseDeportes_usuario dbDeportesUsuario = new InsertaDatabaseDeportes_usuario();
                     dbDeportesUsuario.insertDeportesUsuario(usuario, deporteFaseMenstrual, deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea);
 
-                InformeBuilder informeBuilder = new InformeBuilder();
-                   informeBuilder.withDeportes(deporteFaseMenstrual,deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea);
-
-
+                   informeBuilder.withDeportes(usuario);
                     GenerarPDF generarPDF = new GenerarPDF(menstruacion);
-                    generarPDF.generarInforme(OPCION_DEPORTE);  // Llamar al método para generar el informe
+                    // Llama al método para generar el informe
+                    generarPDF.generarInforme(OPCION_DEPORTE);
+
                 });
 
                 bottomPanel.add(continueButton);

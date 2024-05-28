@@ -19,18 +19,11 @@ import com.model.funciones.Menstruacion;
  */
 public class GenerarPDF {
     private Menstruacion menstruacion;
-    private InformeBuilder informeBuilder;
     private Informe informe;
     private Document document;
 
-
-    public GenerarPDF() {
-    }
-
     public GenerarPDF(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;
-        this.informeBuilder = new InformeBuilder();
-        this.informe = this.informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
         this.document = new Document();
     }
 
@@ -41,11 +34,13 @@ public class GenerarPDF {
      * El nombre del archivo PDF será "Informe_mesActual_añoActual.pdf".
      */
     public void generarInforme(int opcionSeleccionada) {
-  InformeBuilder informeBuilder = new InformeBuilder();
-    Informe informe = informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
-    Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+        // Construir el informe utilizando ambos métodos
+        this.informe = new InformeBuilder()
+                .fromMenstruacion(menstruacion.getUsuario())
+                .withDeportes(menstruacion.getUsuario())
+                .build();
 
-
+        Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter monthYearFormat = DateTimeFormatter.ofPattern("MM_yyyy");
@@ -63,7 +58,6 @@ public class GenerarPDF {
             PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
 
-
             document.add(new Paragraph("Nombre: " + informe.getNombre(), boldFont));
             document.add(new Paragraph("Edad: " + informe.getEdad(), boldFont));
             document.add(new Paragraph("\nInformaciones generales:", boldFont));
@@ -77,38 +71,31 @@ public class GenerarPDF {
             document.add(new Paragraph("\nPrevisión siguiente mes:", boldFont));
             document.add(new Paragraph("Inicio Siguiente Periodo: " + siguientePeriodo));
             document.add(new Paragraph("Inicio Fase Folicular: " + inicioFaseFolicular));
-            Font boldItalicFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLDITALIC);
-            document.add(new Paragraph("Inicio Fase Ovulación: " + inicioFaseOvulacion ));
+            document.add(new Paragraph("Inicio Fase Ovulación: " + inicioFaseOvulacion, new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLDITALIC)));
             document.add(new Paragraph("Inicio Fase Lútea: " + inicioFaseLutea));
+
             SeleccionOpcion(opcionSeleccionada);
+
             document.add(new Paragraph("\nFecha del informe: " + fechaInforme.format(dtf)));
             document.add(new Paragraph("\"Los juegos de Sangre\"", boldFont));
 
             document.close();
             System.out.println("Documento PDF generado con éxito.");
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-    public void SeleccionOpcion(int opcionSeleccionada) {
 
-        try {
-            if (opcionSeleccionada == 1) {
-                InformeEmbarazo();
-
-            } else {
-                                InformeDeportes();
-
-            }
-        } catch (DocumentException e) {
-            e.printStackTrace();
+    public void SeleccionOpcion(int opcionSeleccionada) throws DocumentException {
+        if (opcionSeleccionada == 1) {
+            InformeEmbarazo();
+        } else {
+            InformeDeportes();
         }
     }
+
     public void InformeDeportes() throws DocumentException {
         Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
         document.add(new Paragraph("\nDeportes Preferidos para cada fase:", boldFont));
@@ -116,15 +103,11 @@ public class GenerarPDF {
         document.add(new Paragraph("Deporte Fase Folicular: " + informe.getDeporteFaseFolicular()));
         document.add(new Paragraph("Deporte Fase Ovulación: " + informe.getDeporteFaseOvulacion()));
         document.add(new Paragraph("Deporte Fase Lútea: " + informe.getDeporteFaseLutea()));
-
-        document.close();
     }
 
     public void InformeEmbarazo() throws DocumentException {
-        InformeBuilder informeBuilder = new InformeBuilder();
-        Informe informe = informeBuilder.fromMenstruacion(menstruacion.getUsuario()).build();
         Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-    document.add(new Paragraph("\nEmbarazo:", boldFont));
-    document.add(new Paragraph("Tu periodo fertil comprende de " + informe.getInicioFaseOvulacion()+" a "+informe.getInicioFaseLutea()));
+        document.add(new Paragraph("\nEmbarazo:", boldFont));
+        document.add(new Paragraph("Tu periodo fertil comprende de " + informe.getInicioFaseOvulacion() + " a " + informe.getInicioFaseLutea()));
     }
 }

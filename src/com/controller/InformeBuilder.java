@@ -1,17 +1,21 @@
 package com.controller;
 
+import com.database.DatabaseHandlerDeportes_usuario;
 import com.database.DatabaseHandlerMenstruacion;
 import com.database.DatabaseHandlerUsuario;
 import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
+import com.model.usuario.DeportesUsuario;
 import com.model.usuario.Usuario;
 
 public class InformeBuilder {
     private final Informe informe;
     private final DatabaseHandlerUsuario dbHandlerUsuario;
     private final DatabaseHandlerMenstruacion dbHandlerMenstruacion;
+    private final DatabaseHandlerDeportes_usuario dbHandlerDeportes_usuario;
 
     public InformeBuilder() {
+        this.dbHandlerDeportes_usuario = new DatabaseHandlerDeportes_usuario();
         this.informe = new Informe();
         this.dbHandlerUsuario = new DatabaseHandlerUsuario();
         this.dbHandlerMenstruacion = new DatabaseHandlerMenstruacion();
@@ -43,11 +47,15 @@ public class InformeBuilder {
         }
         return this;
     }
-    public InformeBuilder withDeportes(String deporteFaseMenstrual, String deporteFaseFolicular, String deporteFaseOvulacion, String deporteFaseLutea) {
-        informe.setDeporteFaseMenstrual(deporteFaseMenstrual);
-        informe.setDeporteFaseFolicular(deporteFaseFolicular);
-        informe.setDeporteFaseOvulacion(deporteFaseOvulacion);
-        informe.setDeporteFaseLutea(deporteFaseLutea);
+    public InformeBuilder withDeportes(String usuario) {
+
+                DeportesUsuario menstruacionData = dbHandlerDeportes_usuario.selectData(usuario);
+        if (menstruacionData != null) {
+        informe.setDeporteFaseMenstrual(dbHandlerDeportes_usuario.selectData(usuario).getDeporteFaseMenstrual());
+        informe.setDeporteFaseFolicular(dbHandlerDeportes_usuario.selectData(usuario).getDeporteFaseFolicular());
+        informe.setDeporteFaseOvulacion(dbHandlerDeportes_usuario.selectData(usuario).getDeporteFaseOvular());
+        informe.setDeporteFaseLutea(dbHandlerDeportes_usuario.selectData(usuario).getDeporteFaseLutea());
+        }
         return this;
     }
 

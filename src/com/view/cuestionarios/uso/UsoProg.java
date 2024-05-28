@@ -24,6 +24,7 @@ public class UsoProg {
     private JFrame frame;
     Menstruacion menstruacion;
 
+
     private GenerateDiaFases generateDiaFases;
 
     // Constructor de la clase UsoProg corregido

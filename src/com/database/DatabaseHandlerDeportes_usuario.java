@@ -28,10 +28,10 @@ public class DatabaseHandlerDeportes_usuario {
 
             // Procesar el conjunto de resultados
             if (rs.next()) {
-                String deporteFaseMenstrual= rs.getString("deportefasemenstrual");
-                String deporteFaseFOlicular= rs.getString("deportefasefolicular");
-                String deporteFaseOvular= rs.getString("deportefaseovular");
-                String deporteFaseLutea= rs.getString("deportefaselutea");
+                String deporteFaseMenstrual= rs.getString("deporte_fase_menstrual");
+                String deporteFaseFOlicular= rs.getString("deporte_fase_folicular");
+                String deporteFaseOvular= rs.getString("deporte_fase_ovular");
+                String deporteFaseLutea= rs.getString("deporte_fase_lutea");
 
               resultado= new DeportesUsuario(usuario, deporteFaseMenstrual, deporteFaseFOlicular, deporteFaseOvular, deporteFaseLutea);
             }
