@@ -41,11 +41,10 @@ public class UsoProg {
     /**
      * Crea una nueva instancia de UsoProg.
      * Inicializa la interfaz gráfica de usuario y configura los listeners de los botones.
-     * @param menstruacion la instancia de Menstruacion que se pasará a otras vistas
      */
     public UsoProg(Usuario usuario) {
         this.menstruacion = menstruacion;
-        this.generateDiaFases = new GenerateDiaFases(menstruacion);
+        this.generateDiaFases = new GenerateDiaFases();
         generateDiaFases.calcularTodasLasFases();
         frame = new JFrame("UsoProg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,7 +73,7 @@ public class UsoProg {
         buttonDeporte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                InterfazDeporte interfazDeporte = new InterfazDeporte(menstruacion);
+                InterfazDeporte interfazDeporte = new InterfazDeporte(usuario);
                 interfazDeporte.showDeportesGUI(frame);
             }
         });

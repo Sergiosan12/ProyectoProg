@@ -79,7 +79,7 @@ public class SignIn extends JFrame {
 
                 if (checkCredentials(userName, password)) {
                     // Código a ejecutar en caso de credenciales correctas
-                    InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio();
+                    InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio(usuario);
                     interfazDespuesInicio.setVisible(true);
                     dispose();
                 } else if (userName.isEmpty() || password.isEmpty()) {

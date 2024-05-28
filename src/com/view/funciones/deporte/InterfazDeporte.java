@@ -18,6 +18,7 @@ public class InterfazDeporte{
     private static final int OPCION_DEPORTE = 2;
     Menstruacion menstruacion;
     InformeBuilder informeBuilder=new InformeBuilder() ;
+    private Usuario usuario;
 
     public InterfazDeporte(Usuario usuario) {
         this.menstruacion = menstruacion;
@@ -99,7 +100,7 @@ public class InterfazDeporte{
                 JButton continueButton = new JButton("Generar Informe");
                 continueButton.setBackground(Color.decode("#F6C4F6"));
                 continueButton.addActionListener(e -> {
-                    // Recoger las respuestas del usuario
+                    // Recoger las respuestas del nombreUsuario
                     String deporteFaseMenstrual = null;
                     String deporteFaseFolicular = null;
                     String deporteFaseOvulacion = null;
@@ -109,7 +110,7 @@ public class InterfazDeporte{
                     JComboBox<String> comboBoxFolicular = comboBoxes.get("Folicular");
                     JComboBox<String> comboBoxOvulacion = comboBoxes.get("Ovulación");
                     JComboBox<String> comboBoxLutea = comboBoxes.get("Lútea");
-                    String usuario=menstruacion.getUsuario();
+                    String nombreUsuario=menstruacion.getUsuario();
 
                     if (comboBoxMenstrual != null && comboBoxMenstrual.getSelectedItem() != null) {
                         deporteFaseMenstrual = (String) comboBoxMenstrual.getSelectedItem();
@@ -125,9 +126,9 @@ public class InterfazDeporte{
                     }
                     // Insertar los valores en la base de datos
                     InsertaDatabaseDeportes_usuario dbDeportesUsuario = new InsertaDatabaseDeportes_usuario();
-                    dbDeportesUsuario.insertDeportesUsuario(usuario, deporteFaseMenstrual, deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea);
+                    dbDeportesUsuario.insertDeportesUsuario(nombreUsuario, deporteFaseMenstrual, deporteFaseFolicular, deporteFaseOvulacion, deporteFaseLutea);
 
-                   informeBuilder.withDeportes(usuario);
+                   informeBuilder.withDeportes(nombreUsuario);
                     GenerarPDF generarPDF = new GenerarPDF(usuario);
                     // Llama al método para generar el informe
                     generarPDF.generarInforme(OPCION_DEPORTE);

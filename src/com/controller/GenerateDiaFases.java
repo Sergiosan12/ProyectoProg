@@ -10,7 +10,7 @@ import java.util.Date;
  * basándose en la duración media del ciclo y la duración del sangrado.
  */
 public class GenerateDiaFases {
-    private static Menstruacion menstruacion = new Menstruacion();
+    public static Menstruacion menstruacion = new Menstruacion();
 
     /**
      * Constructor para inicializar la clase con una instancia de Menstruacion.

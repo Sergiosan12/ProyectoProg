@@ -43,7 +43,7 @@ public class InterfazDespuesInicio extends JFrame {
         buttonSeleccionarPeriodo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SelectorFecha selectorFecha = new SelectorFecha(new Menstruacion());
+                SelectorFecha selectorFecha = new SelectorFecha(usuario);
                 selectorFecha.setVisible(true);
                 dispose();
             }

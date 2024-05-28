@@ -19,7 +19,7 @@ public class CuestionarioFinal {
     int duracionSangrado;
     private Usuario usuario;
     Menstruacion menstruacion = new Menstruacion();
-    GenerateDiaFases generateDiaFases = new GenerateDiaFases(menstruacion);
+    GenerateDiaFases generateDiaFases = new GenerateDiaFases();
 
     public CuestionarioFinal(Usuario usuario) {
         try {
@@ -47,7 +47,7 @@ public class CuestionarioFinal {
                         }
                         generateDiaFases.CambiarDiasSangrado(duracionSangrado);
                         generateDiaFases.CambiarDiasCiclo(duracionCiclo);
-                        new SelectorFecha(menstruacion); // Pasa la instancia de Menstruacion y Duracion a SelectorFecha
+                        new SelectorFecha(usuario); // Pasa la instancia de Menstruacion y Duracion a SelectorFecha
 
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Por favor, introduce números válidos.", "Error", JOptionPane.ERROR_MESSAGE);
