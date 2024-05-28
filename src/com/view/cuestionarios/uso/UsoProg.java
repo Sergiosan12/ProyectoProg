@@ -2,7 +2,6 @@ package com.view.cuestionarios.uso;
 
 import com.controller.GenerateDiaFases;
 import com.model.funciones.Menstruacion;
-import com.model.usuario.Usuario;
 import com.view.funciones.deporte.InterfazDeporte;
 import com.view.funciones.Embarazo;
 
@@ -25,7 +24,6 @@ public class UsoProg {
     private JFrame frame;
     Menstruacion menstruacion;
 
-
     private GenerateDiaFases generateDiaFases;
 
     // Constructor de la clase UsoProg corregido
@@ -41,10 +39,11 @@ public class UsoProg {
     /**
      * Crea una nueva instancia de UsoProg.
      * Inicializa la interfaz gráfica de usuario y configura los listeners de los botones.
+     * @param menstruacion la instancia de Menstruacion que se pasará a otras vistas
      */
-    public UsoProg(Usuario usuario) {
+    public UsoProg(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;
-        this.generateDiaFases = new GenerateDiaFases();
+        this.generateDiaFases = new GenerateDiaFases(menstruacion);
         generateDiaFases.calcularTodasLasFases();
         frame = new JFrame("UsoProg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,7 +59,7 @@ public class UsoProg {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                Embarazo embarazo = new Embarazo(usuario);
+                Embarazo embarazo = new Embarazo(menstruacion);
                 JFrame embarazoFrame = new JFrame("Embarazo");
                 embarazoFrame.setContentPane(embarazo.getPanel());
                 embarazoFrame.pack();
@@ -73,7 +72,7 @@ public class UsoProg {
         buttonDeporte.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                InterfazDeporte interfazDeporte = new InterfazDeporte(usuario);
+                InterfazDeporte interfazDeporte = new InterfazDeporte();
                 interfazDeporte.showDeportesGUI(frame);
             }
         });
