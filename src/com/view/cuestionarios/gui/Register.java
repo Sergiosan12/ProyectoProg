@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Register extends JFrame {
@@ -35,8 +36,8 @@ public class Register extends JFrame {
     private JPanel paneTitle;
     private JButton buttonVolver;
     private JButton continuarButton;
-    public Usuario usuario= new Usuario();
-    public Informe informe=new Informe();
+    public Usuario usuario = new Usuario();
+    public Informe informe = new Informe();
 
     private void insertDataIntoDatabase() {
         usuario.setNombre(fieldName.getText());
@@ -68,6 +69,59 @@ public class Register extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean isUserExisting(String username) {
+        String sql = "SELECT COUNT(*) FROM usuario WHERE usuario = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean validateFields() {
+        if (fieldName.getText().isEmpty() || fieldUser.getText().isEmpty() ||
+                fieldMail.getText().isEmpty() || new String(fieldPassword.getPassword()).isEmpty() ||
+                new String(fieldPasswordConfirm.getPassword()).isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (fieldUser.getText().length() < 8) {
+            JOptionPane.showMessageDialog(this, "El usuario debe tener al menos 8 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (new String(fieldPassword.getPassword()).length() < 8) {
+            JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 8 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (!new String(fieldPassword.getPassword()).equals(new String(fieldPasswordConfirm.getPassword()))) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String email = fieldMail.getText();
+        if (!email.contains("@") || !email.endsWith(".com") || email.endsWith(".org")) {
+            JOptionPane.showMessageDialog(this, "El correo electrónico debe contener '@' y terminar con '.com'", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (isUserExisting(fieldUser.getText())) {
+            JOptionPane.showMessageDialog(this, "El usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 
     public Register() {
@@ -102,30 +156,33 @@ public class Register extends JFrame {
                 }
             }
         });
+
         continuarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    insertDataIntoDatabase();
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                dispose();  // Cierra la ventana Register
-                                JFrame frame = new JFrame("Cuestionario Final");
-                                frame.setSize(600, 400);
-                                frame.setLocationRelativeTo(null);
-                                frame.setVisible(true);
-                                CuestionarioFinal cuestionario = new CuestionarioFinal(usuario);
-                                frame.getContentPane().add(cuestionario.panelPrincipal);
-                                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                                JOptionPane.showMessageDialog(null, "Error al abrir la ventana Cuestionario " + ex.getMessage());
+                    if (validateFields()) {
+                        insertDataIntoDatabase();
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    dispose();  // Cierra la ventana Register
+                                    JFrame frame = new JFrame("Cuestionario Final");
+                                    frame.setSize(600, 400);
+                                    frame.setLocationRelativeTo(null);
+                                    frame.setVisible(true);
+                                    CuestionarioFinal cuestionario = new CuestionarioFinal(usuario);
+                                    frame.getContentPane().add(cuestionario.panelPrincipal);
+                                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                    JOptionPane.showMessageDialog(null, "Error al abrir la ventana Cuestionario " + ex.getMessage());
+                                }
                             }
-                        }
-                    });
-                    informe.setUsuario(usuario.getUsuario());
+                        });
+                        informe.setUsuario(usuario.getUsuario());
+                    }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
