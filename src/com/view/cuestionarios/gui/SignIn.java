@@ -1,5 +1,6 @@
 package com.view.cuestionarios.gui;
 
+import com.database.DatabaseHandlerMenstruacion;
 import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.InterfazDespuesInicio;
 import com.view.cuestionarios.uso.UsoProg;
@@ -26,6 +27,7 @@ public class SignIn extends JFrame {
     private JButton signInButton;
     private JButton registerButton;
     private JLabel verdictLabel;
+    DatabaseHandlerMenstruacion dbHandlerMenstruacion=new DatabaseHandlerMenstruacion();
 
     private boolean checkCredentials(String userName, String password) {
         String sql = "SELECT * FROM usuario WHERE usuario = ? AND contrasenha = ?";
@@ -77,7 +79,8 @@ public class SignIn extends JFrame {
 
                 if (checkCredentials(userName, password)) {
                     // Código a ejecutar en caso de credenciales correctas
-                    InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio();
+                    Menstruacion menstruacion = dbHandlerMenstruacion.selectData(userName);
+                    InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio(menstruacion);
                     interfazDespuesInicio.setVisible(true);
                     dispose();
                 } else if (userName.isEmpty() || password.isEmpty()) {
