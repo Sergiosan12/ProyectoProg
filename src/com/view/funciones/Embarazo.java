@@ -61,7 +61,7 @@ public class Embarazo {
 
         Date inicioFaseOvulacion = generateDiaFases.CalculoInicioFaseOvulacion(mediaFaseFolicular, mediaFaseLutea);
         Date inicioFaseLutea = generateDiaFases.CalculoInicioFaseLutea(mediaFaseFolicular);
-        Date inicioFaseFolicular = generateDiaFases.CalculoInicioFaseFolicular(mediaFaseFolicular);
+        Date inicioFaseFolicular = generateDiaFases.CalculoInicioFaseFolicular();
 
         // Verificar si las fechas calculadas son nulas y asignar la fecha actual como valor predeterminado
         if (inicioFaseOvulacion == null) {

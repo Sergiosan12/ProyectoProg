@@ -75,19 +75,23 @@ public class GenerateDiaFases {
      *
      * @return la fecha de inicio de la fase folicular.
      */
-    public static Date CalculoInicioFaseFolicular(int mediaFaseFolicular) {
-        if (menstruacion.getNextPeriod() == null) {
-            // Si la fecha del último período es nula, devuelve null
-            return null;
-        }
+    public static Date CalculoInicioFaseFolicular() {
+        if (checkIfNull()) return null;
         // Realiza los cálculos y devuelve la fecha calculada
-        Calendar calendar = Calendar.getInstance();
         Calendar cal = Calendar.getInstance();
         cal.setTime(menstruacion.getNextPeriod());
         cal.add(Calendar.DAY_OF_MONTH, menstruacion.getMediaSangrado());
-        Date NextFaseFOlicular=cal.getTime();
-        menstruacion.setNextFaseFolicular(NextFaseFOlicular);
-        return NextFaseFOlicular;
+        Date nextFaseFolicular=cal.getTime();
+        menstruacion.setNextFaseFolicular(nextFaseFolicular);
+        return nextFaseFolicular;
+    }
+
+    private static boolean checkIfNull() {
+        if (menstruacion.getNextPeriod() == null) {
+            // Si la fecha del último período es nula, devuelve null
+            return true;
+        }
+        return false;
     }
 
 
@@ -98,13 +102,10 @@ public class GenerateDiaFases {
      * @return la fecha de inicio de la fase lútea.
      */
     public static Date CalculoInicioFaseLutea(int mediaDiasFolicular) {
+        if (checkIfNull()) return null;
         try {
             Date nextPeriod = menstruacion.getNextPeriod();
-            if (nextPeriod == null) {
-                // Si nextPeriod es null, devuelve null
-                return null;
-            }
-            int daysToAdd = menstruacion.getMediaSangrado() + mediaDiasFolicular + menstruacion.getDuracionFaseOvular();
+        int daysToAdd = menstruacion.getMediaSangrado() + mediaDiasFolicular + menstruacion.getDuracionFaseOvular();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(nextPeriod);
             calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
@@ -175,7 +176,7 @@ public class GenerateDiaFases {
         int mediaFaseOvulacion = CalculoFaseOvulacion();
         CalculoFaseMenstrual();
         Date siguienteFaseMenstrual = CalculoSiguienteFaseMenstrual(menstruacion.getLastperiod());
-        Date inicioFaseFolicular = CalculoInicioFaseFolicular(mediaFaseFolicular);
+        Date inicioFaseFolicular = CalculoInicioFaseFolicular();
         Date inicioFaseLutea = CalculoInicioFaseLutea(mediaFaseFolicular);
         Date inicioFaseOvulacion = CalculoInicioFaseOvulacion(mediaFaseFolicular, mediaFaseLutea);
 
