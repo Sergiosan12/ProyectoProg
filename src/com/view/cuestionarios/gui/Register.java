@@ -7,6 +7,9 @@ import com.view.cuestionarios.sangrado.CuestionarioFinal;
 import com.database.Database;
 import com.model.usuario.Usuario;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class Register extends JFrame {
     private JPanel panelMainR;
@@ -35,12 +39,10 @@ public class Register extends JFrame {
     private JPanel paneTitle;
     private JButton buttonVolver;
     private JButton continuarButton;
-   public Usuario usuario= new Usuario();
-public Informe informe=new Informe();
-
+    public Usuario usuario = new Usuario();
+    public Informe informe = new Informe();
 
     private void insertDataIntoDatabase() {
-
         usuario.setNombre(fieldName.getText());
         usuario.setEdad((Integer) spinnerAge.getValue());
         usuario.setUsuario(fieldUser.getText());
@@ -55,7 +57,7 @@ public Informe informe=new Informe();
         InformeBuilder informeBuilder = new InformeBuilder();
         informeBuilder.fromUsuario(usuario.getUsuario());
 
-        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email, edad ) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email, edad) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -68,6 +70,40 @@ public Informe informe=new Informe();
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendEmail(String to, String subject, String content) {
+        // Propiedades de la configuración de correo electrónico
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com"); // Cambia esto si usas otro proveedor de correo
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        // Autenticación
+        String username = "tucorrreo"; // Cambia esto por tu dirección de correo electrónico
+        String password = "tucontraseña"; // Cambia esto por tu contraseña
+
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(subject);
+            message.setText(content);
+
+            Transport.send(message);
+            System.out.println("Correo enviado exitosamente");
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
@@ -106,6 +142,7 @@ public Informe informe=new Informe();
             public void actionPerformed(ActionEvent e) {
                 try {
                     insertDataIntoDatabase();
+                    sendEmail(usuario.getEmail(), "Registro exitoso", "Gracias por registrarte. Tus datos han sido registrados exitosamente.");
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
@@ -132,4 +169,4 @@ public Informe informe=new Informe();
             }
         });
     }
-    }
+}

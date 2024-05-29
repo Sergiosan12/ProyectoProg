@@ -57,7 +57,6 @@ public class InsertDatabaseMenstruacion {
             conn = Database.getConnection();
             pstmt = conn.prepareStatement(sql);
             setPreparedStatementParameters(menstruacion, pstmt);
-            pstmt.setString(12, userName);
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
