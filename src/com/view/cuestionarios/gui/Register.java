@@ -35,12 +35,10 @@ public class Register extends JFrame {
     private JPanel paneTitle;
     private JButton buttonVolver;
     private JButton continuarButton;
-   public Usuario usuario= new Usuario();
-public Informe informe=new Informe();
-
+    public Usuario usuario= new Usuario();
+    public Informe informe=new Informe();
 
     private void insertDataIntoDatabase() {
-
         usuario.setNombre(fieldName.getText());
         usuario.setEdad((Integer) spinnerAge.getValue());
         usuario.setUsuario(fieldUser.getText());
@@ -75,6 +73,9 @@ public Informe informe=new Informe();
     public Register() {
         super("Registro");
         setContentPane(panelMainR);
+
+        // Inicializar spinnerAge con valor inicial 10
+        spinnerAge.setModel(new SpinnerNumberModel(10, 0, 100, 1));
 
         // Establecer la fuente de los botones a Times New Roman
         Font font = new Font("Times New Roman", Font.PLAIN, 12);
@@ -112,9 +113,9 @@ public Informe informe=new Informe();
                             try {
                                 dispose();  // Cierra la ventana Register
                                 JFrame frame = new JFrame("Cuestionario Final");
-                                frame.setSize(600, 370);
-                                frame.setVisible(true);
+                                frame.setSize(600, 400);
                                 frame.setLocationRelativeTo(null);
+                                frame.setVisible(true);
                                 CuestionarioFinal cuestionario = new CuestionarioFinal(usuario);
                                 frame.getContentPane().add(cuestionario.panelPrincipal);
                                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -125,11 +126,10 @@ public Informe informe=new Informe();
                         }
                     });
                     informe.setUsuario(usuario.getUsuario());
-                    JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         });
     }
-    }
+}

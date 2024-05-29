@@ -40,7 +40,6 @@ public class InsertDatabaseMenstruacion {
             pstmt.setDate(11, new java.sql.Date(menstruacion.getNextFaseLutea().getTime()));
 
             pstmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Fecha registrada exitosamente");
 
         } catch (SQLException e) {
             e.printStackTrace();

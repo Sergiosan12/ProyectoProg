@@ -34,8 +34,8 @@ public class CuestionarioFinal {
 
     public void getJpanel() {
         try {
-            numerCiclo.setModel(new SpinnerNumberModel(28, 1, Integer.MAX_VALUE, 1));
-            numerSangrado.setModel(new SpinnerNumberModel(5, 1, Integer.MAX_VALUE, 1));
+            numerCiclo.setModel(new SpinnerNumberModel(28, 15, 60, 1));
+            numerSangrado.setModel(new SpinnerNumberModel(5, 3, 15, 1));
             continuarButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -65,3 +65,4 @@ public class CuestionarioFinal {
         }
     }
 }
+

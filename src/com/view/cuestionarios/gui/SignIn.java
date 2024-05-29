@@ -60,7 +60,7 @@ public class SignIn extends JFrame {
             JOptionPane.showMessageDialog(this, "Error al inicializar la interfaz: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(600, 400);
+        setSize(1200, 570);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -102,9 +102,9 @@ public class SignIn extends JFrame {
                 SwingUtilities.invokeLater(() -> {
                     JFrame frame = new Register();
                     frame.setSize(600, 400);
-                    frame.setVisible(true);
                     frame.setLocationRelativeTo(null);
                     frame.setResizable(false);
+                    frame.setVisible(true);
                     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     dispose();
                 });

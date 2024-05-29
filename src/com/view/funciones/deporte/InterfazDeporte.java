@@ -139,9 +139,11 @@ public class InterfazDeporte{
 
                 // Configurar el frame y hacerlo visible
                 frame.pack();
-                frame.setVisible(true);
+                frame.setSize(800, 400);
                 frame.setResizable(false);
                 frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+
 
                 // Ocultar la ventana anterior
                 previousFrame.setVisible(false);
