@@ -59,7 +59,7 @@ public class Embarazo {
         int mediaFaseFolicular = generateDiaFases.CalculoMediaFaseFolicular();
         int mediaFaseLutea = generateDiaFases.CalculoFaseLutea(mediaFaseFolicular);
 
-        Date inicioFaseOvulacion = generateDiaFases.CalculoInicioFaseOvulacion(mediaFaseFolicular, mediaFaseLutea);
+        Date inicioFaseOvulacion = generateDiaFases.CalculoInicioFaseOvulacion(mediaFaseFolicular);
         Date inicioFaseLutea = generateDiaFases.CalculoInicioFaseLutea(mediaFaseFolicular);
         Date inicioFaseFolicular = generateDiaFases.CalculoInicioFaseFolicular();
 
