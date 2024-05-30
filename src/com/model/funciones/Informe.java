@@ -1,11 +1,9 @@
 package com.model.funciones;
 
 import java.util.Date;
+
 /**
- * La clase {@code Informe} modela un informe sobre el ciclo menstrual de la usuaria.
- * <p>
- * Esta clase contiene información sobre el usuario y su ciclo menstrual, incluyendo la duración y el inicio de diferentes fases del ciclo.
- * </p>
+ * La clase Informe modela un informe sobre el ciclo menstrual de la usuaria.
  */
 public class Informe {
     private String usuario;

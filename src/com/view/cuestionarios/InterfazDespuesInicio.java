@@ -1,17 +1,19 @@
-package com.view.cuestionarios.Introduccion;
+package com.view.cuestionarios;
 
 import com.model.funciones.Menstruacion;
-import com.view.cuestionarios.Inicio.SignIn;
-import com.view.funciones.uso.UsoProg;
+import com.view.cuestionarios.gui.SignIn;
+import com.view.cuestionarios.sangrado.ActualizarFecha;
+import com.view.cuestionarios.sangrado.SelectorFecha;
+import com.view.cuestionarios.uso.UsoProg;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class InterfazAfterSignIn extends JFrame {
+public class InterfazDespuesInicio extends JFrame {
 
-    public InterfazAfterSignIn(Menstruacion menstruacion) {
+    public InterfazDespuesInicio(Menstruacion menstruacion) {
         super("Interfaz Después de Inicio");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);

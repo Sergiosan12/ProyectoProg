@@ -1,9 +1,9 @@
-package com.view.cuestionarios.Inicio;
+package com.view.cuestionarios.gui;
 
 import com.controller.InformeBuilder;
 import com.model.funciones.Informe;
 import com.model.decoracion.RoundedBorder;
-import com.view.cuestionarios.Introduccion.CuestionarioFinal;
+import com.view.cuestionarios.sangrado.CuestionarioFinal;
 import com.database.Database;
 import com.model.usuario.Usuario;
 

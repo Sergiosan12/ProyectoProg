@@ -4,7 +4,7 @@ import com.controller.GenerarPDF;
 import com.controller.GenerateDiaFases;
 import com.controller.InformeBuilder;
 import com.model.funciones.Menstruacion;
-import com.view.funciones.uso.UsoProg;
+import com.view.cuestionarios.uso.UsoProg;
 
 import javax.swing.*;
 import java.awt.*;

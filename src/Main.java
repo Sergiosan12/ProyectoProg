@@ -1,4 +1,4 @@
-import com.view.cuestionarios.Inicio.SignIn;
+import com.view.cuestionarios.gui.SignIn;
 
 import javax.swing.*;
 
