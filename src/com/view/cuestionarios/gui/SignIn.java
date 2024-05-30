@@ -1,6 +1,7 @@
 package com.view.cuestionarios.gui;
 
 import com.database.DatabaseHandlerMenstruacion;
+import com.database.DatabaseHandlerUsuario;
 import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.InterfazDespuesInicio;
 import com.view.cuestionarios.uso.UsoProg;
@@ -28,26 +29,7 @@ public class SignIn extends JFrame {
     private JButton registerButton;
     private JLabel verdictLabel;
     DatabaseHandlerMenstruacion dbHandlerMenstruacion=new DatabaseHandlerMenstruacion();
-
-    private boolean checkCredentials(String userName, String password) {
-        String sql = "SELECT * FROM usuario WHERE usuario = ? AND contrasenha = ?";
-        try (Connection conn = Database.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, userName);
-            pstmt.setString(2, password);
-
-            ResultSet rs = pstmt.executeQuery();
-
-            return rs.next();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al comprobar las credenciales: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-        return false;
-    }
+    DatabaseHandlerUsuario dbHandlerUsuario= new DatabaseHandlerUsuario();
 
     public SignIn() {
         super("Iniciar Sesion");
@@ -77,7 +59,7 @@ public class SignIn extends JFrame {
                 char[] passwordEcrypted = passwordField.getPassword();
                 String password = String.valueOf(passwordEcrypted);
 
-                if (checkCredentials(userName, password)) {
+                if (dbHandlerUsuario.checkCredentials(userName, password)) {
                     // Código a ejecutar en caso de credenciales correctas
                     Menstruacion menstruacion = dbHandlerMenstruacion.selectData(userName);
                     InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio(menstruacion);
