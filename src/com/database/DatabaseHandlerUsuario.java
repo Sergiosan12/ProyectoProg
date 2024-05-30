@@ -121,4 +121,30 @@ public class DatabaseHandlerUsuario {
     private static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, USER, PASS);
     }
+
+    /**
+     * Verifica las credenciales de un usuario en la base de datos.
+     *
+     * @param userName El nombre del usuario.
+     * @param password La contraseña del usuario.
+     * @return true si las credenciales son correctas, false en caso contrario.
+     */
+    public boolean checkCredentials(String userName, String password) {
+        String sql = "SELECT * FROM usuario WHERE usuario = ? AND contrasenha = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, userName);
+            pstmt.setString(2, password);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            return rs.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
