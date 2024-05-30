@@ -1,188 +1,172 @@
 package com.view.cuestionarios.gui;
 
-import com.database.DatabaseHandlerUsuario;
-import com.database.InsertDatabaseUsuario;
-import com.model.decoracion.RoundedBorder;
+import com.controller.InformeBuilder;
 import com.model.funciones.Informe;
-import com.model.usuario.Usuario;
+import com.model.decoracion.RoundedBorder;
 import com.view.cuestionarios.sangrado.CuestionarioFinal;
+import com.database.Database;
+import com.model.usuario.Usuario;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Properties;
 
-/**
- * La clase {@code Register} representa una ventana de registro de usuario.
- * Permite al usuario ingresar sus datos personales y crear una cuenta.
- */
 public class Register extends JFrame {
-    private static final String ERROR_MSG = "Error";
-    private static final String FIELD_EMPTY_MSG = "Todos los campos son obligatorios";
-    private static final String USER_MIN_LENGTH_MSG = "El usuario debe tener al menos 8 caracteres";
-    private static final String PASSWORD_MIN_LENGTH_MSG = "La contraseña debe tener al menos 8 caracteres";
-    private static final String PASSWORD_MISMATCH_MSG = "Las contraseñas no coinciden";
-    private static final String EMAIL_FORMAT_MSG = "El correo electrónico debe contener '@' y terminar con '.com'";
-    private static final String USER_EXISTS_MSG = "El usuario ya existe";
-
     private JPanel panelMainR;
+    private JPanel panelLeft;
+    private JPanel panelRight;
+    private JLabel labelName;
     private JTextField fieldName;
+    private JLabel labelAge;
     private JSpinner spinnerAge;
+    private JLabel labelUser;
     private JTextField fieldUser;
+    private JLabel labelMail;
     private JTextField fieldMail;
+    private JLabel labelPassword;
     private JPasswordField fieldPassword;
+    private JLabel labelPasswordConfirm;
     private JPasswordField fieldPasswordConfirm;
+    private JLabel labelRegister;
+    private JPanel paneTitle;
     private JButton buttonVolver;
     private JButton continuarButton;
-    private Usuario usuario = new Usuario();
-    private Informe informe = new Informe();
+    public Usuario usuario = new Usuario();
+    public Informe informe = new Informe();
 
-    private InsertDatabaseUsuario insertDatabaseUsuario = new InsertDatabaseUsuario();
-    private DatabaseHandlerUsuario databaseHandlerUsuario = new DatabaseHandlerUsuario();
+    private void insertDataIntoDatabase() {
+        usuario.setNombre(fieldName.getText());
+        usuario.setEdad((Integer) spinnerAge.getValue());
+        usuario.setUsuario(fieldUser.getText());
+        usuario.setEmail(fieldMail.getText());
+        usuario.setContrasena(new String(fieldPassword.getPassword()));
 
-    /**
-     * Constructor de la clase {@code Register}.
-     * Configura la interfaz gráfica y añade los listeners a los botones.
-     */
+        // Establecer los mismos datos del usuario en el informe
+        informe.setNombre(usuario.getNombre());
+        informe.setEdad(usuario.getEdad());
+        // Añadir el resto de campos de informe que quieras configurar
+
+        InformeBuilder informeBuilder = new InformeBuilder();
+        informeBuilder.fromUsuario(usuario.getUsuario());
+
+        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email, edad) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, usuario.getUsuario());
+            pstmt.setString(2, usuario.getNombre());
+            pstmt.setString(3, usuario.getContrasena());
+            pstmt.setString(4, usuario.getEmail());
+            pstmt.setInt(5, usuario.getEdad());
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendEmail(String to, String subject, String content) {
+        // Propiedades de la configuración de correo electrónico
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com"); // Cambia esto si usas otro proveedor de correo
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        // Autenticación
+        String username = "tucorrreo"; // Cambia esto por tu dirección de correo electrónico
+        String password = "tucontraseña"; // Cambia esto por tu contraseña
+
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(subject);
+            message.setText(content);
+
+            Transport.send(message);
+            System.out.println("Correo enviado exitosamente");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Register() {
         super("Registro");
         setContentPane(panelMainR);
-        initUI();
-        addListeners();
-    }
 
-    /**
-     * Inicializa los componentes de la interfaz de usuario.
-     */
-    private void initUI() {
-        spinnerAge.setModel(new SpinnerNumberModel(10, 0, 100, 1));
+        // Establecer la fuente de los botones a Times New Roman
         Font font = new Font("Times New Roman", Font.PLAIN, 12);
         buttonVolver.setFont(font);
         continuarButton.setFont(font);
-        buttonVolver.setBorder(new RoundedBorder(10));
-        continuarButton.setBorder(new RoundedBorder(10));
-    }
 
-    /**
-     * Añade los listeners a los botones de la interfaz.
-     */
-    private void addListeners() {
-        buttonVolver.addActionListener(e -> goBack());
-        continuarButton.addActionListener(e -> proceedRegistration());
-    }
+        // Establecer los bordes de los botones a redondos
+        buttonVolver.setBorder(new RoundedBorder(10)); // 10 is the radius
+        continuarButton.setBorder(new RoundedBorder(10)); // 10 is the radius
 
-    /**
-     * Regresa a la pantalla de inicio de sesión.
-     */
-    private void goBack() {
-        dispose();
-        JFrame frame = new SignIn();
-        frame.setSize(1200, 570);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    }
-
-    /**
-     * Procede con el registro del usuario si los campos son válidos.
-     */
-    private void proceedRegistration() {
-        try {
-            if (validateFields()) {
-                insertDatabaseUsuario.insertDataIntoDatabase(usuario);
-                SwingUtilities.invokeLater(this::openCuestionarioFinal);
-                informe.setUsuario(usuario.getUsuario());
+        // Agregar una acción al botón "Volver"
+        buttonVolver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    dispose();
+                    JFrame frame = new SignIn();
+                    frame.setSize(1200, 570);
+                    frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
+                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        });
+        continuarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    insertDataIntoDatabase();
+                    sendEmail(usuario.getEmail(), "Registro exitoso", "Gracias por registrarte. Tus datos han sido registrados exitosamente.");
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                dispose();  // Cierra la ventana Register
+                                JFrame frame = new JFrame("Cuestionario Final");
+                                frame.setSize(600, 370);
+                                frame.setVisible(true);
+                                frame.setLocationRelativeTo(null);
+                                CuestionarioFinal cuestionario = new CuestionarioFinal(usuario);
+                                frame.getContentPane().add(cuestionario.panelPrincipal);
+                                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "Error al abrir la ventana Cuestionario " + ex.getMessage());
+                            }
+                        }
+                    });
+                    informe.setUsuario(usuario.getUsuario());
+                    JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
-
-    /**
-     * Abre la ventana del cuestionario final.
-     */
-    private void openCuestionarioFinal() {
-        try {
-            dispose();
-            JFrame frame = new JFrame("Cuestionario Final");
-            frame.setSize(600, 400);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-            CuestionarioFinal cuestionario = new CuestionarioFinal(usuario);
-            frame.getContentPane().add(cuestionario.panelPrincipal);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al abrir la ventana Cuestionario " + ex.getMessage());
-        }
-    }
-
-    /**
-     * Valida los campos de entrada en el formulario de registro.
-     *
-     * @return true si todos los campos son válidos, de lo contrario false.
-     */
-    private boolean validateFields() {
-        if (isFieldEmpty(fieldName) || isFieldEmpty(fieldUser) || isFieldEmpty(fieldMail) ||
-                isPasswordEmpty(fieldPassword) || isPasswordEmpty(fieldPasswordConfirm)) {
-            showError(FIELD_EMPTY_MSG);
-            return false;
-        }
-
-        if (fieldUser.getText().length() < 8) {
-            showError(USER_MIN_LENGTH_MSG);
-            return false;
-        }
-
-        if (new String(fieldPassword.getPassword()).length() < 8) {
-            showError(PASSWORD_MIN_LENGTH_MSG);
-            return false;
-        }
-
-        if (!new String(fieldPassword.getPassword()).equals(new String(fieldPasswordConfirm.getPassword()))) {
-            showError(PASSWORD_MISMATCH_MSG);
-            return false;
-        }
-
-        String email = fieldMail.getText();
-        if (!email.contains("@") || !email.endsWith(".com")) {
-            showError(EMAIL_FORMAT_MSG);
-            return false;
-        }
-
-        if (databaseHandlerUsuario.isUserExisting(fieldUser.getText())) {
-            showError(USER_EXISTS_MSG);
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Verifica si un campo de texto está vacío.
-     *
-     * @param field El campo de texto a verificar.
-     * @return true si el campo está vacío, de lo contrario false.
-     */
-    private boolean isFieldEmpty(JTextField field) {
-        return field.getText().isEmpty();
-    }
-
-    /**
-     * Verifica si un campo de contraseña está vacío.
-     *
-     * @param field El campo de contraseña a verificar.
-     * @return true si el campo está vacío, de lo contrario false.
-     */
-    private boolean isPasswordEmpty(JPasswordField field) {
-        return new String(field.getPassword()).isEmpty();
-    }
-
-    /**
-     * Muestra un mensaje de error en un cuadro de diálogo.
-     *
-     * @param message El mensaje de error a mostrar.
-     */
-    private void showError(String message) {
-        JOptionPane.showMessageDialog(this, message, ERROR_MSG, JOptionPane.ERROR_MESSAGE);
-    }
-
 }
