@@ -1,10 +1,10 @@
-package com.view.cuestionarios.sangrado;
+package com.view.cuestionarios.Introduccion;
 
 import com.controller.GenerateDiaFases;
 import com.database.InsertDatabaseMenstruacion;
 import com.model.decoracion.DateLabelFormatter;
 import com.model.funciones.Menstruacion;
-import com.view.cuestionarios.uso.UsoProg;
+import com.view.funciones.uso.UsoProg;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -20,17 +20,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
-public class ActualizarFecha extends JFrame {
+public class SelectorFecha extends JFrame {
     protected JDatePickerImpl datePicker;
     private Date today;
     private Date oneYearAgo;
     InsertDatabaseMenstruacion insertDatabase = new InsertDatabaseMenstruacion();
     Menstruacion menstruacion;
 
-    public ActualizarFecha() {
+    public SelectorFecha() {
     }
 
-    public ActualizarFecha(Menstruacion menstruacion) {
+    public SelectorFecha(Menstruacion menstruacion) {
         this.menstruacion = menstruacion; // Asegúrate de que la instancia se asigna aquí
         try {
             JPanel panel = getjPanel();
@@ -63,7 +63,7 @@ public class ActualizarFecha extends JFrame {
                    GenerateDiaFases.CambiarDateLastPeriod(selectedDate);
                     menstruacion.setLastperiod(selectedDate); // Asegúrate de que fechaDelUltimoPeriodo no sea null
                     GenerateDiaFases.calcularTodasLasFases();
-                    insertDatabase.updateDatabase(menstruacion.getUsuario(), menstruacion); // Pasa menstruacion aquí
+                    insertDatabase.insertDateIntoDatabase(menstruacion); // Pasa menstruacion aquí
                     dispose();
                     UsoProg usoProg = new UsoProg(menstruacion);
                     usoProg.setVisible(true);

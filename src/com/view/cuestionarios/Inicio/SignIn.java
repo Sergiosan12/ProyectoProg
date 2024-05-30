@@ -1,9 +1,8 @@
-package com.view.cuestionarios.gui;
+package com.view.cuestionarios.Inicio;
 
 import com.database.DatabaseHandlerMenstruacion;
 import com.model.funciones.Menstruacion;
-import com.view.cuestionarios.InterfazDespuesInicio;
-import com.view.cuestionarios.uso.UsoProg;
+import com.view.cuestionarios.Introduccion.InterfazAfterSignIn;
 import com.database.Database;
 
 import javax.swing.*;
@@ -80,8 +79,8 @@ public class SignIn extends JFrame {
                 if (checkCredentials(userName, password)) {
                     // Código a ejecutar en caso de credenciales correctas
                     Menstruacion menstruacion = dbHandlerMenstruacion.selectData(userName);
-                    InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio(menstruacion);
-                    interfazDespuesInicio.setVisible(true);
+                    InterfazAfterSignIn interfazAfterSignIn = new InterfazAfterSignIn(menstruacion);
+                    interfazAfterSignIn.setVisible(true);
                     dispose();
                 } else if (userName.isEmpty() || password.isEmpty()) {
                     verdictLabel.setText("Credenciales vacías. Por favor rellene los dos campos");
