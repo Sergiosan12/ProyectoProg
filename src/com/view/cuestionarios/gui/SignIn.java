@@ -29,7 +29,7 @@ public class SignIn extends JFrame {
     private JButton registerButton;
     private JLabel verdictLabel;
     DatabaseHandlerMenstruacion dbHandlerMenstruacion=new DatabaseHandlerMenstruacion();
-    DatabaseHandlerUsuario dbHandlerUsuario= new DatabaseHandlerUsuario();
+    DatabaseHandlerUsuario handlerUsuario=new DatabaseHandlerUsuario();
 
     public SignIn() {
         super("Iniciar Sesion");
@@ -59,7 +59,7 @@ public class SignIn extends JFrame {
                 char[] passwordEcrypted = passwordField.getPassword();
                 String password = String.valueOf(passwordEcrypted);
 
-                if (dbHandlerUsuario.checkCredentials(userName, password)) {
+                if (handlerUsuario.checkCredentials(userName, password)) {
                     // Código a ejecutar en caso de credenciales correctas
                     Menstruacion menstruacion = dbHandlerMenstruacion.selectData(userName);
                     InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio(menstruacion);
