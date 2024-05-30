@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class InterfazDeporte{
+    private JPanel panel1;
     private static final int OPCION_DEPORTE = 2;
     Menstruacion menstruacion;
     InformeBuilder informeBuilder=new InformeBuilder() ;
@@ -130,6 +131,8 @@ public class InterfazDeporte{
                     GenerarPDF generarPDF = new GenerarPDF(menstruacion);
                     // Llama al método para generar el informe
                     generarPDF.generarInforme(OPCION_DEPORTE);
+                    JOptionPane.showMessageDialog(panel1, "Pdf generado correctamente");
+
 
                 });
 
@@ -139,9 +142,11 @@ public class InterfazDeporte{
 
                 // Configurar el frame y hacerlo visible
                 frame.pack();
-                frame.setVisible(true);
+                frame.setSize(800, 400);
                 frame.setResizable(false);
                 frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+
 
                 // Ocultar la ventana anterior
                 previousFrame.setVisible(false);

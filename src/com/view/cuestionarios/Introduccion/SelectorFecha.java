@@ -84,8 +84,7 @@ public class SelectorFecha extends JFrame {
     private JPanel getjPanel() {
         try {
             setTitle("Selector de Fecha");
-            setSize(400, 200);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setSize(600, 400);
             setLocationRelativeTo(null);
 
             Calendar calendar = Calendar.getInstance();

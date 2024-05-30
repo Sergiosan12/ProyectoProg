@@ -48,7 +48,7 @@ public class UsoProg {
         generateDiaFases.calcularTodasLasFases();
         frame = new JFrame("UsoProg");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 300);
+        frame.setSize(600, 400);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(PanelPrincipal);
 
@@ -65,6 +65,9 @@ public class UsoProg {
                 embarazoFrame.setContentPane(embarazo.getPanel());
                 embarazoFrame.pack();
                 embarazoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                embarazoFrame.setSize(800, 400);
+                embarazoFrame.setLocationRelativeTo(null);
+                embarazoFrame.setResizable(false);
                 embarazoFrame.setVisible(true);
                 frame.dispose();
             }
