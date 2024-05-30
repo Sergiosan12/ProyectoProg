@@ -1,6 +1,7 @@
 package com.database;
 
 import com.model.usuario.Usuario;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,6 +18,28 @@ public class DatabaseHandlerUsuario {
     private static final String PASS = "debian";
 
     /**
+     * Verifica si un usuario existe en la base de datos.
+     *
+     * @param username El nombre del usuario.
+     * @return true si el usuario existe, false en caso contrario.
+     */
+    public boolean isUserExisting(String username) {
+        String sql = "SELECT COUNT(*) FROM usuario WHERE usuario = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * Recupera los datos de un usuario específico de la base de datos.
      *
      * @param usuario El nombre del usuario.
@@ -30,7 +53,7 @@ public class DatabaseHandlerUsuario {
 
         try {
             // Obtener una conexión a la base de datos
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = getConnection();
 
             // Crear una declaración SQL con parámetros
             String sql = "SELECT * FROM usuario WHERE usuario = ?";
@@ -87,5 +110,15 @@ public class DatabaseHandlerUsuario {
      * La clase Result es una clase auxiliar que almacena los datos del usuario.
      */
     private record Result(String nombre, String email, String contrasena, int edad) {
+    }
+
+    /**
+     * Obtiene una conexión a la base de datos.
+     *
+     * @return una conexión a la base de datos.
+     * @throws SQLException Si ocurre un error al obtener la conexión.
+     */
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB_URL, USER, PASS);
     }
 }
