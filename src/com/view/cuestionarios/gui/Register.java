@@ -185,18 +185,4 @@ public class Register extends JFrame {
         JOptionPane.showMessageDialog(this, message, ERROR_MSG, JOptionPane.ERROR_MESSAGE);
     }
 
-    /**
-     * Método principal para iniciar la aplicación de registro.
-     *
-     * @param args Los argumentos de la línea de comandos.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new Register();
-            frame.setSize(800, 600);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-            frame.setLocationRelativeTo(null);
-        });
-    }
 }
