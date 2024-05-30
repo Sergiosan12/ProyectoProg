@@ -1,4 +1,4 @@
-package com.view.cuestionarios.uso;
+package com.view.funciones.uso;
 
 import com.controller.GenerateDiaFases;
 import com.model.funciones.Menstruacion;

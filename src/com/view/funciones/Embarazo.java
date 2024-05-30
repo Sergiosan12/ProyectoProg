@@ -4,7 +4,7 @@ import com.controller.GenerarPDF;
 import com.controller.GenerateDiaFases;
 import com.controller.InformeBuilder;
 import com.model.funciones.Menstruacion;
-import com.view.cuestionarios.uso.UsoProg;
+import com.view.funciones.uso.UsoProg;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,7 +59,7 @@ public class Embarazo {
         int mediaFaseFolicular = generateDiaFases.CalculoMediaFaseFolicular();
         int mediaFaseLutea = generateDiaFases.CalculoFaseLutea(mediaFaseFolicular);
 
-        Date inicioFaseOvulacion = generateDiaFases.CalculoInicioFaseOvulacion(mediaFaseFolicular, mediaFaseLutea);
+        Date inicioFaseOvulacion = generateDiaFases.CalculoInicioFaseOvulacion(mediaFaseFolicular,mediaFaseLutea);
         Date inicioFaseLutea = generateDiaFases.CalculoInicioFaseLutea(mediaFaseFolicular);
         Date inicioFaseFolicular = generateDiaFases.CalculoInicioFaseFolicular();
 

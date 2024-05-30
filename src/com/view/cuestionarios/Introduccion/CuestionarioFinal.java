@@ -1,4 +1,4 @@
-package com.view.cuestionarios.sangrado;
+package com.view.cuestionarios.Introduccion;
 
 import com.controller.GenerateDiaFases;
 import com.model.funciones.Menstruacion;

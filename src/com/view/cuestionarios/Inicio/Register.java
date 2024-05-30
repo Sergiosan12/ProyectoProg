@@ -1,12 +1,15 @@
-package com.view.cuestionarios.gui;
+package com.view.cuestionarios.Inicio;
 
 import com.controller.InformeBuilder;
 import com.model.funciones.Informe;
 import com.model.decoracion.RoundedBorder;
-import com.view.cuestionarios.sangrado.CuestionarioFinal;
+import com.view.cuestionarios.Introduccion.CuestionarioFinal;
 import com.database.Database;
 import com.model.usuario.Usuario;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class Register extends JFrame {
     private JPanel panelMainR;
@@ -54,7 +58,7 @@ public class Register extends JFrame {
         InformeBuilder informeBuilder = new InformeBuilder();
         informeBuilder.fromUsuario(usuario.getUsuario());
 
-        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email, edad ) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email, edad) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -124,6 +128,40 @@ public class Register extends JFrame {
         return true;
     }
 
+    private void sendEmail(String to, String subject, String content) {
+        // Propiedades de la configuración de correo electrónico
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com"); // Cambia esto si usas otro proveedor de correo
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        // Autenticación
+        String username = "tucorrreo"; // Cambia esto por tu dirección de correo electrónico
+        String password = "tucontraseña"; // Cambia esto por tu contraseña
+
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(subject);
+            message.setText(content);
+
+            Transport.send(message);
+            System.out.println("Correo enviado exitosamente");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Register() {
         super("Registro");
         setContentPane(panelMainR);
@@ -190,3 +228,8 @@ public class Register extends JFrame {
         });
     }
 }
+
+
+
+
+

@@ -20,10 +20,8 @@ public class DatabaseHandlerMenstruacion {
 
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            String sql = "SELECT * FROM menstruacion WHERE usuario = ?";
-            pstmt = conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(getSql());
             pstmt.setString(1, usuario);
-
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -54,5 +52,9 @@ public class DatabaseHandlerMenstruacion {
             }
         }
         return resultado;
+    }
+
+    private static String getSql() {
+        return "SELECT * FROM menstruacion WHERE usuario = ?";
     }
 }

@@ -58,7 +58,7 @@ public class GenerateDiaFasesTest {
     @Test
     public void testCalculoInicioFaseFolicular() {
         generateDiaFases.CalculoMediaFaseFolicular();
-        Date inicioFaseFolicular = generateDiaFases.CalculoInicioFaseFolicular(menstruacion.getDuracionFaseFolicular());
+        Date inicioFaseFolicular = generateDiaFases.CalculoInicioFaseFolicular();
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(menstruacion.getLastperiod());
