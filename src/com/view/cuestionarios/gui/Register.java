@@ -1,11 +1,11 @@
 package com.view.cuestionarios.gui;
 
 import com.controller.InformeBuilder;
-import com.model.funciones.Informe;
+import com.database.InsertDatabaseUsuario;
 import com.model.decoracion.RoundedBorder;
-import com.view.cuestionarios.sangrado.CuestionarioFinal;
-import com.database.Database;
+import com.model.funciones.Informe;
 import com.model.usuario.Usuario;
+import com.view.cuestionarios.sangrado.CuestionarioFinal;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -14,8 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -39,53 +37,84 @@ public class Register extends JFrame {
     private JPanel paneTitle;
     private JButton buttonVolver;
     private JButton continuarButton;
-    public Usuario usuario = new Usuario();
-    public Informe informe = new Informe();
+    private Usuario usuario = new Usuario();
+    private Informe informe = new Informe();
 
-    private void insertDataIntoDatabase() {
+    public Register() {
+        super("Registro");
+        setContentPane(panelMainR);
+
+        setUpUI();
+        setUpListeners();
+    }
+
+    private void setUpUI() {
+        Font font = new Font("Times New Roman", Font.PLAIN, 12);
+        buttonVolver.setFont(font);
+        continuarButton.setFont(font);
+
+        buttonVolver.setBorder(new RoundedBorder(10));
+        continuarButton.setBorder(new RoundedBorder(10));
+    }
+
+    private void setUpListeners() {
+        buttonVolver.addActionListener(e -> openSignInFrame());
+        continuarButton.addActionListener(e -> handleRegister());
+    }
+
+    private void openSignInFrame() {
+        try {
+            dispose();
+            JFrame frame = new SignIn();
+            frame.setSize(1200, 570);
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void handleRegister() {
+        try {
+            fillUsuarioData();
+            new InsertDatabaseUsuario().insertDataIntoDatabase(usuario);
+            sendRegistrationEmail();
+            openCuestionarioFinalFrame();
+            JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void fillUsuarioData() {
         usuario.setNombre(fieldName.getText());
         usuario.setEdad((Integer) spinnerAge.getValue());
         usuario.setUsuario(fieldUser.getText());
         usuario.setEmail(fieldMail.getText());
         usuario.setContrasena(new String(fieldPassword.getPassword()));
 
-        // Establecer los mismos datos del usuario en el informe
         informe.setNombre(usuario.getNombre());
         informe.setEdad(usuario.getEdad());
-        // Añadir el resto de campos de informe que quieras configurar
 
         InformeBuilder informeBuilder = new InformeBuilder();
         informeBuilder.fromUsuario(usuario.getUsuario());
-
-        String sql = "INSERT INTO usuario (usuario, nombre, contrasenha, email, edad) VALUES (?, ?, ?, ?, ?)";
-
-        try (Connection conn = Database.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, usuario.getUsuario());
-            pstmt.setString(2, usuario.getNombre());
-            pstmt.setString(3, usuario.getContrasena());
-            pstmt.setString(4, usuario.getEmail());
-            pstmt.setInt(5, usuario.getEdad());
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
-    private void sendEmail(String to, String subject, String content) {
-        // Propiedades de la configuración de correo electrónico
+    private void sendRegistrationEmail() {
+        String to = usuario.getEmail();
+        String subject = "Registro exitoso";
+        String content = "Gracias por registrarte. Tus datos han sido registrados exitosamente.";
+
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com"); // Cambia esto si usas otro proveedor de correo
+        properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-        // Autenticación
-        String username = "tucorrreo"; // Cambia esto por tu dirección de correo electrónico
-        String password = "tucontraseña"; // Cambia esto por tu contraseña
+        String username = "tucorrreo";
+        String password = "tucontraseña";
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -108,64 +137,20 @@ public class Register extends JFrame {
         }
     }
 
-    public Register() {
-        super("Registro");
-        setContentPane(panelMainR);
-
-        // Establecer la fuente de los botones a Times New Roman
-        Font font = new Font("Times New Roman", Font.PLAIN, 12);
-        buttonVolver.setFont(font);
-        continuarButton.setFont(font);
-
-        // Establecer los bordes de los botones a redondos
-        buttonVolver.setBorder(new RoundedBorder(10)); // 10 is the radius
-        continuarButton.setBorder(new RoundedBorder(10)); // 10 is the radius
-
-        // Agregar una acción al botón "Volver"
-        buttonVolver.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    dispose();
-                    JFrame frame = new SignIn();
-                    frame.setSize(1200, 570);
-                    frame.setVisible(true);
-                    frame.setLocationRelativeTo(null);
-                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-        continuarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    insertDataIntoDatabase();
-                    sendEmail(usuario.getEmail(), "Registro exitoso", "Gracias por registrarte. Tus datos han sido registrados exitosamente.");
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                dispose();  // Cierra la ventana Register
-                                JFrame frame = new JFrame("Cuestionario Final");
-                                frame.setSize(600, 370);
-                                frame.setVisible(true);
-                                frame.setLocationRelativeTo(null);
-                                CuestionarioFinal cuestionario = new CuestionarioFinal(usuario);
-                                frame.getContentPane().add(cuestionario.panelPrincipal);
-                                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                                JOptionPane.showMessageDialog(null, "Error al abrir la ventana Cuestionario " + ex.getMessage());
-                            }
-                        }
-                    });
-                    informe.setUsuario(usuario.getUsuario());
-                    JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+    private void openCuestionarioFinalFrame() {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                dispose();
+                JFrame frame = new JFrame("Cuestionario Final");
+                frame.setSize(600, 370);
+                frame.setVisible(true);
+                frame.setLocationRelativeTo(null);
+                CuestionarioFinal cuestionario = new CuestionarioFinal(usuario);
+                frame.getContentPane().add(cuestionario.panelPrincipal);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al abrir la ventana Cuestionario " + ex.getMessage());
             }
         });
     }
