@@ -79,7 +79,6 @@ public class Register extends JFrame {
         try {
             fillUsuarioData();
             new InsertDatabaseUsuario().insertDataIntoDatabase(usuario);
-            sendRegistrationEmail();
             openCuestionarioFinalFrame();
             JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
         } catch (Exception ex) {
@@ -101,41 +100,7 @@ public class Register extends JFrame {
         informeBuilder.fromUsuario(usuario.getUsuario());
     }
 
-    private void sendRegistrationEmail() {
-        String to = usuario.getEmail();
-        String subject = "Registro exitoso";
-        String content = "Gracias por registrarte. Tus datos han sido registrados exitosamente.";
 
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
-        String username = "tucorrreo";
-        String password = "tucontraseña";
-
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject(subject);
-            message.setText(content);
-
-            Transport.send(message);
-            System.out.println("Correo enviado exitosamente");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void openCuestionarioFinalFrame() {
         SwingUtilities.invokeLater(() -> {
