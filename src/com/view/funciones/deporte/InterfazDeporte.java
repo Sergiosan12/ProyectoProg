@@ -13,16 +13,29 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Esta clase representa la interfaz de usuario para la funcionalidad de deportes.
+ * Permite al usuario seleccionar su deporte preferido para cada fase del ciclo menstrual.
+ * Los deportes seleccionados se almacenan en la base de datos y se utilizan para generar un informe.
+ */
 public class InterfazDeporte{
     private JPanel panel1;
     private static final int OPCION_DEPORTE = 2;
     Menstruacion menstruacion;
     InformeBuilder informeBuilder=new InformeBuilder() ;
 
+    /**
+     * Constructor de la clase InterfazDeporte.
+     * @param menstruacion Los datos de menstruación del usuario.
+     */
     public InterfazDeporte(Menstruacion menstruacion) {
         this.menstruacion = menstruacion;
     }
 
+    /**
+     * Muestra la interfaz de usuario para seleccionar deportes.
+     * @param previousFrame La ventana anterior que se ocultará cuando se muestre esta interfaz de usuario.
+     */
     public void showDeportesGUI(JFrame previousFrame) {
         SwingUtilities.invokeLater(() -> {
             try {
