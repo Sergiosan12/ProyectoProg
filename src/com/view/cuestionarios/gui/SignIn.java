@@ -10,6 +10,10 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+/**
+ * La clase SignIn proporciona una interfaz gráfica para que los usuarios inicien sesión.
+ * Incluye la validación de credenciales y la navegación a la interfaz principal si las credenciales son correctas.
+ */
 public class SignIn extends JFrame {
 
     // Constantes de mensajes
@@ -34,8 +38,12 @@ public class SignIn extends JFrame {
     private final DatabaseHandlerMenstruacion dbHandlerMenstruacion = new DatabaseHandlerMenstruacion();
     private final DatabaseHandlerUsuario handlerUsuario = new DatabaseHandlerUsuario();
 
+    /**
+     * Constructor de la clase SignIn.
+     * Configura el contenido y los componentes de la ventana de inicio de sesión.
+     */
     public SignIn() {
-        super("Iniciar Sesion");
+        super("Iniciar Sesión");
         try {
             setContentPane(panelMain);
             initializeComponents();
@@ -49,16 +57,26 @@ public class SignIn extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Inicializa los componentes de la ventana de inicio de sesión.
+     */
     private void initializeComponents() throws Exception {
         // Inicializa tus componentes aquí
     }
 
+    /**
+     * Inicializa los event listeners de los botones y campos de texto.
+     */
     private void initializeListeners() {
         signInButton.addActionListener(e -> handleSignIn());
         registerButton.addActionListener(e -> handleRegister());
         userfield.addFocusListener(new UserFieldFocusAdapter());
     }
 
+    /**
+     * Maneja la acción de iniciar sesión.
+     * Verifica las credenciales del usuario y navega a la interfaz principal si son correctas.
+     */
     private void handleSignIn() {
         try {
             String userName = userfield.getText();
@@ -81,6 +99,9 @@ public class SignIn extends JFrame {
         }
     }
 
+    /**
+     * Maneja la acción de abrir la ventana de registro.
+     */
     private void handleRegister() {
         try {
             SwingUtilities.invokeLater(() -> {
@@ -97,16 +118,28 @@ public class SignIn extends JFrame {
         }
     }
 
+    /**
+     * Limpia los campos de texto de la ventana de inicio de sesión.
+     */
     private void clearFields() {
         userfield.setText("");
         passwordField.setText("");
     }
 
+    /**
+     * Maneja las excepciones mostrando un cuadro de diálogo con el mensaje de error.
+     * 
+     * @param message el mensaje de error a mostrar.
+     * @param e la excepción que se ha producido.
+     */
     private void handleException(String message, Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, message + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Clase interna que maneja los eventos de foco en el campo de texto de usuario.
+     */
     private class UserFieldFocusAdapter extends FocusAdapter {
         @Override
         public void focusLost(FocusEvent e) {
