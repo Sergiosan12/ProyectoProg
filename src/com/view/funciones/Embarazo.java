@@ -9,77 +9,120 @@ import com.view.cuestionarios.uso.UsoProg;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * La clase Embarazo proporciona una interfaz para generar un informe relacionado con el embarazo
+ * basado en los datos de menstruación proporcionados.
+ */
 public class Embarazo {
+
+    /**
+     * El panel principal que contiene los componentes de la interfaz de usuario relacionados con el embarazo.
+     */
     private JPanel panel1;
+
+    /**
+     * Botón para generar el informe de embarazo.
+     */
     private JButton buttonGenerarInforme;
+
+    /**
+     * Botón para volver a la pantalla anterior.
+     */
     private JButton buttonVolver;
+
+    /**
+     * Etiqueta para mostrar la fase folicular del ciclo menstrual.
+     */
     private JLabel FaseFolicilar;
+
+    /**
+     * Instancia de la clase GenerateDiaFases utilizada para calcular las fases del ciclo menstrual.
+     */
+    private GenerateDiaFases generateDiaFases;
+
+    /**
+     * Etiqueta para mostrar una foto relacionada con el embarazo.
+     */
     private JLabel FotoEmbarazo;
 
-    private static final int OPCION_SELECCIONADA = 1;
-    private final Menstruacion menstruacion;
-    private final GenerateDiaFases generateDiaFases;
-    private final InformeBuilder informeBuilder = new InformeBuilder();
+    /**
+     * Constante de instancia que indica la opción seleccionada para generar el informe.
+     */
+    private final int OPCIONSELECCIONADA = 1;
 
+    /**
+     * Instancia de InformeBuilder para construir el informe de embarazo.
+     */
+    InformeBuilder informeBuilder = new InformeBuilder();
+
+    /**
+     * Constructor de la clase Embarazo.
+     * @param menstruacion Los datos de menstruación utilizados para calcular el informe de embarazo.
+     */
     public Embarazo(Menstruacion menstruacion) {
-        this.menstruacion = menstruacion;
-        this.generateDiaFases = new GenerateDiaFases(menstruacion);
-        this.informeBuilder.fromMenstruacion(menstruacion.getUsuario());
+        // Inicializa generateDiaFases con la instancia de menstruacion
+        generateDiaFases = new GenerateDiaFases(menstruacion);
+        informeBuilder.fromMenstruacion(menstruacion.getUsuario());
 
-        initializeUI();
-        calculateAndDisplayPhases();
-        addListeners();
-    }
-
-    private void initializeUI() {
+        // Cambia el color de los botones
         buttonVolver.setBackground(Color.decode("#F6C4F6"));
         buttonGenerarInforme.setBackground(Color.decode("#F6C4F6"));
+
+        // Calcula todas las fases y actualiza la etiqueta FaseFolicilar
+        calculateAndDisplayPhases();
+
+        buttonVolver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UsoProg usoProg = new UsoProg(menstruacion);
+                usoProg.setVisible(true);
+                ((JFrame) SwingUtilities.getWindowAncestor(panel1)).dispose();
+            }
+        });
+
+        buttonGenerarInforme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GenerarPDF generarPDF = new GenerarPDF(menstruacion);
+                generarPDF.generarInforme(OPCIONSELECCIONADA);
+                JOptionPane.showMessageDialog(panel1, "Pdf generado correctamente");
+            }
+        });
     }
 
+    /**
+     * Calcula todas las fases del ciclo menstrual y muestra la información en la interfaz de usuario.
+     */
     private void calculateAndDisplayPhases() {
         int mediaFaseFolicular = generateDiaFases.CalculoMediaFaseFolicular();
         int mediaFaseLutea = generateDiaFases.CalculoFaseLutea(mediaFaseFolicular);
 
-        Date inicioFaseOvulacion = generateDiaFases.CalculoInicioFaseOvulacion(mediaFaseFolicular, mediaFaseLutea);
+        Date inicioFaseOvulacion = generateDiaFases.CalculoInicioFaseOvulacion(mediaFaseFolicular,mediaFaseLutea);
         Date inicioFaseLutea = generateDiaFases.CalculoInicioFaseLutea(mediaFaseFolicular);
         Date inicioFaseFolicular = generateDiaFases.CalculoInicioFaseFolicular();
 
-        inicioFaseOvulacion = defaultIfNull(inicioFaseOvulacion);
-        inicioFaseLutea = defaultIfNull(inicioFaseLutea);
+        // Verificar si las fechas calculadas son nulas y asignar la fecha actual como valor predeterminado
+        if (inicioFaseOvulacion == null) {
+            inicioFaseOvulacion = new Date(); // Fecha actual
+        }
+        if (inicioFaseLutea == null) {
+            inicioFaseLutea = new Date(); // Fecha actual
+        }
 
-        String texto = String.format("Tu periodo fértil comprende de: %s a %s",
-                formatDate(inicioFaseOvulacion), formatDate(inicioFaseLutea));
+        // Formatear las fechas como texto
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String texto = "Tu periodo fértil comprende de: " + sdf.format(inicioFaseOvulacion) + " a " + sdf.format(inicioFaseLutea);
         FaseFolicilar.setText(texto);
     }
 
-    private Date defaultIfNull(Date date) {
-        return date == null ? new Date() : date;
-    }
-
-    private String formatDate(Date date) {
-        return new SimpleDateFormat("dd/MM/yyyy").format(date);
-    }
-
-    private void addListeners() {
-        buttonVolver.addActionListener(this::handleButtonVolverClick);
-        buttonGenerarInforme.addActionListener(this::handleButtonGenerarInformeClick);
-    }
-
-    private void handleButtonVolverClick(ActionEvent e) {
-        UsoProg usoProg = new UsoProg(menstruacion);
-        usoProg.setVisible(true);
-        ((JFrame) SwingUtilities.getWindowAncestor(panel1)).dispose();
-    }
-
-    private void handleButtonGenerarInformeClick(ActionEvent e) {
-        GenerarPDF generarPDF = new GenerarPDF(menstruacion);
-        generarPDF.generarInforme(OPCION_SELECCIONADA);
-        JOptionPane.showMessageDialog(panel1, "PDF generado correctamente");
-    }
-
+    /**
+     * Devuelve el panel principal que contiene los componentes de la interfaz de usuario relacionados con el embarazo.
+     * @return El panel principal.
+     */
     public JPanel getPanel() {
         return panel1;
     }

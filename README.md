@@ -123,3 +123,19 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 
 3. Mejora en la creación del informe en PDF e inserción en la interfaz de embarazo.
 
+## 27/05/2024
+
+1. Optimización de las interfaces, cambiando el color de los botones y ajustando el tamaño de las ventanas.
+
+2. Se puede generar el PDF desde la interfaz de deportes también y aparecen los deportes seleccionados.
+
+## 29/05/2024
+
+1. Corrección de errores en el SignIn.
+
+2. Refactorizadas varias clases y métodos.
+
+3. Optimizado el registro para que las contraseñas coincdian, el usaurio creado no exista y el email tenga su fromato.
+
+## 31/05/2024
+

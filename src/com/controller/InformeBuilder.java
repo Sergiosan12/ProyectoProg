@@ -34,12 +34,13 @@ public class InformeBuilder {
      *
      * @param usuario el identificador del usuario.
      */
-    public void fromUsuario(String usuario) {
+    public InformeBuilder fromUsuario(String usuario) {
         Usuario usuarioData = dbHandlerUsuario.selectData(usuario);
         if (usuarioData != null) {
             informe.setNombre(usuarioData.getNombre());
             informe.setEdad(usuarioData.getEdad());
         }
+        return this;
     }
 
     /**
