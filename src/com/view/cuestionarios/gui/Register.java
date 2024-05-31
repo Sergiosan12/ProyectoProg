@@ -50,6 +50,7 @@ public class Register extends JFrame {
         setContentPane(panelMainR);
         initializeComponents();
         addEventListeners();
+        getRootPane().setDefaultButton(continuarButton);
     }
 
     private void initializeComponents() {
@@ -64,6 +65,7 @@ public class Register extends JFrame {
         // Establecer los bordes de los botones a redondos
         buttonVolver.setBorder(new RoundedBorder(10)); // 10 is the radius
         continuarButton.setBorder(new RoundedBorder(10)); // 10 is the radius
+
     }
 
     private void addEventListeners() {
