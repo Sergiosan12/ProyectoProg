@@ -1,59 +1,94 @@
 package com.controller;
 
-import com.controller.GenerateDiaFases;
-import com.model.fases.FaseFolicular;
-import com.model.fases.FaseLutea;
-import com.model.fases.FaseMenstrual;
-import com.model.fases.FaseOvulacion;
+import com.database.DatabaseHandlerDeportes_usuario;
+import com.database.DatabaseHandlerMenstruacion;
+import com.database.DatabaseHandlerUsuario;
 import com.model.funciones.Informe;
 import com.model.funciones.Menstruacion;
+import com.model.usuario.DeportesUsuario;
 import com.model.usuario.Usuario;
 
+/**
+ * La clase InformeBuilder se encarga de construir un objeto Informe con datos
+ * de diferentes fuentes como Usuario, Menstruacion y DeportesUsuario.
+ */
 public class InformeBuilder {
-    private Informe informe;
+    private final Informe informe;
+    private final DatabaseHandlerUsuario dbHandlerUsuario;
+    private final DatabaseHandlerMenstruacion dbHandlerMenstruacion;
+    private final DatabaseHandlerDeportes_usuario dbHandlerDeportes_usuario;
 
-    public InformeBuilder(Informe informe) {
-        this.informe = informe;
-    }
-
+    /**
+     * Constructor de la clase InformeBuilder. Inicializa los manejadores de base de datos
+     * y crea una instancia de Informe.
+     */
     public InformeBuilder() {
+        this.dbHandlerDeportes_usuario = new DatabaseHandlerDeportes_usuario();
         this.informe = new Informe();
+        this.dbHandlerUsuario = new DatabaseHandlerUsuario();
+        this.dbHandlerMenstruacion = new DatabaseHandlerMenstruacion();
     }
 
-    public InformeBuilder fromUsuario(Usuario usuario) {
-        informe.setUsuario(usuario.getUsuario());
-        informe.setNombre(usuario.getNombre());
-        informe.setEmail(usuario.getEmail());
-        informe.setContrasenha(usuario.getContrasena());
-        informe.setEdad(usuario.getEdad());
+    /**
+     * Añade los datos del usuario al informe.
+     *
+     * @param usuario el identificador del usuario.
+     */
+    public InformeBuilder fromUsuario(String usuario) {
+        Usuario usuarioData = dbHandlerUsuario.selectData(usuario);
+        if (usuarioData != null) {
+            informe.setNombre(usuarioData.getNombre());
+            informe.setEdad(usuarioData.getEdad());
+        }
         return this;
     }
 
-    public InformeBuilder fromMenstruacion(Menstruacion menstruacion) {
-        informe.setMediaCiclo(menstruacion.getMediaCiclo());
-        informe.setMediaSangrado(menstruacion.getMediaSangrado());
-        informe.setLastperiod(menstruacion.getLastperiod());
+    /**
+     * Añade los datos de menstruación al informe.
+     *
+     * @param usuario el identificador del usuario.
+     * @return la instancia actual de InformeBuilder.
+     */
+    public InformeBuilder fromMenstruacion(String usuario) {
+        Menstruacion menstruacionData = dbHandlerMenstruacion.selectData(usuario);
+        if (menstruacionData != null) {
+            informe.setUsuario(menstruacionData.getUsuario());
+            informe.setMediaCiclo(menstruacionData.getMediaCiclo());
+            informe.setMediaSangrado(menstruacionData.getMediaSangrado());
+            informe.setLastperiod(menstruacionData.getLastperiod());
+            informe.setDuracionFaseFolicular(menstruacionData.getDuracionFaseFolicular());
+            informe.setDuracionFaseOvulacion(menstruacionData.getDuracionFaseOvular());
+            informe.setDuracionFaseLutea(menstruacionData.getDuracionFaseLutea());
+            informe.setInicioFaseFolicular(menstruacionData.getNextFaseFolicular());
+            informe.setInicioFaseOvulacion(menstruacionData.getNextFaseOvular());
+            informe.setInicioFaseLutea(menstruacionData.getNextFaseLutea());
+            informe.setInicioSiguientePeriodo(menstruacionData.getNextPeriod());
+        }
         return this;
     }
 
-    public InformeBuilder fromFases(FaseMenstrual faseMenstrual, FaseFolicular faseFolicular,
-                                    FaseOvulacion faseOvulacion, FaseLutea faseLutea) {
-        informe.setDuracionFaseMenstrual(faseMenstrual.getMediaDiasMenstrual());
-        informe.setDuracionFaseFolicular(faseFolicular.getMediaDiasFolicular());
-        informe.setDuracionFaseOvulacion(faseOvulacion.getMediaDiasOvulacion());
-        informe.setDuracionFaseLutea(faseLutea.getMediaDiasLutea());
-        informe.setInicioFaseMenstrual(faseMenstrual.getInicioDiaMenstrual());
+    /**
+     * Añade los datos de deportes del usuario al informe.
+     *
+     * @param usuario el identificador del usuario.
+     * @return la instancia actual de InformeBuilder.
+     */
+    public InformeBuilder withDeportes(String usuario) {
+        DeportesUsuario deportesData = dbHandlerDeportes_usuario.selectData(usuario);
+        if (deportesData != null) {
+            informe.setDeporteFaseMenstrual(deportesData.getDeporteFaseMenstrual());
+            informe.setDeporteFaseFolicular(deportesData.getDeporteFaseFolicular());
+            informe.setDeporteFaseOvulacion(deportesData.getDeporteFaseOvular());
+            informe.setDeporteFaseLutea(deportesData.getDeporteFaseLutea());
+        }
         return this;
     }
 
-    public InformeBuilder fromGenerateDiaFases(GenerateDiaFases generateDiaFases) {
-        informe.setInicioFaseFolicular(generateDiaFases.CalculoInicioFaseFolicular());
-        informe.setInicioFaseOvulacion(generateDiaFases.CalculoInicioFaseOvulacion());
-        informe.setInicioFaseLutea(generateDiaFases.CalculoInicioFaseLutea());
-        informe.setInicioSiguientePeriodo(generateDiaFases.CalculoSiguienteFaseMenstrual());
-        return this;
-    }
-
+    /**
+     * Construye y devuelve el objeto Informe.
+     *
+     * @return el objeto Informe con todos los datos añadidos.
+     */
     public Informe build() {
         return informe;
     }
