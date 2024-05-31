@@ -139,3 +139,10 @@ Este README se actualizará conforme avance el desarrollo del proyecto, proporci
 
 ## 31/05/2024
 
+1. Refactorización de todas las clases y métodos.
+
+2. Javadoc de todas las clases.
+
+3. Corregido el fallo que hacía que no apareciera el nombre y la edad en el informe.
+
+4. Borradas clases que no se utilizaban.
