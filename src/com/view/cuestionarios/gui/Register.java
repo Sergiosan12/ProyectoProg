@@ -228,6 +228,8 @@ import java.util.Properties;
                     }
                 }
             });
+            getRootPane().setDefaultButton(continuarButton);
+
         }
     }
 
