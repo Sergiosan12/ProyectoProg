@@ -4,19 +4,26 @@ import com.database.DatabaseHandlerMenstruacion;
 import com.database.DatabaseHandlerUsuario;
 import com.model.funciones.Menstruacion;
 import com.view.cuestionarios.InterfazDespuesInicio;
-import com.view.cuestionarios.uso.UsoProg;
-import com.database.Database;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
+/**
+ * La clase SignIn proporciona una interfaz gráfica para que los usuarios inicien sesión.
+ * Incluye la validación de credenciales y la navegación a la interfaz principal si las credenciales son correctas.
+ */
 public class SignIn extends JFrame {
+
+    // Constantes de mensajes
+    private static final String MSG_EMPTY_CREDENTIALS = "Credenciales vacías. Por favor rellene los dos campos";
+    private static final String MSG_INVALID_CREDENTIALS = "Credenciales erróneas. Por favor vuelva a intentarlo";
+    private static final String MSG_USER_FIELD_PLACEHOLDER = "Ingrese el nombre de usuario";
+    private static final String ERROR_MSG_INIT_INTERFACE = "Error al inicializar la interfaz: ";
+    private static final String ERROR_MSG_SIGN_IN = "Error al iniciar sesión: ";
+    private static final String ERROR_MSG_REGISTER_WINDOW = "Error al abrir la ventana de registro: ";
+    private static final String ERROR_MSG_USER_FIELD = "Error en el campo de usuario: ";
 
     private JPanel panelMain;
     private JPanel panelImage;
@@ -28,18 +35,21 @@ public class SignIn extends JFrame {
     private JButton signInButton;
     private JButton registerButton;
     private JLabel verdictLabel;
-    DatabaseHandlerMenstruacion dbHandlerMenstruacion=new DatabaseHandlerMenstruacion();
-    DatabaseHandlerUsuario handlerUsuario=new DatabaseHandlerUsuario();
+    private final DatabaseHandlerMenstruacion dbHandlerMenstruacion = new DatabaseHandlerMenstruacion();
+    private final DatabaseHandlerUsuario handlerUsuario = new DatabaseHandlerUsuario();
 
+    /**
+     * Constructor de la clase SignIn.
+     * Configura el contenido y los componentes de la ventana de inicio de sesión.
+     */
     public SignIn() {
-        super("Iniciar Sesion");
+        super("Iniciar Sesión");
         try {
             setContentPane(panelMain);
             initializeComponents();
             initializeListeners();
         } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al inicializar la interfaz: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            handleException(ERROR_MSG_INIT_INTERFACE, e);
         }
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1200, 570);
@@ -47,83 +57,112 @@ public class SignIn extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Inicializa los componentes de la ventana de inicio de sesión.
+     */
     private void initializeComponents() throws Exception {
-        // Initialize your components here
-        // This method can be filled with the component initialization logic if needed.
+        // Inicializa tus componentes aquí
     }
 
+    /**
+     * Inicializa los event listeners de los botones y campos de texto.
+     */
     private void initializeListeners() {
-        signInButton.addActionListener(e -> {
-            try {
-                String userName = userfield.getText();
-                char[] passwordEcrypted = passwordField.getPassword();
-                String password = String.valueOf(passwordEcrypted);
-
-                if (handlerUsuario.checkCredentials(userName, password)) {
-                    // Código a ejecutar en caso de credenciales correctas
-                    Menstruacion menstruacion = dbHandlerMenstruacion.selectData(userName);
-                    InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio(menstruacion);
-                    interfazDespuesInicio.setVisible(true);
-                    dispose();
-                } else if (userName.isEmpty() || password.isEmpty()) {
-                    verdictLabel.setText("Credenciales vacías. Por favor rellene los dos campos");
-                } else {
-                    verdictLabel.setText("Credenciales erróneas. Por favor vuelva a intentarlo");
-                }
-
-                userfield.setText("");
-                passwordField.setText("");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error al iniciar sesión: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-
-        registerButton.addActionListener(e -> {
-            try {
-                SwingUtilities.invokeLater(() -> {
-                    JFrame frame = new Register();
-                    frame.setSize(600, 400);
-                    frame.setLocationRelativeTo(null);
-                    frame.setResizable(false);
-                    frame.setVisible(true);
-                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    dispose();
-                });
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error al abrir la ventana de registro: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-
-        userfield.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                try {
-                    if (userfield.getText().isEmpty()) {
-                        userfield.setText("Ingrese el nombre de usuario");
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(SignIn.this, "Error en el campo de usuario: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-
-        userfield.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                try {
-                    if (userfield.getText().equals("Ingrese el nombre de usuario")) {
-                        userfield.setText("");
-                        userfield.setForeground(Color.BLACK);
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(SignIn.this, "Error en el campo de usuario: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
+        signInButton.addActionListener(e -> handleSignIn());
+        registerButton.addActionListener(e -> handleRegister());
+        userfield.addFocusListener(new UserFieldFocusAdapter());
     }
 
+    /**
+     * Maneja la acción de iniciar sesión.
+     * Verifica las credenciales del usuario y navega a la interfaz principal si son correctas.
+     */
+    private void handleSignIn() {
+        try {
+            String userName = userfield.getText();
+            String password = new String(passwordField.getPassword());
+
+            if (handlerUsuario.checkCredentials(userName, password)) {
+                Menstruacion menstruacion = dbHandlerMenstruacion.selectData(userName);
+                InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio(menstruacion);
+                interfazDespuesInicio.setVisible(true);
+                dispose();
+            } else if (userName.isEmpty() || password.isEmpty()) {
+                verdictLabel.setText(MSG_EMPTY_CREDENTIALS);
+            } else {
+                verdictLabel.setText(MSG_INVALID_CREDENTIALS);
+            }
+
+            clearFields();
+        } catch (Exception ex) {
+            handleException(ERROR_MSG_SIGN_IN, ex);
+        }
+    }
+
+    /**
+     * Maneja la acción de abrir la ventana de registro.
+     */
+    private void handleRegister() {
+        try {
+            SwingUtilities.invokeLater(() -> {
+                JFrame frame = new Register();
+                frame.setSize(600, 400);
+                frame.setLocationRelativeTo(null);
+                frame.setResizable(false);
+                frame.setVisible(true);
+                frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                dispose();
+            });
+        } catch (Exception ex) {
+            handleException(ERROR_MSG_REGISTER_WINDOW, ex);
+        }
+    }
+
+    /**
+     * Limpia los campos de texto de la ventana de inicio de sesión.
+     */
+    private void clearFields() {
+        userfield.setText("");
+        passwordField.setText("");
+    }
+
+    /**
+     * Maneja las excepciones mostrando un cuadro de diálogo con el mensaje de error.
+     * 
+     * @param message el mensaje de error a mostrar.
+     * @param e la excepción que se ha producido.
+     */
+    private void handleException(String message, Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, message + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Clase interna que maneja los eventos de foco en el campo de texto de usuario.
+     */
+    private class UserFieldFocusAdapter extends FocusAdapter {
+        @Override
+        public void focusLost(FocusEvent e) {
+            try {
+                if (userfield.getText().isEmpty()) {
+                    userfield.setText(MSG_USER_FIELD_PLACEHOLDER);
+                    userfield.setForeground(Color.GRAY);
+                }
+            } catch (Exception ex) {
+                handleException(ERROR_MSG_USER_FIELD, ex);
+            }
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            try {
+                if (userfield.getText().equals(MSG_USER_FIELD_PLACEHOLDER)) {
+                    userfield.setText("");
+                    userfield.setForeground(Color.BLACK);
+                }
+            } catch (Exception ex) {
+                handleException(ERROR_MSG_USER_FIELD, ex);
+            }
+        }
+    }
 }

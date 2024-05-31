@@ -9,9 +9,11 @@ import com.view.cuestionarios.sangrado.CuestionarioFinal;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+/**
+ * La clase Register proporciona una interfaz gráfica para registrar un nuevo usuario.
+ * Incluye validaciones de campos y la inserción de datos en la base de datos.
+ */
 public class Register extends JFrame {
     // Constantes de mensajes de error
     private static final String ERROR_MSG_ALL_FIELDS_REQUIRED = "Todos los campos son obligatorios";
@@ -45,6 +47,10 @@ public class Register extends JFrame {
     public Informe informe = new Informe();
     private final InsertDatabaseUsuario insertDatabaseUsuario = new InsertDatabaseUsuario();
 
+    /**
+     * Constructor de la clase Register.
+     * Configura el contenido y los componentes de la ventana de registro.
+     */
     public Register() {
         super("Registro");
         setContentPane(panelMainR);
@@ -53,6 +59,10 @@ public class Register extends JFrame {
         getRootPane().setDefaultButton(continuarButton);
     }
 
+    /**
+     * Inicializa los componentes de la ventana de registro.
+     * Configura el spinner de edad y los estilos de los botones.
+     */
     private void initializeComponents() {
         // Inicializar spinnerAge con valor inicial 10
         spinnerAge.setModel(new SpinnerNumberModel(10, 0, 100, 1));
@@ -68,11 +78,18 @@ public class Register extends JFrame {
 
     }
 
+    /**
+     * Añade los event listeners a los botones.
+     */
     private void addEventListeners() {
         buttonVolver.addActionListener(e -> navigateToSignIn());
         continuarButton.addActionListener(e -> handleContinueAction());
     }
 
+    /**
+     * Navega a la ventana de inicio de sesión.
+     * Cierra la ventana de registro actual.
+     */
     private void navigateToSignIn() {
         try {
             dispose();
@@ -86,6 +103,10 @@ public class Register extends JFrame {
         }
     }
 
+    /**
+     * Maneja la acción del botón continuar.
+     * Valida los campos y, si son válidos, inserta los datos en la base de datos y navega al cuestionario final.
+     */
     private void handleContinueAction() {
         try {
             if (validateFields()) {
@@ -98,6 +119,9 @@ public class Register extends JFrame {
         }
     }
 
+    /**
+     * Inserta los datos del usuario en la base de datos.
+     */
     private void insertDataIntoDatabase() {
         usuario.setNombre(fieldName.getText());
         usuario.setEdad((Integer) spinnerAge.getValue());
@@ -114,6 +138,10 @@ public class Register extends JFrame {
         insertDatabaseUsuario.insertDataIntoDatabase(usuario);
     }
 
+    /**
+     * Navega a la ventana del cuestionario final.
+     * Cierra la ventana de registro actual.
+     */
     private void navigateToCuestionarioFinal() {
         SwingUtilities.invokeLater(() -> {
             try {
@@ -132,6 +160,11 @@ public class Register extends JFrame {
         });
     }
 
+    /**
+     * Valida los campos del formulario de registro.
+     *
+     * @return true si todos los campos son válidos, false en caso contrario.
+     */
     private boolean validateFields() {
         if (isAnyFieldEmpty()) {
             showErrorMessage(ERROR_MSG_ALL_FIELDS_REQUIRED);
@@ -166,6 +199,11 @@ public class Register extends JFrame {
         return true;
     }
 
+    /**
+     * Verifica si algún campo del formulario está vacío.
+     *
+     * @return true si algún campo está vacío, false en caso contrario.
+     */
     private boolean isAnyFieldEmpty() {
         return fieldName.getText().isEmpty() ||
                 fieldUser.getText().isEmpty() ||
@@ -174,27 +212,57 @@ public class Register extends JFrame {
                 new String(fieldPasswordConfirm.getPassword()).isEmpty();
     }
 
+    /**
+     * Verifica si el nombre de usuario es válido (al menos 8 caracteres).
+     *
+     * @return true si el nombre de usuario es válido, false en caso contrario.
+     */
     private boolean isUsernameValid() {
         return fieldUser.getText().length() >= 8;
     }
 
+    /**
+     * Verifica si la contraseña es válida (al menos 8 caracteres).
+     *
+     * @return true si la contraseña es válida, false en caso contrario.
+     */
     private boolean isPasswordValid() {
         return new String(fieldPassword.getPassword()).length() >= 8;
     }
 
+    /**
+     * Verifica si las contraseñas coinciden.
+     *
+     * @return true si las contraseñas coinciden, false en caso contrario.
+     */
     private boolean doPasswordsMatch() {
         return new String(fieldPassword.getPassword()).equals(new String(fieldPasswordConfirm.getPassword()));
     }
 
+    /**
+     * Verifica si el correo electrónico es válido (contiene '@' y termina con '.com').
+     *
+     * @return true si el correo electrónico es válido, false en caso contrario.
+     */
     private boolean isEmailValid() {
         String email = fieldMail.getText();
         return email.contains("@") && email.endsWith(".com");
     }
 
+    /**
+     * Verifica si el usuario ya existe en la base de datos.
+     *
+     * @return true si el usuario ya existe, false en caso contrario.
+     */
     private boolean isUserExisting() {
         return insertDatabaseUsuario.isUserExisting(fieldUser.getText());
     }
 
+    /**
+     * Muestra un mensaje de error en un cuadro de diálogo.
+     *
+     * @param message el mensaje de error a mostrar.
+     */
     private void showErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
