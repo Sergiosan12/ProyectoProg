@@ -43,6 +43,7 @@ public class GenerarPDF {
     public void generarInforme(int opcionSeleccionada) {
         // Construir el informe utilizando ambos métodos
         this.informe = new InformeBuilder()
+                .fromUsuario(menstruacion.getUsuario())
                 .fromMenstruacion(menstruacion.getUsuario())
                 .withDeportes(menstruacion.getUsuario())
                 .build();
