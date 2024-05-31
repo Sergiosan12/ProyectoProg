@@ -169,7 +169,7 @@ import java.util.Properties;
             setContentPane(panelMainR);
 
             // Inicializar spinnerAge con valor inicial 10
-            spinnerAge.setModel(new SpinnerNumberModel(10, 0, 100, 1));
+            spinnerAge.setModel(new SpinnerNumberModel(10, 10, 100, 1));
 
             // Establecer la fuente de los botones a Times New Roman
             Font font = new Font("Times New Roman", Font.PLAIN, 12);
