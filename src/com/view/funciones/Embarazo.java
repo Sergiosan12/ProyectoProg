@@ -13,17 +13,56 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * La clase Embarazo proporciona una interfaz para generar un informe relacionado con el embarazo
+ * basado en los datos de menstruación proporcionados.
+ */
 public class Embarazo {
+
+    /**
+     * El panel principal que contiene los componentes de la interfaz de usuario relacionados con el embarazo.
+     */
     private JPanel panel1;
+
+    /**
+     * Botón para generar el informe de embarazo.
+     */
     private JButton buttonGenerarInforme;
+
+    /**
+     * Botón para volver a la pantalla anterior.
+     */
     private JButton buttonVolver;
+
+    /**
+     * Etiqueta para mostrar la fase folicular del ciclo menstrual.
+     */
     private JLabel FaseFolicilar;
+
+    /**
+     * Instancia de la clase GenerateDiaFases utilizada para calcular las fases del ciclo menstrual.
+     */
     private GenerateDiaFases generateDiaFases;
+
+    /**
+     * Etiqueta para mostrar una foto relacionada con el embarazo.
+     */
     private JLabel FotoEmbarazo;
 
-    private final int OPCIONSELECCIONADA = 1; // Constante de instancia
+    /**
+     * Constante de instancia que indica la opción seleccionada para generar el informe.
+     */
+    private final int OPCIONSELECCIONADA = 1;
+
+    /**
+     * Instancia de InformeBuilder para construir el informe de embarazo.
+     */
     InformeBuilder informeBuilder = new InformeBuilder();
 
+    /**
+     * Constructor de la clase Embarazo.
+     * @param menstruacion Los datos de menstruación utilizados para calcular el informe de embarazo.
+     */
     public Embarazo(Menstruacion menstruacion) {
         // Inicializa generateDiaFases con la instancia de menstruacion
         generateDiaFases = new GenerateDiaFases(menstruacion);
@@ -55,6 +94,9 @@ public class Embarazo {
         });
     }
 
+    /**
+     * Calcula todas las fases del ciclo menstrual y muestra la información en la interfaz de usuario.
+     */
     private void calculateAndDisplayPhases() {
         int mediaFaseFolicular = generateDiaFases.CalculoMediaFaseFolicular();
         int mediaFaseLutea = generateDiaFases.CalculoFaseLutea(mediaFaseFolicular);
@@ -77,6 +119,10 @@ public class Embarazo {
         FaseFolicilar.setText(texto);
     }
 
+    /**
+     * Devuelve el panel principal que contiene los componentes de la interfaz de usuario relacionados con el embarazo.
+     * @return El panel principal.
+     */
     public JPanel getPanel() {
         return panel1;
     }
