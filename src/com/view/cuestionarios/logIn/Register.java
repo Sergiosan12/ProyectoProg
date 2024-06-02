@@ -1,4 +1,4 @@
-package com.view.cuestionarios.gui;
+package com.view.cuestionarios.logIn;
 
 import com.controller.InformeBuilder;
 import com.database.InsertDatabaseUsuario;

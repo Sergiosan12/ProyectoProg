@@ -1,9 +1,9 @@
-package com.view.cuestionarios.gui;
+package com.view.cuestionarios.logIn;
 
 import com.database.DatabaseHandlerMenstruacion;
 import com.database.DatabaseHandlerUsuario;
 import com.model.funciones.Menstruacion;
-import com.view.cuestionarios.InterfazDespuesInicio;
+import com.view.cuestionarios.InterfazOpciones;
 
 import javax.swing.*;
 import java.awt.*;
@@ -84,8 +84,8 @@ public class SignIn extends JFrame {
 
             if (handlerUsuario.checkCredentials(userName, password)) {
                 Menstruacion menstruacion = dbHandlerMenstruacion.selectData(userName);
-                InterfazDespuesInicio interfazDespuesInicio = new InterfazDespuesInicio(menstruacion);
-                interfazDespuesInicio.setVisible(true);
+                InterfazOpciones interfazOpciones = new InterfazOpciones(menstruacion);
+                interfazOpciones.setVisible(true);
                 dispose();
             } else if (userName.isEmpty() || password.isEmpty()) {
                 verdictLabel.setText(MSG_EMPTY_CREDENTIALS);

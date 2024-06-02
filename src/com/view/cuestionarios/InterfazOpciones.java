@@ -1,7 +1,7 @@
 package com.view.cuestionarios;
 
 import com.model.funciones.Menstruacion;
-import com.view.cuestionarios.gui.SignIn;
+import com.view.cuestionarios.logIn.SignIn;
 import com.view.cuestionarios.sangrado.ActualizarFecha;
 import com.view.cuestionarios.uso.UsoProg;
 
@@ -12,7 +12,7 @@ import java.awt.*;
  * La clase InterfazDespuesInicio proporciona una interfaz gráfica que se muestra después de que el usuario ha iniciado sesión.
  * Permite al usuario acceder a diferentes funcionalidades como usar la aplicación, actualizar la fecha del último periodo o cerrar sesión.
  */
-public class InterfazDespuesInicio extends JFrame {
+public class InterfazOpciones extends JFrame {
 
     private static final Color BACKGROUND_COLOR = Color.decode("#FFF1F1");
     private static final Color BUTTON_COLOR = Color.decode("#F6C4F6");
@@ -22,7 +22,7 @@ public class InterfazDespuesInicio extends JFrame {
      *
      * @param menstruacion el objeto Menstruacion que contiene la información del ciclo menstrual del usuario.
      */
-    public InterfazDespuesInicio(Menstruacion menstruacion) {
+    public InterfazOpciones(Menstruacion menstruacion) {
         super("Interfaz Después de Inicio");
         setupFrame();
         add(createMainPanel(menstruacion));

@@ -6,6 +6,9 @@ package com.model.funciones;
 
 import java.util.Date;
 
+/**
+ * La clase Menstruacion modela la información de la menstruación de un usuario.
+ */
 public class Menstruacion extends Informe {
     private String Usuario; // El nombre del usuario
     private int MediaCiclo; // La media del ciclo menstrual del usuario
